@@ -27,13 +27,18 @@ class GetPost extends Connect
     {
         $this->post_id = $post_id;
     }
+    /**
+     * 指定したpost_idのユーザ名と投稿情報を取得します。
+     *
+     */
 
     public function getPost()
     {
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "SELECT u.user_name, t.* FROM tweet t INNER JOIN users u ON t.user_id = u.email_encode WHERE t.post_id=:post_id";
+            $query = "SELECT u.user_name, t.* FROM tweet t INNER JOIN users u ON t.user_id = u.email_encode
+            WHERE t.post_id=:post_id";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue(":post_id", $this->post_id);
             $stmt->execute();

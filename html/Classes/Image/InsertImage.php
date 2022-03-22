@@ -23,6 +23,8 @@ class InsertImage extends Connect
     private $content;
     /** @var int $size */
     private $size;
+    /** @var string $created_at */
+    private $created_at;
     /** @var string $user_id */
     private $user_id;
 
@@ -32,6 +34,7 @@ class InsertImage extends Connect
         $this->type = $_FILES['image']['type'];
         $this->content = file_get_contents($_FILES['image']['tmp_name']);
         $this->size = $_FILES['image']['size'];
+        $this->created_at = date("Y-m-d H:i:s");
         $this->user_id = $_SESSION['userID'];
     }
 
@@ -44,12 +47,14 @@ class InsertImage extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "INSERT INTO user_image (image_name, image_type, image_content, image_size, user_id) VALUES (:image_name, :image_type, :image_content, :image_size, :user_id)";
+            $query = "INSERT INTO user_image (image_name, image_type, image_content, image_size, created_at, user_id)
+            VALUES (:image_name, :image_type, :image_content, :image_size,:created_at, :user_id)";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue(':image_name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':image_type', $this->type, PDO::PARAM_STR);
             $stmt->bindValue(':image_content', $this->content, PDO::PARAM_STR);
             $stmt->bindValue(':image_size', $this->size, PDO::PARAM_INT);
+            $stmt->bindValue(':created_at', $this->created_at, PDO::PARAM_STR);
             $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_STR);
             $flag = $stmt->execute();
         } catch (PDOException $e) {

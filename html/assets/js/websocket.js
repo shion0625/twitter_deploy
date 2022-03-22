@@ -12,6 +12,7 @@ $(()=> {
       popup.toggleClass('is-show');
   });
   });
+
 //ウェブソケットを使用して送信されたデータをサーバサイドに送信
 let conn = "";
 $(() =>{
@@ -26,31 +27,8 @@ $(() =>{
   };
 
   conn.onmessage = (event) => {
-      const dataArray = event.data.split(">");
-      let divObj = createElem("div", 'post');
-      let postObj=$("#js-posts").prepend(divObj);
-      for(let i in dataArray) {
-          let data = document.createTextNode(dataArray[i].trim());
-          let pObj;
-          if(i == 0) {
-              pObj = createElem("p", 'post-user-detail');
-              let imgObj = createElem("img", 'user-post-img');
-              let spanObj = createElem("span", 'tweet-username');
-              spanObj.append(data);
-              pObj.append(imgObj);
-              pObj.append(spanObj);
-          }
-          else if(i == 1){
-              pObj = createElem("p", 'tweet-content');
-              pObj.append(data);
-          }else if(i == 2) {
-              pObj = createElem("p", 'appendix');
-              let spanObj= createElem("span");
-              spanObj.append(data);
-              pObj.append(spanObj);
-          }
-          divObj.append(pObj);
-      }
+    console.log(event);
+    $("#js-posts").prepend(event.data);
   };
   conn.onclose = function(event) {
       alert("切断しました");
@@ -59,39 +37,38 @@ $(() =>{
 });
 
 function socketSend() {
-  let dateObj = new Date();
-  const fullYear = dateObj.getFullYear();
-  const month = dateObj.getMonth();
-  const date = dateObj.getDate();
-  const hours = dateObj.getHours();
-  const minute = dateObj.getMinutes();
-  const seconds = dateObj.getSeconds();
+  var $map = {"send": "postInfo"};
+  $.ajax({
+      type: 'POST',
+      url: './views/component/ajax.php',
+      data: $map,
+      dataType: 'html',
+    }).done(function(data){
+      // ここに処理が完了したときのアクションを書く
+      // alert("送信完了\nレスポンスデータ postInfo" + data);
+      conn.send(data);
+  }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
+      alert("error: "+msg.responseText);
+      console.log(msg);
+      console.log(XMLHttpRequest.status);
+      console.log(textStatus);
+      console.log(errorThrown);
+  });
 
-  const localDate = [fullYear, month, date].join("-");
-  const localTime =[hours, minute, seconds].join(":");
-  let postContent = $("#js-post-content").val();
-  console.log(postContent);
-  postContent = htmlentities(postContent);
-  conn.send(username +
-  ">"+postContent+
-  ">"+localDate +" "+ localTime);
-  console.log('send');
 }
 function close(){
   conn.close();
 }
 
+// function htmlentities(str){
+//   return String(str).replace(/&/g,"&amp;")
+//       .replace(/</g,"&lt;")
+//       .replace(/>/g,"&gt;")
+//       .replace(/"/g,"&quot;")
+// }
 
-function htmlentities(str){
-  return String(str).replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-}
-
-function createElem(element, className) {
-  const newElement = $("<"+element + " class=" + className +">")[0];
-  console.log(newElement);
-  return newElement;
-}
-
+// function createElem(element, className) {
+//   const newElement = $("<"+element + " class=" + className +">")[0];
+//   // console.log(newElement);
+//   return newElement;
+// }

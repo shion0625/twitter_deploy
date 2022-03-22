@@ -21,10 +21,10 @@ class Connect extends Pdo
     private $PASSWORD;
     /** @var array $options */
     private $options = array(
-        PDO::MYSQL_ATTR_INIT_COMMAND=>"SET CHARACTER SET 'utf8'",
+        // PDO::MYSQL_ATTR_INIT_COMMAND=>"SET CHARACTER SET 'utf8'",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
+        // PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
     );
     /**
      * 環境変数からデータベースの情報を受け取ります。
@@ -41,19 +41,40 @@ class Connect extends Pdo
 
     /**
      * データベースと接続します。そしてインスタンスを返します。
-     * @return mixed
+     * @return
      */
     protected function connectDb()
     {
-
-        error_reporting(E_ALL & ~E_NOTICE);
-        try {
-            $dbh = new Pdo($this->DSN, $this->USER, $this->PASSWORD);
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            print_r("Connect 接続失敗: ".$e->getMessage()."\n");
-            exit();
+        $isLocal = true;////localの時trueに変える。
+        if ($isLocal) {
+            /// local環境の時
+            error_reporting(E_ALL & ~E_NOTICE);
+            try {
+                $dbh = new Pdo($this->DSN, $this->USER, $this->PASSWORD);
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                print_r("Connect 接続失敗: ".$e->getMessage()."\n");
+                exit();
+            }
+            return $dbh;
+        } else {
+            //For server
+            $url = parse_url(getenv('CLEARDB_DATABASE_URL'));
+            $server = $url["host"];
+            $username = $url["user"];
+            $password = $url["pass"];
+            $db = substr($url["path"], 1);
+            $pdo = new PDO(
+                'mysql:host=' . $server . ';dbname=' . $db . ';charset=utf8mb4',
+                $username,
+                $password,
+                [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
+                ]
+            );
+            return $pdo;
         }
-        return $dbh;
     }
 }

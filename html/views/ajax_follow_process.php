@@ -1,5 +1,6 @@
 <?php
-require __DIR__ .'/../vendor/autoload.php';
+// require __DIR__ .'/../vendor/autoload.php';
+require('/vendor/autoload');
 
 
 use Classes\Follow\UsingFollow;

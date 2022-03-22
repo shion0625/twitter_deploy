@@ -8,4 +8,6 @@
 namespace Controller;
 
 class Pdo extends \PDO
-{}
+{
+
+}

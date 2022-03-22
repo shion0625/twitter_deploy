@@ -4,7 +4,6 @@ use Classes\Login;
   //ログイン状態の場合ログイン後のページにリダイレクト
 fun_require_unlogined_session();
   // if(!empty($_COOKIE['auto_login'])) {
-
   // }
 if (!empty($_POST) && isset($_POST['send'])) {
     //メールアドレスまたはパスワードが送信されて来なかった場合
@@ -35,9 +34,14 @@ if (!empty($_POST) && isset($_POST['send'])) {
         <h3>SNSアカウントでログイン</h3>
     </div>
     <div class="login-contents">
-        <div class="message"><?php echo $message;?></div>
+        <?php if (isset($message)) :?>
+            <div class="message"><?php echo $message;?></div>
+        <?php endif;?>
+
         <form method=POST>
+        <?php if (isset($message_email)) :?>
             <div class="message"><?php echo $message_email;?></div>
+        <?php endif;?>
             <input
             id="input_email"
             class="login-form-input-email"
@@ -45,14 +49,16 @@ if (!empty($_POST) && isset($_POST['send'])) {
             type="text"
             placeholder="メールアドレスを入力して下さい">
             <div id="pwBox">
+            <?php if (isset($message_pw)) :?>
                 <div class="message"><?php echo $message_pw;?></div>
-                <input
-                id="input_password"
-                class="login-form-input-pw"
-                name="password"
-                type="password"
-                placeholder="パスワードを入力して下さい">
-                <i id="eye-icon"class="fas fa-eye"></i>
+            <?php endif;?>
+            <input
+            id="input_password"
+            class="login-form-input-pw"
+            name="password"
+            type="password"
+            placeholder="パスワードを入力して下さい">
+            <i id="eye-icon"class="fas fa-eye"></i>
             </div>
             <!-- <div>
             <input id="save" type="checkbox" name="save" value="on">
@@ -65,3 +71,4 @@ if (!empty($_POST) && isset($_POST['send'])) {
     </div>
 </div>
 </div>
+

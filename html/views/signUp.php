@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
         <h2>会員登録</h2>
         <div class="signup-main">
             <form action="" method=POST>
-                <?php if ($error['invalid']) :?>
+                <?php if (isset($error['invalid'])) :?>
                     <p class="errMsg">
                         <?php echo $error['invalid'];?>
                     </p>
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
                         <label for="input_username">ユーザ名:</label>
                         <span class="require">必須</span>
                     </p>
-                    <?php if ($error['user']) :?>
+                    <?php if (isset($error['user'])) :?>
                         <p class="errMsg">
                             <?php echo $error['user'];?>
                         </p>
@@ -48,14 +48,16 @@ if (isset($_POST['submit'])) {
                     name="username"
                     placeholder="ユーザー名を入力してください"
                     spellcheck="true"
-                    value= "<?php print($username)?>">
+                    <?php if (isset($username)) :?>
+                        value= "<?php print($username)?>">
+                    <?php endif;?>
                 </div>
                 <div class="box-setting">
                     <p class="require-pos">
                         <label for="input_email">メールアドレス:</label>
                         <span class="require">必須</span>
                     </p>
-                    <?php if ($error['email']) :?>
+                    <?php if (isset($error['email'])) :?>
                         <p class="errMsg">
                             <?php echo $error['email'];?>
                         </p>
@@ -71,7 +73,7 @@ if (isset($_POST['submit'])) {
                         <label for="inputPassword">パスワード</label>
                         <span class="require">必須</span>
                     </p>
-                    <?php if ($error['password']) :?>
+                    <?php if (isset($error['password'])) :?>
                         <p class="errMsg">
                             <?php echo $error['password'];?>
                         </p>

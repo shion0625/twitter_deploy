@@ -3,12 +3,18 @@ print_r($_SESSION);
 require_once __DIR__ . '/../function.php';
 use Classes\Image\UsingGetImage;
 
-$user_id = (string)$_SESSION['userID'];
+$user_id = $_SESSION['userID'] ?? null;
+
 if ($user_id) {
     $using_get_image = new UsingGetImage('user_id', $user_id);
     $image = $using_get_image->usingGetImage();
-    $image_type=$image['image_type'];
-    $image_content=$image['image_content'];
+    if (isset($image['image_type']) && isset($image['image_content'])) {
+        $image_type=$image['image_type'];
+        $image_content=$image['image_content'];
+        $is_exist_image = true;
+    } else {
+        $is_exist_image=false;
+    }
 }
 
 if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
@@ -18,8 +24,6 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
     // exit();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -34,6 +38,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script type="text/javascript"src="../assets/js/index.js"></script>
+        <script src="../assets/js/jquery.selection.js"></script>
     <title>twitter</title>
 </head>
 
@@ -57,19 +62,27 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
             </div>
             <div class="header-nav">
                 <nav>
-                    <div class="header-item"><a href="?page=your_timeline">あなたのタイムライン</a>
-                    </div>
                     <div class="header-item">
-                        <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
+                        <?php if (isset($_SESSION['userID'])) :?>
+                            <a href="?page=yourTweets">あなたのツイート</a>
+                        <?php endif;?>
+                    </div>
+
+                    <div class="header-item">
+                        <?php if (isset($_SESSION['userID'])) :?>
+                            <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
+                        <?php endif;?>
                     </div>
                 </nav>
             </div>
             <?php if (isset($_SESSION['userID'])) :?>
                 <div>
                     <p>
-                        <img
-                        src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
-                        class="user-top-image">
+                        <?php if ($is_exist_image) :?>
+                            <img
+                            src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
+                            class="user-top-image">
+                        <?php endif;?>
                         <?php print($_SESSION['username'])?>さん
                     </p>
                 </div>

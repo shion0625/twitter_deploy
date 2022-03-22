@@ -66,14 +66,10 @@ class InsertPost extends Connect
     {
         $flag = $this -> dbInsertTweet();
         if ($flag) {
-            $_SESSION['messageAlert'] = fun_h("ツイートに成功しました。");
-            header("Location: {$_SERVER['PHP_SELF']}");
-            exit();
+            // $_SESSION['messageAlert'] = fun_h("ツイートに成功しました。");
             return;
         }
-        $_SESSION['messageAlert'] = fun_h("ツイートに失敗しました。");
-        header("Location: {$_SERVER['PHP_SELF']}");
-        exit();
+        // $_SESSION['messageAlert'] = fun_h("ツイートに失敗しました。");
         return;
     }
 }

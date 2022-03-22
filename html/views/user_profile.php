@@ -6,13 +6,21 @@ use Classes\User\GetUserInfo;
 use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 
-$profile_user_id = (string)$_GET['id'];
-
-$get_user_info = new GetUserInfo($profile_user_id);
-$user_posts= $get_user_info->getUserPost();
-$user_profile = $get_user_info->getUserProfile();
-$current_user_id = $_SESSION['userID'];
 $_SESSION['messageAlert'] ='';
+
+if (isset($_GET['id'])) {
+    $profile_user_id = (string)$_GET['id'];
+    $get_user_info = new GetUserInfo($profile_user_id);
+    $user_posts= $get_user_info->getUserPost();
+    $user_profile = $get_user_info->getUserProfile();
+}
+
+if (!isset($_SESSION['userID'])) {
+    $_SESSION['messageAlert'] ='あなたのユーザIDが設定されていません。ログインしてください。';
+    header('Location: ?page=');
+}
+
+$current_user_id = $_SESSION['userID'];
 
 $get_image = new UsingGetImage('user_id', $profile_user_id);
 $image = $get_image->usingGetImage();
@@ -25,7 +33,8 @@ if (!empty($image)) {
 
 //このページに送信されたユーザIDが自分だった場合設定ページが表示される。
 $is_yourself = $profile_user_id == $current_user_id;
-if ($is_yourself) {
+
+if ($profile_user_id == $current_user_id) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['image']['name'])) {
         // 画像を保存 すでに画像がデータベース内にあればupdate,なければinsertされる。
         $using_insert_update = new UsingUpdateInsert($is_exit_image);
@@ -50,6 +59,7 @@ if (!$is_yourself) {
 $GetNumFollow = new GetNumFollow($profile_user_id);
 $follow_num = $GetNumFollow->numFollow();
 $follower_num= $GetNumFollow->numFollower();
+
 ?>
 
 <div class="user-profile-all-contents">
@@ -102,14 +112,14 @@ $follower_num= $GetNumFollow->numFollower();
         <div class="setting-profile-contents">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-image">
-                    <?php if ($result['image'] === 'type') :?>
+                    <?php if (isset($result['image']) && $result['image'] === 'type') :?>
                         <p>*写真は「.gif」、「.jpg」、「.png」の画像を指定してください</p>
                     <?php endif; ?>
                     <label>画像を選択:</label>
                     <input type="file" name="image">
                 </div>
                 <div class="form-self-introduction">
-                    <label for="self-intro">自己紹介：</label>
+                    <label for="self-intro">自己紹介:</label>
                     <input
                     type="text"
                     id="self-intro"
@@ -118,7 +128,7 @@ $follower_num= $GetNumFollow->numFollower();
                     size="35px">
                 </div>
                 <div class="birthday">
-                    <label for="birthday">誕生日：</label>
+                    <label for="birthday">誕生日:</label>
                     <input
                     type="date"
                     id="birthday"
