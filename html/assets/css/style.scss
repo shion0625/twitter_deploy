@@ -1,0 +1,526 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;/*10px = 1rem*/
+}
+
+body {
+  width: 100vw;
+  margin: 0;
+  box-sizing : border-box;
+  overflow-x: hidden;
+  .vsc-initialized {
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+  .btn,
+  a.btn,
+  button.btn {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 1rem 4rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    color: #212529;
+    border-radius: 0.5rem;
+  }
+  .user-top-image{
+    width:40px;
+    height: auto;
+  }
+
+  header {
+    width: 100%;
+    #header {
+      height: 6rem;
+      display:flex;
+      align-items: center;
+      justify-content: space-around;
+      // box-shadow: 0rem 0.2rem 0.5rem 0rem rgb(0 0 0 / 10%);
+      .header-logo {
+        h1 {
+          color: blue;
+          font-size: 3.2rem;
+        }
+        margin-right: 3%;
+      }
+
+      .header-nav {
+        nav {
+          height: 100%;
+          display:flex;
+          align-items: center;
+          justify-content: space-between;
+          .header-item {
+            font-size: 2rem;
+            margin-right: 1rem;
+            white-space: nowrap;
+          }
+        }
+      }
+// 会員登録ボタンのデコレーション
+      .header-signup {
+        margin:0.5rem 1rem 0.5rem 0rem;
+        height: 94%;
+        a.btn {
+          font-size: 1.6rem;
+          font-weight: 700;
+          line-height: 1.5;
+          position: relative;
+          display: inline-block;
+          padding: 1rem 4rem;
+          cursor: pointer;
+          user-select: none;
+          transition: all 0.3s;
+          text-align: center;
+          vertical-align: middle;
+          text-decoration: none;
+          letter-spacing: 0.1rem;
+          border-radius: 0.5rem;
+        }
+        a.btn-flat {
+          overflow: hidden;
+          padding: 1.5rem 6rem;
+          color: #fff;
+          border-radius: 0;
+          background: #000;
+        }
+
+        a.btn-flat span {
+          position: relative;
+          z-index: 1;
+        }
+
+        a.btn-flat:before {
+          position: absolute;
+          top: 0;
+          left: calc(-150% + 5rem);
+          width: 150%;
+          height: 500%;
+          content: '';
+          -webkit-transition: all .5s ease-in-out;
+          transition: all .5s ease-in-out;
+          -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+          transform: rotate(45deg) translateX(0) translateY(0);
+          background: #64a1e7;
+        }
+
+        a.btn-flat:after {
+          position: absolute;
+          top: -400%;
+          right: calc(-150% + 5rem);
+          width: 150%;
+          height: 500%;
+          content: '';
+          -webkit-transition: all .5s ease-in-out;
+          transition: all .5s ease-in-out;
+          -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+          transform: rotate(45deg) translateX(0) translateY(0);
+          background: #64a1e7;
+        }
+
+        a.btn-flat:hover:before {
+          -webkit-transform: rotate(45deg) translateX(0) translateY(-50%);
+          transform: rotate(45deg) translateX(0) translateY(-50%);
+        }
+
+        a.btn-flat:hover:after {
+          -webkit-transform: rotate(45deg) translateX(0) translateY(50%);
+          transform: rotate(45deg) translateX(0) translateY(50%);
+        }
+      }
+
+      .header-right {
+        display: flex;
+        height: 6rem;
+        // ログインボタン
+        .header-login {
+          margin: 0 2rem 0 0;
+          text-align: center;
+          a{
+            background-color: rgb(61, 175, 228);
+            padding: 1rem ;
+            border-radius: 50%;
+            display: block;
+            color: black;
+            text-decoration: none;
+            .fas {
+              font-size: 2.4rem;
+            }
+            p {
+              margin: 0;
+            }
+          }
+        }
+        .header-menu {
+          margin: auto 0;
+          height: 5rem;
+          .menu-bar {
+            p {
+              margin: 0;
+            }
+            .hamburger-menu{
+              display: flex;
+              align-items: center;
+              width: 3.2rem;
+              height: 3.2rem;
+              cursor: pointer;
+              z-index: 10;
+
+              .hamburger-menu__line{
+                display: block;
+                width: 100%;
+                height: 0.4rem;
+                border-radius: 0.4rem;
+                background-color: #000;
+                position: relative;
+                transition: all 0.5s;
+              }
+
+              .hamburger-menu__line::before,
+              .hamburger-menu__line::after{
+                content: '';
+                display: block;
+                width: 100%;
+                height: 0.4rem;
+                border-radius: 0.4rem;
+                background-color: black;
+                position: absolute;
+                transition: all 0.5s;
+              }
+
+              .hamburger-menu__line::before{
+                transform: translateY(-1.2rem);
+              }
+              .hamburger-menu__line::after{
+                transform: translateY(1.2rem);
+              }
+            }
+
+            .hamburger-menu.open .hamburger-menu__line{
+              background-color: transparent;
+            }
+            .hamburger-menu.open .hamburger-menu__line::before{
+              transform: rotate(45deg);
+            }
+            .hamburger-menu.open .hamburger-menu__line::after{
+              transform: rotate(-45deg);
+            }
+          }
+          .nav-sp{
+            box-sizing: border-box;
+            position: absolute;
+            top: 6rem;
+            right: -30rem;
+            width: 30rem;
+            height: 100%;
+            padding: 2rem 1rem 0;
+            background-color: rgba(95, 199, 240, 0.5);
+            text-align: left;
+            transition: right 0.5s;
+          }
+          .nav-sp a{
+            display: inline-block;
+            padding: 0.5rem 0;
+          }
+          .nav-sp.slide{
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+/////////////////////////////////////////////////
+  .msg-alert {
+    display: inline-block;
+    pointer-events: none;
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 3rem;
+    width: 100%;
+    margin: 0;
+    display: none;
+    text-align: center;
+    color: wheat;
+    background-color: dimgrey;
+    opacity: 0.55;
+    border: 0.1rem solid #aaa;
+    box-shadow: 0.2rem 0.2rem 0.4rem #888;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+  }
+/////////////////////////////////////////////////////
+  .home-all-contents {
+    .popup {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      opacity: 0;
+      //このvisibilityによって背景の色を今は普通のままに抑えている
+      visibility: hidden;
+      transition: .6s;
+      .popup-inner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 50%;
+        max-width: 500px;
+        padding: 40px;
+        background-color: #fff;
+        z-index: 2;
+        .tweet-form{
+          .tweet-textarea {
+            width: 100%;
+            height: 90%;
+            padding: 5px;
+            border: 1px solid;
+            border-bottom: 0px;
+            resize: none;
+          }
+          .tweet-items {
+            border: 1px solid;
+            border-top: 0px;
+            margin: 0px;
+            padding: 10px 0;
+            .tweet-item {
+              font-size: 16px;
+              margin-left: 8px;
+            }
+          }
+
+        }
+
+        .close-btn {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          cursor: pointer;
+          i {
+            font-size: 20px;
+            color: #333;
+          }
+        }
+        .tweet-submit-btn {
+          position: absolute;
+          right: 10;
+          top: 5;
+          color: #fff;
+          background-color:rgb(61, 175, 228);
+          border-radius: 10vh;
+        }
+        .btn{
+
+        }
+      }
+      .black-background {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.3);
+        z-index: 1;
+        cursor: pointer;
+      }
+    }
+    .is-show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+/////////////////////////////////////////////////////////
+  .signUp-all-contents {
+    margin: 2rem auto;
+    display: flex;
+    width: 95%;
+    padding: 3rem 1rem;
+    background: linear-gradient(to top, rgba(217, 175, 217, 0.7) 0%, rgba(151, 217, 225, 0.7) 100%),url("../img/signUp-bg.jpg");
+    background-size: cover;
+    background-repeat:  no-repeat;
+    background-position: center;
+    border-radius: 2rem;
+    h2 {
+      text-align: center;
+    }
+    justify-content: center;
+    .sns-contents {
+      background-color: #f1f4f4;
+      width: 45%;
+      margin: 1rem;
+    }
+    .signUp-contents {
+      background-color: #f1f4f4;
+      width: 45%;
+      margin: 1rem;
+      .signup-main {
+        background-color: white;
+        border-radius: 1rem;
+        width: 90%;
+        margin: 1rem auto;
+        form {
+          .require {
+            border:1px solid #ffc1c6;
+            color: #f23363;
+          }
+          .require-pos{
+            display: flex;
+            justify-content: space-between;
+          }
+          .box-setting {
+            width: 90%;
+            margin: auto;
+            padding:1rem 0;
+          }
+          .errMsg {
+            color: red;
+          }
+          input {
+            margin: 0 5%;
+            padding: 0 0 0 2.6rem;
+            height: 4rem;
+            width: 90%;
+          }
+          #input_username {
+            background: url(../icon/user.png) no-repeat #64a1e7 5px center;
+          }
+          #input_email {
+            background: url(../icon/mail.png) no-repeat #64a1e7 5px center;
+          }
+          #input_password {
+            background: url(../icon/key.png) no-repeat #64a1e7 5px center;
+          }
+          input::placeholder {
+            color: rgb(143, 168, 236);
+            font-size: 1.2rem;
+          }
+          .password-box {
+            position: relative;
+            #eye-icon {
+              position: absolute;
+              top: 37%;
+              right: 8%;
+            z-index: 10;
+            }
+          }
+          .signup-btn {
+            display: block;
+            margin: 2rem auto;
+          }
+        }
+      }
+    }
+  }
+  ////////////////////////////////////////////
+  .login-all-contents{
+    .login-box {
+      background: linear-gradient(25deg, rgba(175, 223, 238, 0.4), rgba(180, 173, 240, 0.4)) ,url(../img/bokeh-2072271_1920.jpg);
+      background-size: cover;
+      background-repeat:  no-repeat;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 2rem;
+      margin: 10% 5%;
+      padding: 5% 0;
+    }
+    .sns-contents {
+      width: 45%;
+      background-color: brown;
+      margin-right: 3%;
+    }
+    .login-contents {
+      width: 45%;
+      font-size: 1.4rem;
+      background-color: cadetblue;
+      form {
+        margin: 2% 0;
+        .login-form-input-email {
+          background: url(../icon/mail.png) no-repeat #ffc1c6 5px center;
+        }
+        .login-form-input-pw {
+          background: url(../icon/key.png) no-repeat #ffc1c6 5px center;
+        }
+        input {
+          margin: 0 5%;
+          padding: 0 0 0 2.6rem;
+          height: 4rem;
+          width: 90%;
+        }
+        .login-btn {
+          text-align: center;
+          margin: 2% 5% 0 5%;
+        }
+        input::placeholder {
+          color: rgb(143, 168, 236);
+          font-size: 1.2rem;
+        }
+        #pwBox {
+          position: relative;
+          #eye-icon {
+            position: absolute;
+            top: 30%;
+            right: 8%;
+            z-index: 10;
+          }
+        }
+      }
+    }
+  }
+  //////////////////////////////
+  .delete-all-contents {
+    .btn_cancel {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 10px 20px;
+      color: #555;
+      font-size: 86%;
+      border-radius: 5px;
+      border: 1px solid #999;
+    }
+    .btn_cancel:hover {
+      color: #999;
+      border-color: #999;
+      text-decoration: none;
+    }
+
+    .text-confirm {
+      margin-bottom: 20px;
+      font-size: 86%;
+      line-height: 1.6em;
+    }
+  }
+  .user-profile-all-contents{
+    .user-profile{
+    }
+  }
+}

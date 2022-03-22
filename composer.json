@@ -1,0 +1,33 @@
+{
+    "autoload" : {
+        "psr-4" : {
+            "App\\" : "html/src",
+            "Controller\\": "html/Controller",
+            "Classes\\":"html/Classes",
+            "php\\":"php"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.3",
+        "cboden/ratchet": "^0.4.3",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.2",
+        "phpmd/phpmd": "^2.10"
+    },
+    "config": {
+        "vendor-dir": "html/vendor",
+        "platform": {
+            "php": "7.1.33"
+        }
+    },
+    "scripts": {
+        "fix": "html/vendor/bin/php-cs-fixer fix ./html/views/header.php",
+        "start": "php ./bin/wsServer.php",
+        "phpmd":"./vendor/bin/phpmd html/views text cleancode,codesize,controversial,design,naming,unusedcode",
+        "document": "php phpDocumentor.phar -d . -t ./document/",
+        "cs": "./vendor/bin/phpcs --report=source .",
+        "dumpautoload": "dumpautoload"
+    }
+}

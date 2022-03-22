@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+    <rule ref="PSR2">
+        <!-- "PSR2" の中で除外するルールがあれば記載 -->
+        <!--<exclude name="Generic.Files.LineLength"/>-->
+        <!--<exclude name="PSR1.Classes.ClassDeclaration"/>-->
+    </rule>
+    <!-- 追加するルールがあれば記載 -->
+    <!--<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>-->
+    <!-- 除外するファイル・ディレクトリ -->
+    <exclude-pattern>node_modules/</exclude-pattern>
+    <exclude-pattern>storage/</exclude-pattern>
+    <exclude-pattern>vendor/</exclude-pattern>
+</ruleset>
