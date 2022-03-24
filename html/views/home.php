@@ -116,15 +116,14 @@ $user_posts = $get_post_db->getHomePosts();
 const getPostContent = ()=>{
     let postText = $('#js-post-content')[0].innerHTML.toString();
     postText = htmlentities(changeTag(postText));
-    console.log(postText);
-    var $map = {"postText": postText, "send": "postSend", "sender": userId};
+    let $map = {"postText": postText, "send": "postSend", "sender": userId};
     $.ajax({
         type: 'POST',
-        url: './views/component/ajax.php',
+        url: './views/component/AjaxPosts.php',
         data: $map,
         dataType: 'html'
     }).done(function(data){
-        $("#js-posts").prepend(data);
+      alert("successful");
     }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
         alert("error: "+msg.responseText);
         console.log(msg);

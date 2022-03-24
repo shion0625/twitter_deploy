@@ -1,4 +1,4 @@
-<!-- <?php foreach ($user_posts as $post) :?>
+<?php foreach ($user_posts as $post) :?>
     <div class="post">
         <p class="user-header">
             <a
@@ -30,4 +30,4 @@
                 <?php endif;?>
             </p>
         </div>
-<?php endforeach;?> -->
+<?php endforeach;?>

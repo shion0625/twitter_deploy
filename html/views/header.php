@@ -64,7 +64,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
                 <nav>
                     <div class="header-item">
                         <?php if (isset($_SESSION['userID'])) :?>
-                            <a href="?page=yourTweets">あなたのツイート</a>
+                            <a href="?page=your_timeline">あなたのタイムライン</a>
                         <?php endif;?>
                     </div>
 

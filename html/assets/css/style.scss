@@ -276,6 +276,27 @@ body {
     position: absolute;
     top: 0;
   }
+  .user-posts{
+    width: 50%;
+    margin: auto;
+    .post{
+      padding: 10px;
+      border: 2px solid;
+      .user-header{
+        height: 60px;
+        .post-user-detail{
+          position: relative;
+          display: block;
+          .tweet-username{
+            position:absolute;
+            font-size: 150%;
+            top: 30%;
+            color: #3d3d3d;
+          }
+        }
+      }
+    }
+  }
 /////////////////////////////////////////////////////
   .home-all-contents {
     .popup {
@@ -360,27 +381,6 @@ body {
     .is-show {
       opacity: 1;
       visibility: visible;
-    }
-    .user-posts{
-      width: 50%;
-      margin: auto;
-      .post{
-        padding: 10px;
-        border: 2px solid;
-        .user-header{
-          height: 60px;
-          .post-user-detail{
-            position: relative;
-            display: block;
-            .tweet-username{
-              position:absolute;
-              font-size: 150%;
-              top: 30%;
-              color: #3d3d3d;
-            }
-          }
-        }
-      }
     }
   }
 /////////////////////////////////////////////////////////

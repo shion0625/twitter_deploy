@@ -252,6 +252,27 @@ body .msg-alert {
   position: absolute;
   top: 0;
 }
+body .user-posts {
+  width: 50%;
+  margin: auto;
+}
+body .user-posts .post {
+  padding: 10px;
+  border: 2px solid;
+}
+body .user-posts .post .user-header {
+  height: 60px;
+}
+body .user-posts .post .user-header .post-user-detail {
+  position: relative;
+  display: block;
+}
+body .user-posts .post .user-header .post-user-detail .tweet-username {
+  position: absolute;
+  font-size: 150%;
+  top: 30%;
+  color: #3d3d3d;
+}
 body .home-all-contents .popup {
   position: fixed;
   left: 0;
@@ -337,27 +358,6 @@ body .home-all-contents .popup .black-background {
 body .home-all-contents .is-show {
   opacity: 1;
   visibility: visible;
-}
-body .home-all-contents .user-posts {
-  width: 50%;
-  margin: auto;
-}
-body .home-all-contents .user-posts .post {
-  padding: 10px;
-  border: 2px solid;
-}
-body .home-all-contents .user-posts .post .user-header {
-  height: 60px;
-}
-body .home-all-contents .user-posts .post .user-header .post-user-detail {
-  position: relative;
-  display: block;
-}
-body .home-all-contents .user-posts .post .user-header .post-user-detail .tweet-username {
-  position: absolute;
-  font-size: 150%;
-  top: 30%;
-  color: #3d3d3d;
 }
 body .signUp-all-contents {
   margin: 2rem auto;
