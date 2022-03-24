@@ -1,0 +1,6 @@
+.env
+vendor
+db
+docker-compose.yml
+Dockerfile
+.DS_Store
