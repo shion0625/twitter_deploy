@@ -6,13 +6,22 @@ use Classes\User\GetUserInfo;
 use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 
-$profile_user_id = (string)$_GET['id'];
-
-$get_user_info = new GetUserInfo($profile_user_id);
-$user_posts= $get_user_info->getUserPost();
-$user_profile = $get_user_info->getUserProfile();
-$current_user_id = $_SESSION['userID'];
 $_SESSION['messageAlert'] ='';
+print_r($_POST);
+
+if (isset($_GET['id'])) {
+    $profile_user_id = (string)$_GET['id'];
+    $get_user_info = new GetUserInfo($profile_user_id);
+    $user_posts= $get_user_info->getUserPost();
+    $user_profile = $get_user_info->getUserProfile();
+}
+
+if (!isset($_SESSION['userID'])) {
+    $_SESSION['messageAlert'] ='あなたのユーザIDが設定されていません。ログインしてください。';
+    header('Location: ?page=');
+}
+
+$current_user_id = $_SESSION['userID'];
 
 $get_image = new UsingGetImage('user_id', $profile_user_id);
 $image = $get_image->usingGetImage();
@@ -25,7 +34,8 @@ if (!empty($image)) {
 
 //このページに送信されたユーザIDが自分だった場合設定ページが表示される。
 $is_yourself = $profile_user_id == $current_user_id;
-if ($is_yourself) {
+
+if ($profile_user_id == $current_user_id) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['image']['name'])) {
         // 画像を保存 すでに画像がデータベース内にあればupdate,なければinsertされる。
         $using_insert_update = new UsingUpdateInsert($is_exit_image);
@@ -35,23 +45,57 @@ if ($is_yourself) {
             header('Location: ?page=profiles');
             exit();
         }
+    } else {
+        echo json_encode(["follow"]);
     }
 }
+
+
 if (!$is_yourself) {
     $CheckFollow=new CheckFollow($current_user_id, $profile_user_id);
     $is_follow = $CheckFollow->isCheckFollow();
     if ($is_follow) {
         $follow_button_text="フォロー中";
-    }
-    if (!$is_follow) {
+    } else {
         $follow_button_text="フォロー";
     }
 }
 $GetNumFollow = new GetNumFollow($profile_user_id);
 $follow_num = $GetNumFollow->numFollow();
-$follower_num= $GetNumFollow->numFollower();
+$follower_num = $GetNumFollow->numFollower();
 ?>
 
+<script>
+    function followUser(){
+        let doFollowBtn = $('#js-submit-btn').val();
+        let currentId = $('#js-current-user-id').val();
+        let profileId = $('#js-profile-user-id').val();
+        let $map = {"type" : doFollowBtn, "currentId":currentId, "profileId": profileId};
+        $.ajax({
+            type: 'POST',
+            url: 'views/component/AjaxFollowProcess.php',
+            data: $map,
+            dataType: 'json'
+        }).done(function(data){
+            alert("successful: ");
+            console.log(data);
+            $('#js-follow')[0].textContent = data['follow'];
+            $('#js-follower')[0].textContent = data['follower'];
+            if (data['status']) {
+                $('#js-submit-btn').textContent="フォロー中";
+            } else {
+                $('#js-submit-btn').textContent="フォロー";
+            }
+        }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
+            alert("error: "+msg.responseText);
+            console.log(msg);
+            console.log(XMLHttpRequest.status);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+    }
+
+</script>
 <div class="user-profile-all-contents">
     <div class="user-profile">
         <div class="profile-image">
@@ -65,10 +109,8 @@ $follower_num= $GetNumFollow->numFollower();
             <?php endif;?>
         </div>
         <p><?php echo $user_profile['user_name']?></p>
-        <p>フォロー</p>
-        <p id="js-follow"><?php echo $follow_num?></p>
-        <p>フォロワー</p>
-        <p id="js-follower"><?php echo $follower_num?></p>
+        <p> フォロー : <span id="js-follow"> <?php echo $follow_num?></span></p>
+        <p>フォロワー : <span id="js-follower"> <?php echo $follower_num?></span></p>
         <?php if (!$is_yourself) :?>
             <form action="#" method="post">
                 <input
@@ -80,21 +122,14 @@ $follower_num= $GetNumFollow->numFollower();
                 id="js-profile-user-id"
                 value="<?= $profile_user_id ?>">
                 <button
-                id="js-follow-btn"
+                id="js-submit-btn"
                 class="display-follow-button"
                 type="button"
-                name="follow">
+                value="doFollow"
+                onclick="followUser()">
                 <?php echo $follow_button_text ?>
                 </button>
             </form>
-        <?php endif;?>
-    </div>
-
-    <div class=user-tweets-contents>
-        <?php if (empty($user_posts)) :
-            echo "あなたはまだ投稿していません。";?>
-        <?php else :?>
-            <?php include(__DIR__ . '/component/user_posts.php')?>
         <?php endif;?>
     </div>
 
@@ -102,14 +137,14 @@ $follower_num= $GetNumFollow->numFollower();
         <div class="setting-profile-contents">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-image">
-                    <?php if ($result['image'] === 'type') :?>
+                    <?php if (isset($result['image']) && $result['image'] === 'type') :?>
                         <p>*写真は「.gif」、「.jpg」、「.png」の画像を指定してください</p>
                     <?php endif; ?>
                     <label>画像を選択:</label>
                     <input type="file" name="image">
                 </div>
                 <div class="form-self-introduction">
-                    <label for="self-intro">自己紹介：</label>
+                    <label for="self-intro">自己紹介:</label>
                     <input
                     type="text"
                     id="self-intro"
@@ -118,7 +153,7 @@ $follower_num= $GetNumFollow->numFollower();
                     size="35px">
                 </div>
                 <div class="birthday">
-                    <label for="birthday">誕生日：</label>
+                    <label for="birthday">誕生日:</label>
                     <input
                     type="date"
                     id="birthday"
@@ -131,3 +166,13 @@ $follower_num= $GetNumFollow->numFollower();
         </div>
     <?php endif;?>
 </div>
+
+<div class=user-tweets-contents>
+        <?php if (empty($user_posts)) :
+            echo "あなたはまだ投稿していません。";?>
+        <?php else :?>
+            <div id="js-posts" class="user-posts">
+                <?php include(__DIR__ . '/component/user_posts.php')?>
+            </div>
+        <?php endif;?>
+    </div>

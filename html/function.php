@@ -5,6 +5,7 @@
  * @param string $str
  * @return string
  */
+
 function fun_h($str)
 {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');

@@ -3,28 +3,30 @@
 *各ページへのルータまたすべてのページで使用するファイルも読み込んでいる
 *
 */
-// ini_set("memory_limit", "3072M");
-// echo phpinfo();
+ini_set("memory_limit", "3072M");
 ob_start();
 session_start();
-require './vendor/autoload.php';
+echo __DIR__;
+require __DIR__ .'/vendor/autoload.php';
+require(__DIR__ . '/function.php');
 
-require_once(__DIR__ . '/function.php');
+
+$page = $_GET['page'] ?? "home.php";
 
 include(__DIR__ . '/views/header.php');
-if ($_GET['page'] == 'login') {
+if ($page == 'login') {
     include(__DIR__ . '/views/login.php');
-} elseif ($_GET['page'] == 'signUp') {
+} elseif ($page == 'signUp') {
     include(__DIR__ . '/views/signUp.php');
-} elseif ($_GET['page'] == 'menu') {
+} elseif ($page == 'menu') {
     include(__DIR__ . '/views/menu.php');
-} elseif ($_GET['page'] == 'logout') {
+} elseif ($page == 'logout') {
     include(__DIR__ . '/views/logout.php');
-} elseif ($_GET['page'] == 'profiles') {
+} elseif ($page == 'profiles') {
     include("views/user_profile.php");
-} elseif ($_GET['page'] == 'delete') {
+} elseif ($page == 'delete') {
     include(__DIR__ . '/views/delete.php');
-} elseif ($_GET['page'] == "your_timeline") {
+} elseif ($page == "your_timeline") {
     include(__DIR__ . '/views/your_timeline.php');
 } else {
     include(__DIR__ .'/views/home.php');

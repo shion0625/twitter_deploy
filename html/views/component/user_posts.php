@@ -1,25 +1,25 @@
-<div class="user-posts">
-    <?php foreach ($user_posts as $post) :?>
+<?php foreach ($user_posts as $post) :?>
     <div class="post">
-        <a
-        href="/?page=profiles&id=<?php echo $post['user_id']?>"
-        class="post-user-detail">
-            <?php if (isset($post['image_type']) && isset($post['image_content'])) :
-                $image_content = base64_encode($post['image_content']);?>
-                <img
-                src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>"
-                class="user-top-image">
-            <?php endif;?>
-            <span class="tweet-username">
-                <?php print(fun_h($post['user_name']))?>
-            </span>
-        </a>
+        <p class="user-header">
+            <a
+            href="/?page=profiles&id=<?php echo $post['user_id']?>"
+            class="post-user-detail">
+                <?php if (isset($post['image_type']) && isset($post['image_content'])) :
+                    $image_content = base64_encode($post['image_content']);?>
+                    <img src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>"
+                            class="user-top-image">
+                <?php endif;?>
+                <span class="tweet-username">
+                    <?php print(fun_h($post['user_name']))?>
+                </span>
+            </a>
+        </p>
         <p class="tweet-content">
             <?php print(fun_h($post['post_text']))?>
         </p>
             <p class="appendix">
                 <span><?php print(fun_h($post['date_time']))?></span>
-                <?php if ($post['user_name'] == $_SESSION['username']) :?>
+                <?php if (isset($_SESSION['username']) && $post['user_name'] == $_SESSION['username']) :?>
                     <form action=?page=delete method="POST">
                         <input
                         type="hidden"
@@ -30,5 +30,4 @@
                 <?php endif;?>
             </p>
         </div>
-    <?php endforeach;?>
-</div>
+<?php endforeach;?>

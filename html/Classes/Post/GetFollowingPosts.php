@@ -43,6 +43,9 @@ class GetFollowingPosts extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         $following_users = $this->getFollowingUser();
+        if (is_array($following_users) && empty($array)) {
+            return [];
+        }
         $whereClause="";
         foreach ($following_users as $user) {
             if ($whereClause != "") {

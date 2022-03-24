@@ -46,8 +46,11 @@ body {
     border-radius: 0.5rem;
   }
   .user-top-image{
-    width:40px;
-    height: auto;
+    width: 50px;
+    height: 50px;
+    // object-fit: none;
+    border-radius:50%;
+    object-position:center;
   }
 
   header {
@@ -160,13 +163,15 @@ body {
           text-align: center;
           a{
             background-color: rgb(61, 175, 228);
-            padding: 1rem ;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: block;
             color: black;
             text-decoration: none;
             .fas {
               font-size: 2.4rem;
+              margin-top: 12px;
             }
             p {
               margin: 0;
@@ -271,6 +276,27 @@ body {
     position: absolute;
     top: 0;
   }
+  .user-posts{
+    width: 50%;
+    margin: auto;
+    .post{
+      padding: 10px;
+      border: 2px solid;
+      .user-header{
+        height: 60px;
+        .post-user-detail{
+          position: relative;
+          display: block;
+          .tweet-username{
+            position:absolute;
+            font-size: 150%;
+            top: 30%;
+            color: #3d3d3d;
+          }
+        }
+      }
+    }
+  }
 /////////////////////////////////////////////////////
   .home-all-contents {
     .popup {
@@ -302,6 +328,10 @@ body {
             border: 1px solid;
             border-bottom: 0px;
             resize: none;
+            font-size: 1.8rem;
+              .bold{font-weight:bold;}
+              .underline{text-decoration:underline;}
+              .italic{font-style:italic;}
           }
           .tweet-items {
             border: 1px solid;
@@ -313,9 +343,7 @@ body {
               margin-left: 8px;
             }
           }
-
         }
-
         .close-btn {
           position: absolute;
           left: 0;
@@ -337,9 +365,6 @@ body {
           color: #fff;
           background-color:rgb(61, 175, 228);
           border-radius: 10vh;
-        }
-        .btn{
-
         }
       }
       .black-background {
