@@ -1,1 +1,6 @@
 .env
+db
+vendor
+docker-compose.yml
+Dockerfile
+php
