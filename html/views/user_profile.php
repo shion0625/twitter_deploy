@@ -7,7 +7,6 @@ use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 
 $_SESSION['messageAlert'] ='';
-print_r($_POST);
 
 if (isset($_GET['id'])) {
     $profile_user_id = (string)$_GET['id'];
@@ -77,14 +76,12 @@ $follower_num = $GetNumFollow->numFollower();
             data: $map,
             dataType: 'json'
         }).done(function(data){
-            alert("successful: ");
-            console.log(data);
             $('#js-follow')[0].textContent = data['follow'];
             $('#js-follower')[0].textContent = data['follower'];
             if (data['status']) {
-                $('#js-submit-btn').textContent="フォロー中";
+                $('#js-submit-btn').text("フォロー中");
             } else {
-                $('#js-submit-btn').textContent="フォロー";
+                $('#js-submit-btn').text("フォロー");
             }
         }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
             alert("error: "+msg.responseText);
