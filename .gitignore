@@ -1,6 +1,6 @@
 .env
-db
 vendor
+db
 docker-compose.yml
 Dockerfile
-php
+.DS_Store
