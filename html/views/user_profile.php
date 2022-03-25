@@ -14,17 +14,14 @@ if (isset($_GET['id'])) {
     $get_user_info = new GetUserInfo($profile_user_id);
     $user_posts= $get_user_info->getUserPost();
     $user_profile = $get_user_info->getUserProfile();
+    $get_image = new UsingGetImage('user_id', $profile_user_id);
+    $image = $get_image->usingGetImage();
 }
 
 if (!isset($_SESSION['userID'])) {
     $_SESSION['messageAlert'] ='あなたのユーザIDが設定されていません。ログインしてください。';
     header('Location: ?page=');
 }
-
-$current_user_id = $_SESSION['userID'];
-
-$get_image = new UsingGetImage('user_id', $profile_user_id);
-$image = $get_image->usingGetImage();
 $is_exit_image = false;
 if (!empty($image)) {
     $is_exit_image = true;
@@ -32,24 +29,22 @@ if (!empty($image)) {
     $image_content = $image['image_content'];
 }
 
+$current_user_id = $_SESSION['userID'];
 //このページに送信されたユーザIDが自分だった場合設定ページが表示される。
 $is_yourself = $profile_user_id == $current_user_id;
 
-if ($profile_user_id == $current_user_id) {
+if ($is_yourself) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['image']['name'])) {
         // 画像を保存 すでに画像がデータベース内にあればupdate,なければinsertされる。
         $using_insert_update = new UsingUpdateInsert($is_exit_image);
         $result = $using_insert_update->actionImage();
         if ($result['update'] || $result['insert']) {
             $_SESSION['messageAlert'] = "画像の保存に成功しました。";
-            header('Location: ?page=profiles');
+            header("Location: ?page=profiles&id=${current_user_id}");
             exit();
         }
-    } else {
-        echo json_encode(["follow"]);
     }
 }
-
 
 if (!$is_yourself) {
     $CheckFollow=new CheckFollow($current_user_id, $profile_user_id);
@@ -150,16 +145,19 @@ $follower_num = $GetNumFollow->numFollower();
                     id="self-intro"
                     name="self-intro"
                     maxlength="30px"
-                    size="35px">
+                    value="こんにちは"
+                    size="32px">
                 </div>
                 <div class="birthday">
                     <label for="birthday">誕生日:</label>
                     <input
                     type="date"
                     id="birthday"
+                    value=""
                     name="birthday" >
                 </div>
                 <button
+                id="submit-btn"
                 type="submit"
                 class="btn">保存</button>
             </form>
