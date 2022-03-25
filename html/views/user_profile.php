@@ -77,9 +77,9 @@ $follower_num = $GetNumFollow->numFollower();
             $('#js-follow')[0].textContent = data['follow'];
             $('#js-follower')[0].textContent = data['follower'];
             if (data['status']) {
-                $('#js-submit-btn').textContent="フォロー中";
+                $('#js-submit-btn').text("フォロー中");
             } else {
-                $('#js-submit-btn').textContent="フォロー";
+                $('#js-submit-btn').text("フォロー");
             }
         }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
             alert("error: "+msg.responseText);

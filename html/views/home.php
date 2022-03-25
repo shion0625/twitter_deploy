@@ -218,6 +218,5 @@ function htmlentities(str){
             <?php include(__DIR__ . '/component/user_posts.php')?>
     </div>
 </div>
-
 <!-- 012345<span>6789AB</span>CDEFGHIJKLMNOPQRSTUVWXYZ -->
 <!-- 私の名前は淀川海都です。\nよろしくお願いします。 -->
