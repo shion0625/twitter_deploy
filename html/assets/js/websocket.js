@@ -27,7 +27,6 @@ $(() =>{
   };
 
   conn.onmessage = (event) => {
-    console.log(event);
     $("#js-posts").prepend(event.data);
   };
   conn.onclose = function(event) {
@@ -40,21 +39,19 @@ function socketSend() {
   var $map = {"send": "postInfo"};
   $.ajax({
       type: 'POST',
-      url: './views/component/ajax.php',
+      url: './views/component/AjaxPosts.php',
       data: $map,
       dataType: 'html',
     }).done(function(data){
       // ここに処理が完了したときのアクションを書く
-      // alert("送信完了\nレスポンスデータ postInfo" + data);
       conn.send(data);
   }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
-      alert("error: "+msg.responseText);
+      alert("socketSend \nerror: \n"+msg.responseText);
       console.log(msg);
       console.log(XMLHttpRequest.status);
       console.log(textStatus);
       console.log(errorThrown);
   });
-
 }
 function close(){
   conn.close();

@@ -121,11 +121,11 @@ const getPostContent = ()=>{
         type: 'POST',
         url: './views/component/AjaxPosts.php',
         data: $map,
-        dataType: 'html'
+        dataType: 'text'
     }).done(function(data){
-      alert("successful");
+      socketSend();
     }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
-        alert("error: "+msg.responseText);
+        alert("getPostContent\nerror:\n"+msg.responseText);
         console.log(msg);
         console.log(XMLHttpRequest.status);
         console.log(textStatus);
@@ -171,7 +171,7 @@ function htmlentities(str){
         class="tweet-submit-btn btn"
         name="send"
         form="tweet"
-        onclick=" getPostContent(); socketSend();">ツイートする</button>
+        onclick="getPostContent();">ツイートする</button>
         <div id="tweet" id="js-tweet-form" class="tweet-form">
             <label for="post-content">投稿を入力して下さい</label>
             <div id="js-post-content" class="tweet-textarea"  role="textbox"

@@ -82,7 +82,7 @@ $follower_num = $GetNumFollow->numFollower();
                 $('#js-submit-btn').text("フォロー");
             }
         }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
-            alert("error: "+msg.responseText);
+            alert("followUser\n error:\n  "+msg.responseText);
             console.log(msg);
             console.log(XMLHttpRequest.status);
             console.log(textStatus);
