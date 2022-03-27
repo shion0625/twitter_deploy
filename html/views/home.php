@@ -11,14 +11,13 @@ $user_posts = $get_post_db->getHomePosts();
 <script type="text/javascript">
     const username = <?php echo json_encode($_SESSION['username']);?>;
     const userId = <?php echo json_encode($_SESSION['userID']);?>;
-    const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    const surroundSpan = async() => {
+    function surroundSpan(){
+    return new Promise((resolve,reject)=>{
       let t = $('#js-post-content');
       let nodeList = t[0].childNodes;
       let nextNodeList = [];
-      console.log(nodeList);
       let returnElement = document.createElement('br');
-      for(const node of nodeList){
+      for(let node of nodeList){
         if(node.tagName == "DIV"){
           console.log(node.childNodes[0]);
           nextNodeList.push(returnElement);
@@ -64,21 +63,18 @@ $user_posts = $get_post_db->getHomePosts();
           }
         }
       }
-      console.log(nodeList);
-      console.log('hi');
       if (newNodeList.length != 0) {
         t[0].innerHTML = '';
         for (let i = newNodeList.length; i >= 0; i--) {
           t.prepend(newNodeList[i]);
         }
       }
-      return 0;
-    }
+      resolve();
+    });
+}
 
-    async function txtChange(e) {
-      let result = await surroundSpan();
-      if(result == 0){
-      }
+    async function txtChange(decoration) {
+      await surroundSpan();
       document.querySelectorAll('[type=button][data-decoration]').forEach(x => {
         x.addEventListener('click', () => {
           const decoration = x.dataset["decoration"];
@@ -86,11 +82,11 @@ $user_posts = $get_post_db->getHomePosts();
           if (sel.focusNode !== null) {
             let start = sel.getRangeAt(0).startContainer.parentNode;
             let end = sel.getRangeAt(0).endContainer.parentNode;
+            console.log(end);
             if (start.closest('#js-post-content') && end.closest('#js-post-content')) {
               const dom = [...sel.getRangeAt(0).cloneContents().querySelectorAll('span')];
               const parent = end.parentNode;
-              console.log(dom);
-              console.log(dom);
+              if (dom[0].textContent == "") {
                 dom.shift();
               }
               if (dom[dom.length - 1].textContent == "") {
@@ -100,17 +96,20 @@ $user_posts = $get_post_db->getHomePosts();
               }
               sel.deleteFromDocument();
               sel.removeAllRanges();
+              surroundSpan();
               dom.forEach(x => {
                 x.classList.toggle(decoration);
                 parent.insertBefore(x, end);
               });
             }
-          });
+          }
         });
+      });
       }
 
-    $(document).on('click', '.text-button', async function (e) {
-      txtChange(e);
+    $(document).on('click', '.text-button', (e) => {
+      const decoration = e.currentTarget.dataset['decoration'];
+      txtChange(decoration);
     });
 
 const getPostContent = ()=>{
@@ -182,7 +181,7 @@ function htmlentities(str){
         <p class="tweet-items">
                 <button type="button" class="tweet-item text-button"
                 id="js-strong" data-decoration="bold" value="bold">
-                  <i class="fas fa-bold" data-decoration="bold"></i>
+                  <i class="fas fa-bold" data-decoration="bold" ></i>
                 </い>
                 <button type="button" class="tweet-item text-button"
                 id="js-italic" data-decoration="italic" value="italic">
