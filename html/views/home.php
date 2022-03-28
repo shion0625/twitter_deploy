@@ -18,14 +18,15 @@ $user_posts = $get_post_db->getHomePosts();
       let nextNodeList = [];
       let returnElement = document.createElement('br');
       for(let node of nodeList){
+        console.log(node);
         if(node.tagName == "DIV"){
-          console.log(node.childNodes[0]);
           nextNodeList.push(returnElement);
           nextNodeList.push(node.childNodes[0]);
         }else{
           nextNodeList.push(node);
         }
       }
+      console.log('nextNodeList');
       console.log(nextNodeList);
       let newNodeList = [];
       for (let i = 0; i < nextNodeList.length; i++) {
@@ -63,6 +64,8 @@ $user_posts = $get_post_db->getHomePosts();
           }
         }
       }
+      console.log("newNodeList");
+      console.log(newNodeList);
       if (newNodeList.length != 0) {
         t[0].innerHTML = '';
         for (let i = newNodeList.length; i >= 0; i--) {
@@ -82,23 +85,21 @@ $user_posts = $get_post_db->getHomePosts();
           if (sel.focusNode !== null) {
             let start = sel.getRangeAt(0).startContainer.parentNode;
             let end = sel.getRangeAt(0).endContainer.parentNode;
-            console.log(end);
             if (start.closest('#js-post-content') && end.closest('#js-post-content')) {
-              const dom = [...sel.getRangeAt(0).cloneContents().querySelectorAll('span')];
+              let dom = [...sel.getRangeAt(0).cloneContents().querySelectorAll('span, br')];
+              if(dom.length == 0){
+                const txtElem =sel.getRangeAt(0).cloneContents().textContent;
+                start.innerHTML=txtElem;
+                dom.push(start);
+              }
               const parent = end.parentNode;
-              if (dom[0].textContent == "") {
-                dom.shift();
-              }
-              if (dom[dom.length - 1].textContent == "") {
-                dom.pop();
-              } else {
-                end = end.nextElementSibling;
-              }
               sel.deleteFromDocument();
               sel.removeAllRanges();
-              surroundSpan();
+              console.log('xxxxxx');
               dom.forEach(x => {
-                x.classList.toggle(decoration);
+                if(x.tagName != "BR"){
+                  x.classList.toggle(decoration);
+                }
                 parent.insertBefore(x, end);
               });
             }
