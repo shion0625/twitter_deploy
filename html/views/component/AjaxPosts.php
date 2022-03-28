@@ -58,47 +58,7 @@ if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInf
 }
 
 if (!empty($_POST) && $_POST['send'] == 'postSend') {
-    if ($image_type && $image_content) {
-        echo "
-        <div class='post'>
-        <p class='user-header'>
-            <a
-            href='/?page=profiles&id={$user_id}'
-            class='post-user-detail'>
-            <img class='user-top-image' src='data:{$image_type};base64,{$image_content}'>
-                <span class='tweet-username'>
-                    {$user_name}
-                </span>
-            </a>
-        </p>
-        <p class='tweet-content'>
-            {$post_text}
-        </p>
-            <p class='appendix'>
-                <span>{$date_time}</span>
-            </p>
-        </div>";
-    } else {
-        echo "
-        <div class='post'>
-        <p class='user-header'>
-            <a
-            href='/?page=profiles&id={$user_id}'
-            class='post-user-detail'>
-                <span class='tweet-username'>
-                    {$user_name}
-                </span>
-            </a>
-        </p>
-        <p class='tweet-content'>
-            {$post_text}
-        </p>
-            <p class='appendix'>
-                <span>{$date_time}</span>
-            </p>
-        </div>";
-    }
-    exit;
+    echo "done";
 }
 
 if (!empty($_POST) && $_POST['send'] == 'postInfo') {
@@ -121,7 +81,7 @@ if (!empty($_POST) && $_POST['send'] == 'postInfo') {
             <p class='appendix'>
                 <span>{$date_time}</span>
             </p>
-        // </div>";
+        </div>";
     } else {
         echo "
         <div class='post'>
