@@ -11,27 +11,24 @@ $user_posts = $get_post_db->getHomePosts();
 <script type="text/javascript">
     const username = <?php echo json_encode($_SESSION['username']);?>;
     const userId = <?php echo json_encode($_SESSION['userID']);?>;
-    const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    const surroundSpan = async() => {
+    function surroundSpan(){
+    return new Promise((resolve,reject)=>{
       let t = $('#js-post-content');
       let nodeList = t[0].childNodes;
       let nextNodeList = [];
-      console.log(nodeList);
       let returnElement = document.createElement('br');
-      for(const node of nodeList){
+      for(let node of nodeList){
+        console.log(node);
         if(node.tagName == "DIV"){
-          console.log(node.childNodes[0]);
           nextNodeList.push(returnElement);
           nextNodeList.push(node.childNodes[0]);
         }else{
           nextNodeList.push(node);
         }
       }
-      console.log(nextNodeList);
       let newNodeList = [];
       for (let i = 0; i < nextNodeList.length; i++) {
         let element = nextNodeList[i];
-        console.log(element);
         let newElement;
         if (element.tagName == "SPAN") {
           if (element.innerHTML.length > 1) {
@@ -64,21 +61,18 @@ $user_posts = $get_post_db->getHomePosts();
           }
         }
       }
-      console.log(nodeList);
-      console.log('hi');
       if (newNodeList.length != 0) {
         t[0].innerHTML = '';
         for (let i = newNodeList.length; i >= 0; i--) {
           t.prepend(newNodeList[i]);
         }
       }
-      return 0;
-    }
+      resolve();
+    });
+}
 
-    async function txtChange(e) {
-      let result = await surroundSpan();
-      if(result == 0){
-      }
+    async function txtChange(decoration) {
+      await surroundSpan();
       document.querySelectorAll('[type=button][data-decoration]').forEach(x => {
         x.addEventListener('click', () => {
           const decoration = x.dataset["decoration"];
@@ -87,30 +81,30 @@ $user_posts = $get_post_db->getHomePosts();
             let start = sel.getRangeAt(0).startContainer.parentNode;
             let end = sel.getRangeAt(0).endContainer.parentNode;
             if (start.closest('#js-post-content') && end.closest('#js-post-content')) {
-              const dom = [...sel.getRangeAt(0).cloneContents().querySelectorAll('span')];
+              let dom = [...sel.getRangeAt(0).cloneContents().querySelectorAll('span, br')];
+              if(dom.length == 0){
+                const txtElem =sel.getRangeAt(0).cloneContents().textContent;
+                start.innerHTML=txtElem;
+                dom.push(start);
+              }
               const parent = end.parentNode;
-              console.log(dom);
-              console.log(dom);
-                dom.shift();
-              }
-              if (dom[dom.length - 1].textContent == "") {
-                dom.pop();
-              } else {
-                end = end.nextElementSibling;
-              }
               sel.deleteFromDocument();
               sel.removeAllRanges();
               dom.forEach(x => {
-                x.classList.toggle(decoration);
+                if(x.tagName != "BR"){
+                  x.classList.toggle(decoration);
+                }
                 parent.insertBefore(x, end);
               });
             }
-          });
+          }
         });
+      });
       }
 
-    $(document).on('click', '.text-button', async function (e) {
-      txtChange(e);
+    $(document).on('click', '.text-button', (e) => {
+      const decoration = e.currentTarget.dataset['decoration'];
+      txtChange(decoration);
     });
 
 const getPostContent = ()=>{
@@ -121,11 +115,11 @@ const getPostContent = ()=>{
         type: 'POST',
         url: './views/component/AjaxPosts.php',
         data: $map,
-        dataType: 'html'
+        dataType: 'text'
     }).done(function(data){
-      alert("successful");
+      socketSend();
     }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
-        alert("error: "+msg.responseText);
+        alert("getPostContent\nerror:\n"+msg.responseText);
         console.log(msg);
         console.log(XMLHttpRequest.status);
         console.log(textStatus);
@@ -171,7 +165,7 @@ function htmlentities(str){
         class="tweet-submit-btn btn"
         name="send"
         form="tweet"
-        onclick=" getPostContent(); socketSend();">ツイートする</button>
+        onclick="getPostContent();">ツイートする</button>
         <div id="tweet" id="js-tweet-form" class="tweet-form">
             <label for="post-content">投稿を入力して下さい</label>
             <div id="js-post-content" class="tweet-textarea"  role="textbox"
@@ -182,7 +176,7 @@ function htmlentities(str){
         <p class="tweet-items">
                 <button type="button" class="tweet-item text-button"
                 id="js-strong" data-decoration="bold" value="bold">
-                  <i class="fas fa-bold" data-decoration="bold"></i>
+                  <i class="fas fa-bold" data-decoration="bold" ></i>
                 </い>
                 <button type="button" class="tweet-item text-button"
                 id="js-italic" data-decoration="italic" value="italic">
