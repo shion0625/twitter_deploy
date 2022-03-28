@@ -26,12 +26,9 @@ $user_posts = $get_post_db->getHomePosts();
           nextNodeList.push(node);
         }
       }
-      console.log('nextNodeList');
-      console.log(nextNodeList);
       let newNodeList = [];
       for (let i = 0; i < nextNodeList.length; i++) {
         let element = nextNodeList[i];
-        console.log(element);
         let newElement;
         if (element.tagName == "SPAN") {
           if (element.innerHTML.length > 1) {
@@ -64,8 +61,6 @@ $user_posts = $get_post_db->getHomePosts();
           }
         }
       }
-      console.log("newNodeList");
-      console.log(newNodeList);
       if (newNodeList.length != 0) {
         t[0].innerHTML = '';
         for (let i = newNodeList.length; i >= 0; i--) {
@@ -95,7 +90,6 @@ $user_posts = $get_post_db->getHomePosts();
               const parent = end.parentNode;
               sel.deleteFromDocument();
               sel.removeAllRanges();
-              console.log('xxxxxx');
               dom.forEach(x => {
                 if(x.tagName != "BR"){
                   x.classList.toggle(decoration);
