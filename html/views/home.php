@@ -9,143 +9,210 @@ $user_posts = $get_post_db->getHomePosts();
 ?>
 
 <script type="text/javascript">
-    const username = <?php echo json_encode($_SESSION['username']);?>;
-    const userId = <?php echo json_encode($_SESSION['userID']);?>;
-    function surroundSpan(){
-    return new Promise((resolve,reject)=>{
-      let t = $('#js-post-content');
-      let nodeList = t[0].childNodes;
-      let nextNodeList = [];
-      let returnElement = document.createElement('br');
-      for(let node of nodeList){
-        console.log(node);
-        if(node.tagName == "DIV"){
-          nextNodeList.push(returnElement);
-          nextNodeList.push(node.childNodes[0]);
-        }else{
-          nextNodeList.push(node);
-        }
-      }
-      let newNodeList = [];
-      for (let i = 0; i < nextNodeList.length; i++) {
-        let element = nextNodeList[i];
-        let newElement;
-        if (element.tagName == "SPAN") {
-          if (element.innerHTML.length > 1) {
-            let className = element.className.trim();
-            let classNameList = className.split(" ").filter(Boolean);
-            let charList = element.innerHTML.split("");
-            for (let i in charList) {
-              let newElement = document.createElement('span');
-              newElement.innerHTML = charList[i];
-              if (classNameList.length != 0) {
-                for (let i in classNameList) {
-                  newElement.classList.add(classNameList[i]);
-                }
-              }
-              newNodeList.push(newElement);
-            }
-          } else if (element.innerHTML.length == 0) {
-            element.remove();
-          } else {
-            newNodeList.push(element);
-          }
-        } else if(element.tagName == "BR"){
-          newNodeList.push(element);
-        }else {
-          let charList = element.data.split("");
-          for (let i in charList) {
-            newElement = document.createElement('span');
-            newElement.innerHTML = charList[i];
-            newNodeList.push(newElement);
-          }
-        }
-      }
-      if (newNodeList.length != 0) {
-        t[0].innerHTML = '';
-        for (let i = newNodeList.length; i >= 0; i--) {
-          t.prepend(newNodeList[i]);
-        }
-      }
-      resolve();
-    });
-}
+'use strict';
+const username = <?php echo json_encode($_SESSION['username']);?>;
+const userId = <?php echo json_encode($_SESSION['userID']);?>;
 
-    async function txtChange(decoration) {
-      await surroundSpan();
-      document.querySelectorAll('[type=button][data-decoration]').forEach(x => {
-        x.addEventListener('click', () => {
-          const decoration = x.dataset["decoration"];
-          const sel = getSelection();
-          if (sel.focusNode !== null) {
-            let start = sel.getRangeAt(0).startContainer.parentNode;
-            let end = sel.getRangeAt(0).endContainer.parentNode;
-            if (start.closest('#js-post-content') && end.closest('#js-post-content')) {
-              let dom = [...sel.getRangeAt(0).cloneContents().querySelectorAll('span, br')];
-              if(dom.length == 0){
-                const txtElem =sel.getRangeAt(0).cloneContents().textContent;
-                start.innerHTML=txtElem;
-                dom.push(start);
-              }
-              const parent = end.parentNode;
-              sel.deleteFromDocument();
-              sel.removeAllRanges();
-              dom.forEach(x => {
-                if(x.tagName != "BR"){
-                  x.classList.toggle(decoration);
+$(document).on("click", ".text-button", async() => {
+    txtChange();
+    await surroundSpan();
+});
+
+function txtChange() {
+    document.querySelectorAll("[type=button][data-decoration]").forEach((x) => {
+        let cnt = 0;
+        x.addEventListener("click", () => {
+            if (cnt == 0) {
+                const decoration = x.dataset["decoration"];
+                const sel = getSelection();
+                if (sel.focusNode !== null) {
+                    const start = sel.getRangeAt(0).startContainer.parentNode;
+                    const end = sel.getRangeAt(0).endContainer.parentNode;
+                    if (
+                        start.closest("#js-post-content") &&
+                        end.closest("#js-post-content")
+                    ) {
+                        decorateSelectedTxt(sel, start, end, decoration);
+                    }
+                    cnt++;
                 }
-                parent.insertBefore(x, end);
-              });
             }
-          }
         });
-      });
-      }
-
-    $(document).on('click', '.text-button', (e) => {
-      const decoration = e.currentTarget.dataset['decoration'];
-      txtChange(decoration);
-    });
-
-const getPostContent = ()=>{
-    let postText = $('#js-post-content')[0].innerHTML.toString();
-    postText = htmlentities(changeTag(postText));
-    let $map = {"postText": postText, "send": "postSend", "sender": userId};
-    $.ajax({
-        type: 'POST',
-        url: './views/component/AjaxPosts.php',
-        data: $map,
-        dataType: 'text'
-    }).done(function(data){
-      socketSend();
-    }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
-        alert("getPostContent\nerror:\n"+msg.responseText);
-        console.log(msg);
-        console.log(XMLHttpRequest.status);
-        console.log(textStatus);
-        console.log(errorThrown);
     });
 }
 
-function changeTag(str){
-    console.log(str);
-    return String(str).replace(/<span/g, "Š;")
-        .replace(/<\/span>/g,"/Š;")
-        .replace(/class="/g,"č;")
-    }
+function getPostContent() {
+    let postText = $("#js-post-content")[0].innerHTML.toString();
+    postText = htmlentities(changeTag(postText));
+    let $map = { postText: postText, send: "postSend", sender: userId };
+    $.ajax({
+            type: "POST",
+            url: "./views/component/AjaxPosts.php",
+            data: $map,
+            dataType: "text",
+        })
+        .done(function(data) {
+            socketSend();
+        })
+        .fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
+            alert("getPostContent\nerror:\n" + msg.responseText);
+            console.log(msg);
+            console.log(XMLHttpRequest.status);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+}
 
-function returnHtmlentities(str){
-    return String(str).replace(/&lt;/g,"<")
-    // .replace(/&amp;/g,"&")
-        .replace(/&gt;/g,">")
+function surroundSpan(result) {
+    return new Promise((resolve, reject) => {
+        let postText = $("#js-post-content");
+        let nodeList = postText[0].childNodes;
+        nodeList = lineFeed(nodeList);
+        let newNodeList = [];
+        for (let i = 0; i < nodeList.length; i++) {
+            const element = nodeList[i];
+            if (element.tagName == "SPAN" || element.tagName == "B" || element.tagName == "I") {
+                if (element.innerHTML.length > 1) {
+                    newNodeList = decompositionSpan(element, newNodeList);
+                } else if (element.innerHTML.length == 0) {
+                    element.remove();
+                } else {
+                    newNodeList.push(element);
+                }
+            } else if (element.tagName == "BR") {
+                newNodeList.push(element);
+            } else {
+                newNodeList = encloseSpan(element, newNodeList);
+            }
+        }
+        if (newNodeList.length != 0) {
+            postText[0].innerHTML = "";
+            for (let i = newNodeList.length; i >= 0; i--) {
+                postText.prepend(newNodeList[i]);
+            }
+        }
+        resolve();
+    });
+}
+
+function lineFeed(nodeList) {
+    let newNodeList = [];
+    const returnElement = document.createElement("br");
+    for (let node of nodeList) {
+        if (node.tagName == "DIV") {
+            newNodeList.push(returnElement);
+            newNodeList.push(node.childNodes[0]);
+        } else {
+            newNodeList.push(node);
+        }
+    }
+    return newNodeList;
+}
+
+function decompositionSpan(element, newNodeList) {
+    let className = element.className.trim();
+    if (element.tagName == 'B') className = "bold";
+    if (element.tagName == 'I') className = "italic";
+    const classNameList = className.split(" ").filter(Boolean);
+    const charList = element.innerHTML.split("");
+    for (let i in charList) {
+        let newElement = document.createElement("span");
+        newElement.innerHTML = charList[i];
+        if (classNameList.length != 0) {
+            for (let i in classNameList) {
+                newElement.classList.add(classNameList[i]);
+            }
+        }
+        newNodeList.push(newElement);
+    }
+    return newNodeList;
+}
+
+function encloseSpan(element, newNodeList) {
+    if (element.textContent.length < 1) return;
+    const charList = element.textContent.split("");
+    for (let i in charList) {
+        let newElement = document.createElement("span");
+        newElement.innerHTML = charList[i];
+        newNodeList.push(newElement);
+    }
+    return newNodeList;
+}
+
+function decorateSelectedTxt(sel, start, end, decoration) {
+    const dom = [
+        ...sel.getRangeAt(0).cloneContents().querySelectorAll("span, br"),
+    ];
+    if (dom.length == 0) {
+        const txtElem = sel.getRangeAt(0).cloneContents().textContent;
+        if (txtElem == "") {
+            return;
+        } else if (txtElem.length == 1) {
+            start.innerHTML = txtElem;
+            dom.push(start);
+        } else {
+            let startClassName = start.className.trim();
+            if (start.tagName == 'B') startClassName = "bold";
+            if (start.tagName == 'I') startClassName = "italic";
+            const classNameList = startClassName.split(" ").filter(Boolean);
+            const charList = txtElem.split("");
+            const elmList = [];
+            for (let i in charList) {
+                let newElement = document.createElement("span");
+                newElement.innerHTML = charList[i];
+                if (classNameList.length != 0) {
+                    for (let i in classNameList) {
+                        newElement.classList.add(classNameList[i]);
+                    }
+                }
+                dom.push(newElement);
+            }
+            let parent = end.parentNode;
+            sel.deleteFromDocument();
+            sel.removeAllRanges();
+            dom.forEach((x) => {
+                if (x.tagName != "BR") {
+                    x.classList.toggle(decoration);
+                }
+                parent.appendChild(x, end);
+            });
+            return;
+        }
+    }
+    let parent = end.parentNode;
+    sel.deleteFromDocument();
+    sel.removeAllRanges();
+    dom.forEach((x) => {
+        if (x.tagName != "BR") {
+            x.classList.toggle(decoration);
+        }
+        parent.insertBefore(x, end);
+    });
+}
+
+function changeTag(str) {
+    return String(str)
+        .replace(/<span/g, "Š;")
+        .replace(/<\/span>/g, "/Š;")
+        .replace(/class="/g, "č;");
+}
+
+function returnHtmlentities(str) {
+    return (
+        String(str)
+        .replace(/&lt;/g, "<")
+        // .replace(/&amp;/g,"&")
+        .replace(/&gt;/g, ">")
+    );
     // .replace(/&quot;/g,"\"")
 }
 
-function htmlentities(str){
-    return String(str).replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
+function htmlentities(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
 }
 </script>
 
