@@ -275,7 +275,6 @@ function htmlentities(str) {
     </div>
     <?php endif;?>
     <div id="js-posts" class="user-posts">
-        <!-- <div id="js-posts"></div> -->
             <?php include(__DIR__ . '/component/user_posts.php')?>
     </div>
 </div>

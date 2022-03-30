@@ -4,7 +4,6 @@ use Classes\Post\GetFollowingPosts;
 if (isset($_SESSION['userID'])) {
     $GetFollowingPosts = new GetFollowingPosts($_SESSION['userID']) ;
     $user_posts = $GetFollowingPosts->getFollowPost();
-    print_r($user_posts);
 }
 
 ?>
