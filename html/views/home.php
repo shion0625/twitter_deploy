@@ -1,11 +1,21 @@
 <?php
 use Classes\Post\GetHomePosts;
+use Classes\Post\AllPostNum;
+
+//最大ページ数を求める。
+$all_post_num = new AllPostNum();
+$max_page = $all_post_num->allPostNum();
+/**
+ * 各投稿内容の表示ページで使用している。
+ * GETメソッドで送信されたページ番号を取得している。それを元にデータベースからは必要な分取得している。
+ */
+$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = ($page_num ?: 1);
+$start_num = ($page_num - 1) * 15;
 
 //投稿内容をデータベースから取得
-
-//データベースに投稿内容を保存
 $get_post_db = new GetHomePosts();
-$user_posts = $get_post_db->getHomePosts();
+$user_posts = $get_post_db->getHomePosts($start_num);
 ?>
 
 <script type="text/javascript">

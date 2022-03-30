@@ -1,10 +1,10 @@
 {
-    "autoload" : {
-        "psr-4" : {
-            "App\\" : "html/src",
+    "autoload": {
+        "psr-4": {
+            "App\\": "html/src",
             "Controller\\": "html/Controller",
-            "Classes\\":"html/Classes",
-            "php\\":"php"
+            "Classes\\": "html/Classes",
+            "php\\": "php"
         }
     },
     "require": {
@@ -23,9 +23,9 @@
         }
     },
     "scripts": {
-        "fix": "html/vendor/bin/php-cs-fixer fix ./html/views/header.php",
+        "fix": "html/vendor/bin/php-cs-fixer fix ./html/views/",
         "start": "php ./bin/wsServer.php",
-        "phpmd":"./vendor/bin/phpmd html/views text cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpmd": "./vendor/bin/phpmd html/views text cleancode,codesize,controversial,design,naming,unusedcode",
         "document": "php phpDocumentor.phar -d . -t ./document/",
         "cs": "./vendor/bin/phpcs --report=source .",
         "dumpautoload": "dumpautoload"
