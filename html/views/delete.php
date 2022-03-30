@@ -28,19 +28,19 @@ $tweet_data = $get_post->getPost();
             name="view_name"
             value="
                 <?php if (!empty($tweet_data['user_name'])) {
-                    echo $tweet_data['user_name'];
-                } elseif (!empty($tweet_data['user_name'])) {
-                    echo fun_h($tweet_data['user_name']);
-                } ?>" disabled>
+    echo $tweet_data['user_name'];
+} elseif (!empty($tweet_data['user_name'])) {
+    echo fun_h($tweet_data['user_name']);
+} ?>" disabled>
         </div>
         <div>
             <label for="message">投稿内容</label>
             <textarea id="message" name="message" disabled>
             <?php if (!empty($tweet_data['post_text'])) {
-                echo $tweet_data['post_text'];
-            } elseif (!empty($tweet_data['post_text'])) {
-                echo fun_h($tweet_data['post_text']);
-            }?>
+    echo $tweet_data['post_text'];
+} elseif (!empty($tweet_data['post_text'])) {
+    echo fun_h($tweet_data['post_text']);
+}?>
             </textarea>
         </div>
         <a class="btn_cancel" href="/">キャンセル</a>
@@ -50,9 +50,9 @@ $tweet_data = $get_post->getPost();
         name="delete_post_id"
         value="
             <?php if (!empty($tweet_data['post_id'])) {
-                echo $tweet_data['post_id'];
-            } elseif (!empty($post_id)) {
-                echo fun_h($post_id);
-            } ?>">
+    echo $tweet_data['post_id'];
+} elseif (!empty($post_id)) {
+    echo fun_h($post_id);
+} ?>">
     </form>
 </div>

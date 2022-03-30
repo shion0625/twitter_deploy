@@ -1,5 +1,7 @@
 <?php
+ /** .envファイルを読み込みます。 */
 print_r($_SESSION);
+
 require_once __DIR__ . '/../function.php';
 use Classes\Image\UsingGetImage;
 
