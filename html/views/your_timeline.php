@@ -7,6 +7,7 @@ if (isset($_SESSION['userID'])) {
 }
 
 ?>
+
 <div class='your-timeline-all-contents'>
     <?php if (isset($user_posts) && isset($_SESSION['userID'])) :?>
         <div id="js-posts" class="user-posts">
