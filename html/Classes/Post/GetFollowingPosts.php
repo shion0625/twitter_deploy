@@ -43,7 +43,7 @@ class GetFollowingPosts extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         $following_users = $this->getFollowingUser();
-        if (is_array($following_users) && empty($array)) {
+        if (is_array($following_users) && empty($following_users)) {
             return [];
         }
         $whereClause="";
@@ -61,7 +61,6 @@ class GetFollowingPosts extends Connect
             FROM users AS u INNER JOIN tweet AS t ON u.email_encode = t.user_id
             LEFT OUTER JOIN user_image AS i ON t.user_id = i.user_id
             ".$whereClause." ORDER BY t.date_time DESC";
-            // $query = "SELECT user_name FROM users as u".$whereClause;
             $stmt = $dbh->prepare($query);
             $stmt->execute();
             $following_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
