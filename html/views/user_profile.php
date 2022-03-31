@@ -7,12 +7,14 @@ use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 
 $_SESSION['messageAlert'] ='';
-print_r($_POST);
+$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = ($page_num ?: 1);
+$start_num = ($page_num - 1) * 15;
 
 if (isset($_GET['id'])) {
     $profile_user_id = (string)$_GET['id'];
     $get_user_info = new GetUserInfo($profile_user_id);
-    $user_posts= $get_user_info->getUserPost();
+    [$user_posts, $max_page]= $get_user_info->getUserPost($start_num);
     $user_profile = $get_user_info->getUserProfile();
     $get_image = new UsingGetImage('user_id', $profile_user_id);
     $image = $get_image->usingGetImage();

@@ -1,3 +1,8 @@
+<?php
+$url = $_SERVER['REQUEST_URI'];
+$replacement = '/(\?|&)page_num=[0-9]+/';
+$new_url = preg_replace($replacement, '', $url);
+?>
 <?php if (!$user_posts) :?>
     <div class="error_post">
         <p>投稿する内容はありません。</p>
@@ -6,7 +11,7 @@
 <?php foreach ($user_posts as $post) :?>
     <div class="post">
         <p class="user-header">
-            <?php if (strcmp(getenv('ADMIN_USER'), $post['user_name']) > 0) :?>
+            <?php if (strcmp(getenv('ADMIN_USER'), $post['user_name']) == 0) :?>
                 <span class="tweet-username">
                     admin
                 </span>
@@ -32,7 +37,7 @@
             <span><?php print(fun_h($post['date_time']))?></span>
             <?php if (isset($_SESSION['username']) &&
             ($post['user_name'] == $_SESSION['username'] ||
-            strcmp(getenv('ADMIN_USER'), $_SESSION['username']) > 0)) :?>
+            strcmp(getenv('ADMIN_USER'), $_SESSION['username']) == 0)) :?>
                 <form action=?page=delete method="POST">
                     <input
                     type="hidden"
@@ -45,10 +50,24 @@
     </div>
 <?php endforeach;?>
     <p>
-        <?php if ($page_num>1) :?>
-            <a href="?page_num=<?php echo $page_num-1; ?>"><?php echo $page_num-1; ?>ページ目へ</a> |
+        <?php if ($page_num>1) :
+            $next_num = $page_num-1;
+            if (strpos($new_url, '?')) {
+                $param = $new_url . '&page_num=' . $next_num;
+            } else {
+                $param = $new_url . '?page_num=' . $next_num;
+            }
+            ?>
+            <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a> |
         <?php endif;?>
-        <?php if ($page_num<$max_page) :?>
-            <a href="?page_num=<?php echo $page_num+1; ?>"><?php echo $page_num+1; ?>ページ目へ</a>
+        <?php if ($page_num<$max_page) :
+            $next_num = $page_num+1;
+            if (strpos($new_url, '?')) {
+                $param = $new_url . '&page_num=' . $next_num;
+            } else {
+                $param = $new_url . '?page_num=' . $next_num;
+            }
+            ?>
+            <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a>
         <?php endif;?>
     </p>
