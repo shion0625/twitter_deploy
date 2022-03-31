@@ -54,6 +54,14 @@ function txtChange() {
 
 function getPostContent() {
     let postText = $("#js-post-content")[0].innerHTML.toString();
+    if(postText == ''){
+      $('#js-post-error-msg').show();
+      console.log("投稿内容が入力されていません。");
+      return;
+    }else {
+      $('#js-post-error-msg').hide();
+      $("#js-post-content")[0].innerHTML = '';
+    }
     postText = htmlentities(changeTag(postText));
     let $map = { postText: postText, send: "postSend", sender: userId };
     $.ajax({
@@ -235,42 +243,44 @@ function htmlentities(str) {
     </div>
     <?php if (!empty($_SESSION["userID"])) :?>
     <div class="popup" id="js-popup">
-    <div class="popup-inner">
-        <div class="close-btn" id="js-close-btn">
-            <i class="fas fa-times"></i>
+        <div class="popup-inner">
+            <div class="close-btn" id="js-close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <button
+            id ="js-post-btn"
+            class="tweet-submit-btn btn"
+            name="send"
+            form="tweet"
+            onclick="getPostContent();">ツイートする</button>
+            <div id="tweet" id="js-tweet-form" class="tweet-form">
+              <p id="js-post-error-msg" class="post-error-msg">投稿が入力されていません。</p>
+                <label for="post-content">投稿を入力して下さい</label>
+                <div id="js-post-content" class="tweet-textarea"  role="textbox"
+                contenteditable="true"
+                aria-multiline="true" aria-required="true" aria-autocomplete="list" spellcheck="auto" dir="auto"
+                name="tweet-input"></div>
+            </div>
+            <p class="tweet-items">
+                    <button type="button" class="tweet-item text-button"
+                    id="js-strong" data-decoration="bold" value="bold">
+                      <i class="fas fa-bold" data-decoration="bold" ></i>
+                    </い>
+                    <button type="button" class="tweet-item text-button"
+                    id="js-italic" data-decoration="italic" value="italic">
+                      <i class="fas fa-italic" data-decoration="italic"></i>
+                    </button>
+                    <button type="button" class="tweet-item text-button"
+                    id="js-underline" data-decoration="underline" value="underline">
+                      <i class="fas fa-underline" data-decoration="underline"></i>
+                    </button>
+                    <!-- <button type="button" class="tweet-item" id="js-link"><i class="fas fa-link"></i></button>
+                    <button type="button" class="tweet-item" id="js-paperclip"><i class="fas fa-paperclip"></i></button>
+                    <button type="button" class="tweet-item" id="js-image"><i class="far fa-image"></i></button> -->
+                    <small style="color:red">文字を入力後、左のボタンを1度押すと太文字などが反応します。</small>
+            </p>
         </div>
-        <button
-        class="tweet-submit-btn btn"
-        name="send"
-        form="tweet"
-        onclick="getPostContent();">ツイートする</button>
-        <div id="tweet" id="js-tweet-form" class="tweet-form">
-            <label for="post-content">投稿を入力して下さい</label>
-            <div id="js-post-content" class="tweet-textarea"  role="textbox"
-            contenteditable="true"
-            aria-multiline="true" aria-required="true" aria-autocomplete="list" spellcheck="auto" dir="auto"
-            name="tweet-input"></div>
-        </div>
-        <p class="tweet-items">
-                <button type="button" class="tweet-item text-button"
-                id="js-strong" data-decoration="bold" value="bold">
-                  <i class="fas fa-bold" data-decoration="bold" ></i>
-                </い>
-                <button type="button" class="tweet-item text-button"
-                id="js-italic" data-decoration="italic" value="italic">
-                  <i class="fas fa-italic" data-decoration="italic"></i>
-                </button>
-                <button type="button" class="tweet-item text-button"
-                id="js-underline" data-decoration="underline" value="underline">
-                  <i class="fas fa-underline" data-decoration="underline"></i>
-                </button>
-                <!-- <button type="button" class="tweet-item" id="js-link"><i class="fas fa-link"></i></button>
-                <button type="button" class="tweet-item" id="js-paperclip"><i class="fas fa-paperclip"></i></button>
-                <button type="button" class="tweet-item" id="js-image"><i class="far fa-image"></i></button> -->
-                <small style="color:red">文字を入力後、左のボタンを1度押すと太文字などが反応します。</small>
-        </p>
-    </div>
-    <div class="black-background" id="js-black-bg"></div>
+        <div class="black-background" id="js-black-bg"></div>
     </div>
     <?php else :?>
     <div class="popup" id="js-popup">
