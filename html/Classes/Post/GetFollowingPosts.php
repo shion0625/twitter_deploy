@@ -38,7 +38,7 @@ class GetFollowingPosts extends Connect
         return $following_users;
     }
 
-    public function getFollowPost()
+    public function getFollowPost(int $start_post)
     {
         parent::__construct();
         $dbh = $this->connectDb();
@@ -57,17 +57,20 @@ class GetFollowingPosts extends Connect
             $whereClause .= " u.email_encode = '".$user['followed_id']."'";
         }
         try {
-            $query = "SELECT u.user_name, t.*, i.image_type, i.image_content
+            $query = 'SELECT u.user_name, t.*, i.image_type, i.image_content
             FROM users AS u INNER JOIN tweet AS t ON u.email_encode = t.user_id
             LEFT OUTER JOIN user_image AS i ON t.user_id = i.user_id
-            ".$whereClause." ORDER BY t.date_time DESC";
+            '.$whereClause.' ORDER BY t.date_time DESC LIMIT :post_num ,15';
             $stmt = $dbh->prepare($query);
+            $stmt->bindValue(':post_num', $start_post, PDO::PARAM_INT);
             $stmt->execute();
             $following_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $count = $stmt -> rowCount();
+            $max_page = ceil(($count+1)/15);
         } catch (PDOException $e) {
             echo $e;
             exit('データベースエラー getFollowPost');
         }
-        return $following_posts;
+        return array($following_posts, $max_page);
     }
 }

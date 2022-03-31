@@ -22,7 +22,7 @@ class GetUserInfo extends Connect
         $this-> user_id= $user_id;
     }
 
-    public function getUserPost()
+    public function getUserPost(int $start_num)
     {
         parent::__construct();
         $dbh = $this->connectDb();
@@ -31,16 +31,19 @@ class GetUserInfo extends Connect
             FROM users AS u
             INNER JOIN tweet AS t ON u.email_encode = t.user_id
             LEFT OUTER JOIN user_image AS i ON t.user_id = i.user_id
-            WHERE t.user_id=:user_id ORDER BY t.date_time DESC";
+            WHERE t.user_id=:user_id ORDER BY t.date_time DESC LIMIT :post_num ,15";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue("user_id", $this->user_id);
+            $stmt->bindValue(':post_num', $start_num, PDO::PARAM_INT);
             $stmt->execute();
             $user_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $count = $stmt -> rowCount();
+            $max_page = ceil(($count+1)/15);
         } catch (PDOException $e) {
             echo $e;
             exit('データベースエラー getUserPost');
         }
-        return $user_posts;
+        return array($user_posts, $max_page);
     }
 
     public function getUserProfile()
