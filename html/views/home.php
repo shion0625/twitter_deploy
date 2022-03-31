@@ -24,45 +24,17 @@ $user_posts = $get_post_db->getHomePosts($start_num);
 const username = <?php echo json_encode($_SESSION['username']);?>;
 const userId = <?php echo json_encode($_SESSION['userID']);?>;
 
-$(document).on("click", ".text-button", async() => {
-    txtChange();
-    await surroundSpan();
-});
-
-function txtChange() {
-    document.querySelectorAll("[type=button][data-decoration]").forEach((x) => {
-        let cnt = 0;
-        x.addEventListener("click", () => {
-            if (cnt == 0) {
-                const decoration = x.dataset["decoration"];
-                const sel = getSelection();
-                if (sel.focusNode !== null) {
-                    const start = sel.getRangeAt(0).startContainer.parentNode;
-                    const end = sel.getRangeAt(0).endContainer.parentNode;
-                    if (
-                        start.closest("#js-post-content") &&
-                        end.closest("#js-post-content")
-                    ) {
-                        decorateSelectedTxt(sel, start, end, decoration);
-                    }
-                    cnt++;
-                }
-            }
-        });
-    });
-}
-
 function getPostContent() {
     let postText = $("#js-post-content")[0].innerHTML.toString();
     if(postText == ''){
       $('#js-post-error-msg').show();
-      console.log("投稿内容が入力されていません。");
       return;
     }else {
       $('#js-post-error-msg').hide();
       $("#js-post-content")[0].innerHTML = '';
     }
     postText = htmlentities(changeTag(postText));
+    console.log(postText);
     let $map = { postText: postText, send: "postSend", sender: userId };
     $.ajax({
             type: "POST",
@@ -82,21 +54,53 @@ function getPostContent() {
         });
 }
 
+$(document).on("click", ".text-button", async() => {
+    txtChange();
+    await surroundSpan();
+});
+
+function txtChange() {
+    document.querySelectorAll("[type=button][data-decoration]").forEach((x) => {
+        let cnt = 0;
+        x.addEventListener("click", () => {
+            if (cnt == 0) {
+                const decoration = x.dataset["decoration"];
+                const sel = getSelection();
+                if (sel.focusNode !== null) {
+                    const start = sel.getRangeAt(0).startContainer.parentNode;
+                    const end = sel.getRangeAt(0).endContainer.parentNode;
+                    if (
+                        start.closest("#js-post-content") &&
+                        end.closest("#js-post-content")
+                    ) {
+                      console.log('hi');
+                        decorateSelectedTxt(sel, start, end, decoration);
+                    }
+                    cnt++;
+                }
+            }
+        });
+    });
+}
+
 function surroundSpan(result) {
     return new Promise((resolve, reject) => {
         let postText = $("#js-post-content");
         let nodeList = postText[0].childNodes;
         nodeList = lineFeed(nodeList);
-        let newNodeList = [];
+        let newNodeList = new Array();
         for (let i = 0; i < nodeList.length; i++) {
             const element = nodeList[i];
-            if (element.tagName == "SPAN" || element.tagName == "B" || element.tagName == "I") {
+            if (element.tagName == "SPAN" || element.tagName == "B" ||
+            element.tagName == "I" || element.tagName == "U") {
                 if (element.innerHTML.length > 1) {
                     newNodeList = decompositionSpan(element, newNodeList);
+                    console.log(element + "1");
                 } else if (element.innerHTML.length == 0) {
                     element.remove();
                 } else {
                     newNodeList.push(element);
+                    console.log(element + "2");
                 }
             } else if (element.tagName == "BR") {
                 newNodeList.push(element);
@@ -104,7 +108,9 @@ function surroundSpan(result) {
                 newNodeList = encloseSpan(element, newNodeList);
             }
         }
+        if(!Array.isArray(newNodeList)) resolve();
         if (newNodeList.length != 0) {
+          console.log(newNodeList.length);
             postText[0].innerHTML = "";
             for (let i = newNodeList.length; i >= 0; i--) {
                 postText.prepend(newNodeList[i]);
@@ -115,7 +121,7 @@ function surroundSpan(result) {
 }
 
 function lineFeed(nodeList) {
-    let newNodeList = [];
+    let newNodeList = new Array();
     const returnElement = document.createElement("br");
     for (let node of nodeList) {
         if (node.tagName == "DIV") {
@@ -132,6 +138,7 @@ function decompositionSpan(element, newNodeList) {
     let className = element.className.trim();
     if (element.tagName == 'B') className = "bold";
     if (element.tagName == 'I') className = "italic";
+    if (element.tagName == 'U') className = "underline";
     const classNameList = className.split(" ").filter(Boolean);
     const charList = element.innerHTML.split("");
     for (let i in charList) {
@@ -173,9 +180,10 @@ function decorateSelectedTxt(sel, start, end, decoration) {
             let startClassName = start.className.trim();
             if (start.tagName == 'B') startClassName = "bold";
             if (start.tagName == 'I') startClassName = "italic";
+            if (start.tagName == 'U') startClassName = "underline";
             const classNameList = startClassName.split(" ").filter(Boolean);
             const charList = txtElem.split("");
-            const elmList = [];
+            const elmList = new Array();
             for (let i in charList) {
                 let newElement = document.createElement("span");
                 newElement.innerHTML = charList[i];
@@ -213,17 +221,13 @@ function changeTag(str) {
     return String(str)
         .replace(/<span/g, "Š;")
         .replace(/<\/span>/g, "/Š;")
-        .replace(/class="/g, "č;");
-}
-
-function returnHtmlentities(str) {
-    return (
-        String(str)
-        .replace(/&lt;/g, "<")
-        // .replace(/&amp;/g,"&")
-        .replace(/&gt;/g, ">")
-    );
-    // .replace(/&quot;/g,"\"")
+        .replace(/class="/g, "č;")
+        .replace(/<b>/g, "ß;")
+        .replace(/<\/b>/g, "/ß;")
+        .replace(/<u>/g, "ü;")
+        .replace(/<\/u>/g, "/ü;")
+        .replace(/<i>/g, "į;")
+        .replace(/<\/i>/g, "/į;");
 }
 
 function htmlentities(str) {
@@ -259,7 +263,9 @@ function htmlentities(str) {
                 <div id="js-post-content" class="tweet-textarea"  role="textbox"
                 contenteditable="true"
                 aria-multiline="true" aria-required="true" aria-autocomplete="list" spellcheck="auto" dir="auto"
-                name="tweet-input"></div>
+                name="tweet-input">
+                <span></span>
+              </div>
             </div>
             <p class="tweet-items">
                     <button type="button" class="tweet-item text-button"

@@ -41,8 +41,7 @@ $image_content;
 if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInfo') {
     if (!empty($_POST) && $_POST['send'] == 'postSend') {
         $sender_id = (string)$_POST['sender'];
-        $post_text = (string)$_POST['postText'];
-        echo $post_text;
+        $post_text = fun_h((string)$_POST['postText']);
         $insert_post_db = new InsertPost($sender_id, $post_text);
         $insert_post_db->checkInsertTweet();
     }
