@@ -24,6 +24,35 @@ $user_posts = $get_post_db->getHomePosts($start_num);
 const username = <?php echo json_encode($_SESSION['username']);?>;
 const userId = <?php echo json_encode($_SESSION['userID']);?>;
 
+function getPostContent() {
+    let postText = $("#js-post-content")[0].innerHTML.toString();
+    if(postText == ''){
+      $('#js-post-error-msg').show();
+      return;
+    }else {
+      $('#js-post-error-msg').hide();
+      $("#js-post-content")[0].innerHTML = '';
+    }
+    console.log(postText);
+    let $map = { postText: postText, send: "postSend", sender: userId };
+    $.ajax({
+            type: "POST",
+            url: "./views/component/AjaxPosts.php",
+            data: $map,
+            dataType: "text",
+        })
+        .done(function(data) {
+            socketSend();
+        })
+        .fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
+            alert("getPostContent\nerror:\n" + msg.responseText);
+            console.log(msg);
+            console.log(XMLHttpRequest.status);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+}
+
 $(document).on("click", ".text-button", async() => {
     txtChange();
     await surroundSpan();
@@ -52,37 +81,16 @@ function txtChange() {
     });
 }
 
-function getPostContent() {
-    let postText = $("#js-post-content")[0].innerHTML.toString();
-    postText = htmlentities(changeTag(postText));
-    let $map = { postText: postText, send: "postSend", sender: userId };
-    $.ajax({
-            type: "POST",
-            url: "./views/component/AjaxPosts.php",
-            data: $map,
-            dataType: "text",
-        })
-        .done(function(data) {
-            socketSend();
-        })
-        .fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
-            alert("getPostContent\nerror:\n" + msg.responseText);
-            console.log(msg);
-            console.log(XMLHttpRequest.status);
-            console.log(textStatus);
-            console.log(errorThrown);
-        });
-}
-
 function surroundSpan(result) {
     return new Promise((resolve, reject) => {
         let postText = $("#js-post-content");
         let nodeList = postText[0].childNodes;
         nodeList = lineFeed(nodeList);
-        let newNodeList = [];
+        let newNodeList = new Array();
         for (let i = 0; i < nodeList.length; i++) {
             const element = nodeList[i];
-            if (element.tagName == "SPAN" || element.tagName == "B" || element.tagName == "I") {
+            if (element.tagName == "SPAN" || element.tagName == "B" ||
+            element.tagName == "I" || element.tagName == "U") {
                 if (element.innerHTML.length > 1) {
                     newNodeList = decompositionSpan(element, newNodeList);
                 } else if (element.innerHTML.length == 0) {
@@ -96,6 +104,7 @@ function surroundSpan(result) {
                 newNodeList = encloseSpan(element, newNodeList);
             }
         }
+        if(!Array.isArray(newNodeList)) resolve();
         if (newNodeList.length != 0) {
             postText[0].innerHTML = "";
             for (let i = newNodeList.length; i >= 0; i--) {
@@ -107,7 +116,7 @@ function surroundSpan(result) {
 }
 
 function lineFeed(nodeList) {
-    let newNodeList = [];
+    let newNodeList = new Array();
     const returnElement = document.createElement("br");
     for (let node of nodeList) {
         if (node.tagName == "DIV") {
@@ -124,6 +133,7 @@ function decompositionSpan(element, newNodeList) {
     let className = element.className.trim();
     if (element.tagName == 'B') className = "bold";
     if (element.tagName == 'I') className = "italic";
+    if (element.tagName == 'U') className = "underline";
     const classNameList = className.split(" ").filter(Boolean);
     const charList = element.innerHTML.split("");
     for (let i in charList) {
@@ -165,9 +175,10 @@ function decorateSelectedTxt(sel, start, end, decoration) {
             let startClassName = start.className.trim();
             if (start.tagName == 'B') startClassName = "bold";
             if (start.tagName == 'I') startClassName = "italic";
+            if (start.tagName == 'U') startClassName = "underline";
             const classNameList = startClassName.split(" ").filter(Boolean);
             const charList = txtElem.split("");
-            const elmList = [];
+            const elmList = new Array();
             for (let i in charList) {
                 let newElement = document.createElement("span");
                 newElement.innerHTML = charList[i];
@@ -200,31 +211,6 @@ function decorateSelectedTxt(sel, start, end, decoration) {
         parent.insertBefore(x, end);
     });
 }
-
-function changeTag(str) {
-    return String(str)
-        .replace(/<span/g, "Š;")
-        .replace(/<\/span>/g, "/Š;")
-        .replace(/class="/g, "č;");
-}
-
-function returnHtmlentities(str) {
-    return (
-        String(str)
-        .replace(/&lt;/g, "<")
-        // .replace(/&amp;/g,"&")
-        .replace(/&gt;/g, ">")
-    );
-    // .replace(/&quot;/g,"\"")
-}
-
-function htmlentities(str) {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-}
 </script>
 
 <script type="text/javascript"src="../assets/js/websocket.js"></script>
@@ -235,42 +221,45 @@ function htmlentities(str) {
     </div>
     <?php if (!empty($_SESSION["userID"])) :?>
     <div class="popup" id="js-popup">
-    <div class="popup-inner">
-        <div class="close-btn" id="js-close-btn">
-            <i class="fas fa-times"></i>
+        <div class="popup-inner">
+            <div class="close-btn" id="js-close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <button
+            id ="js-post-btn"
+            class="tweet-submit-btn btn"
+            name="send"
+            form="tweet"
+            onclick="getPostContent();">ツイートする</button>
+            <div id="tweet" id="js-tweet-form" class="tweet-form">
+                <p id="js-post-error-msg" class="post-error-msg">投稿が入力されていません。</p>
+                <label for="post-content">投稿を入力して下さい</label>
+                <div id="js-post-content" class="tweet-textarea"  role="textbox"
+                contenteditable="true"
+                aria-multiline="true" aria-required="true" spellcheck="auto"
+                name="tweet-input">
+                </div>
+            </div>
+            <p class="tweet-items">
+                    <button type="button" class="tweet-item text-button"
+                    id="js-strong" data-decoration="bold" value="bold">
+                        <i class="fas fa-bold" data-decoration="bold" ></i>
+                    </い>
+                    <button type="button" class="tweet-item text-button"
+                    id="js-italic" data-decoration="italic" value="italic">
+                        <i class="fas fa-italic" data-decoration="italic"></i>
+                    </button>
+                    <button type="button" class="tweet-item text-button"
+                    id="js-underline" data-decoration="underline" value="underline">
+                        <i class="fas fa-underline" data-decoration="underline"></i>
+                    </button>
+                    <!-- <button type="button" class="tweet-item" id="js-link"><i class="fas fa-link"></i></button>
+                    <button type="button" class="tweet-item" id="js-paperclip"><i class="fas fa-paperclip"></i></button>
+                    <button type="button" class="tweet-item" id="js-image"><i class="far fa-image"></i></button> -->
+                    <small style="color:red">文字を入力後、左のボタンを1度押すと太文字などが反応します。</small>
+            </p>
         </div>
-        <button
-        class="tweet-submit-btn btn"
-        name="send"
-        form="tweet"
-        onclick="getPostContent();">ツイートする</button>
-        <div id="tweet" id="js-tweet-form" class="tweet-form">
-            <label for="post-content">投稿を入力して下さい</label>
-            <div id="js-post-content" class="tweet-textarea"  role="textbox"
-            contenteditable="true"
-            aria-multiline="true" aria-required="true" aria-autocomplete="list" spellcheck="auto" dir="auto"
-            name="tweet-input"></div>
-        </div>
-        <p class="tweet-items">
-                <button type="button" class="tweet-item text-button"
-                id="js-strong" data-decoration="bold" value="bold">
-                  <i class="fas fa-bold" data-decoration="bold" ></i>
-                </い>
-                <button type="button" class="tweet-item text-button"
-                id="js-italic" data-decoration="italic" value="italic">
-                  <i class="fas fa-italic" data-decoration="italic"></i>
-                </button>
-                <button type="button" class="tweet-item text-button"
-                id="js-underline" data-decoration="underline" value="underline">
-                  <i class="fas fa-underline" data-decoration="underline"></i>
-                </button>
-                <!-- <button type="button" class="tweet-item" id="js-link"><i class="fas fa-link"></i></button>
-                <button type="button" class="tweet-item" id="js-paperclip"><i class="fas fa-paperclip"></i></button>
-                <button type="button" class="tweet-item" id="js-image"><i class="far fa-image"></i></button> -->
-                <small style="color:red">文字を入力後、左のボタンを1度押すと太文字などが反応します。</small>
-        </p>
-    </div>
-    <div class="black-background" id="js-black-bg"></div>
+        <div class="black-background" id="js-black-bg"></div>
     </div>
     <?php else :?>
     <div class="popup" id="js-popup">

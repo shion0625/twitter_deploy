@@ -295,6 +295,10 @@ body .home-all-contents .popup .popup-inner {
   background-color: #fff;
   z-index: 2;
 }
+body .home-all-contents .popup .popup-inner .tweet-form .post-error-msg {
+  color: red;
+  display: none;
+}
 body .home-all-contents .popup .popup-inner .tweet-form .tweet-textarea {
   width: 100%;
   height: 90%;
