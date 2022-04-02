@@ -33,7 +33,6 @@ function getPostContent() {
       $('#js-post-error-msg').hide();
       $("#js-post-content")[0].innerHTML = '';
     }
-    postText = htmlentities(changeTag(postText));
     console.log(postText);
     let $map = { postText: postText, send: "postSend", sender: userId };
     $.ajax({
@@ -73,7 +72,6 @@ function txtChange() {
                         start.closest("#js-post-content") &&
                         end.closest("#js-post-content")
                     ) {
-                      console.log('hi');
                         decorateSelectedTxt(sel, start, end, decoration);
                     }
                     cnt++;
@@ -95,12 +93,10 @@ function surroundSpan(result) {
             element.tagName == "I" || element.tagName == "U") {
                 if (element.innerHTML.length > 1) {
                     newNodeList = decompositionSpan(element, newNodeList);
-                    console.log(element + "1");
                 } else if (element.innerHTML.length == 0) {
                     element.remove();
                 } else {
                     newNodeList.push(element);
-                    console.log(element + "2");
                 }
             } else if (element.tagName == "BR") {
                 newNodeList.push(element);
@@ -110,7 +106,6 @@ function surroundSpan(result) {
         }
         if(!Array.isArray(newNodeList)) resolve();
         if (newNodeList.length != 0) {
-          console.log(newNodeList.length);
             postText[0].innerHTML = "";
             for (let i = newNodeList.length; i >= 0; i--) {
                 postText.prepend(newNodeList[i]);
@@ -216,27 +211,6 @@ function decorateSelectedTxt(sel, start, end, decoration) {
         parent.insertBefore(x, end);
     });
 }
-
-function changeTag(str) {
-    return String(str)
-        .replace(/<span/g, "Š;")
-        .replace(/<\/span>/g, "/Š;")
-        .replace(/class="/g, "č;")
-        .replace(/<b>/g, "ß;")
-        .replace(/<\/b>/g, "/ß;")
-        .replace(/<u>/g, "ü;")
-        .replace(/<\/u>/g, "/ü;")
-        .replace(/<i>/g, "į;")
-        .replace(/<\/i>/g, "/į;");
-}
-
-function htmlentities(str) {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-}
 </script>
 
 <script type="text/javascript"src="../assets/js/websocket.js"></script>
@@ -258,27 +232,26 @@ function htmlentities(str) {
             form="tweet"
             onclick="getPostContent();">ツイートする</button>
             <div id="tweet" id="js-tweet-form" class="tweet-form">
-              <p id="js-post-error-msg" class="post-error-msg">投稿が入力されていません。</p>
+                <p id="js-post-error-msg" class="post-error-msg">投稿が入力されていません。</p>
                 <label for="post-content">投稿を入力して下さい</label>
                 <div id="js-post-content" class="tweet-textarea"  role="textbox"
                 contenteditable="true"
-                aria-multiline="true" aria-required="true" aria-autocomplete="list" spellcheck="auto" dir="auto"
+                aria-multiline="true" aria-required="true" spellcheck="auto"
                 name="tweet-input">
-                <span></span>
-              </div>
+                </div>
             </div>
             <p class="tweet-items">
                     <button type="button" class="tweet-item text-button"
                     id="js-strong" data-decoration="bold" value="bold">
-                      <i class="fas fa-bold" data-decoration="bold" ></i>
+                        <i class="fas fa-bold" data-decoration="bold" ></i>
                     </い>
                     <button type="button" class="tweet-item text-button"
                     id="js-italic" data-decoration="italic" value="italic">
-                      <i class="fas fa-italic" data-decoration="italic"></i>
+                        <i class="fas fa-italic" data-decoration="italic"></i>
                     </button>
                     <button type="button" class="tweet-item text-button"
                     id="js-underline" data-decoration="underline" value="underline">
-                      <i class="fas fa-underline" data-decoration="underline"></i>
+                        <i class="fas fa-underline" data-decoration="underline"></i>
                     </button>
                     <!-- <button type="button" class="tweet-item" id="js-link"><i class="fas fa-link"></i></button>
                     <button type="button" class="tweet-item" id="js-paperclip"><i class="fas fa-paperclip"></i></button>

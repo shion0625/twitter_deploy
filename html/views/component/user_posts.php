@@ -31,7 +31,7 @@ $new_url = preg_replace($replacement, '', $url);
             <?php endif;?>
         </p>
         <p class="tweet-content">
-            <?php print(fun_h($post['post_text']))?>
+            <?php print(htmlspecialchars_decode($post['post_text']))?>
         </p>
         <p class="appendix">
             <span><?php print(fun_h($post['date_time']))?></span>
