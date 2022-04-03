@@ -15,11 +15,10 @@ $user_id;
 $date_time;
 $image_type;
 $image_content;
-
 if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInfo') {
-    if (!empty($_POST) && $_POST['send'] == 'postSend') {
+    if ($_POST['send'] == 'postSend') {
         $sender_id = (string)$_POST['sender'];
-        $post_text = fun_h((string)$_POST['postText']);
+        $post_text = $_POST['postHtml'];
         $insert_post_db = new InsertPost($sender_id, $post_text);
         $insert_post_db->checkInsertTweet();
     }
@@ -28,7 +27,7 @@ if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInf
     $user_name = (string)$user_post['user_name'];
     $post_id = (string)$user_post["post_id"];
     $user_id = (string)$user_post["user_id"];
-    $post_text = htmlspecialchars_decode((string)$user_post["post_text"]);
+    $post_text = (string)$user_post["post_text"];
     $date_time = (string)$user_post["date_time"];
     $image_type = (string)$user_post["image_type"] || null;
     $image_content = (string)base64_encode($user_post["image_content"])  || null;
@@ -52,9 +51,9 @@ if (!empty($_POST) && $_POST['send'] == 'postInfo') {
                     </span>
                 </a>
             </p>
-            <p class='tweet-content'>
+            <div class='tweet-content'>
                 {$post_text}
-            </p>
+            </div>
                 <p class='appendix'>
                     <span>{$date_time}</span>
                 </p>
@@ -71,9 +70,9 @@ if (!empty($_POST) && $_POST['send'] == 'postInfo') {
                     </span>
                 </a>
             </p>
-            <p class='tweet-content'>
+            <div class='tweet-content'>
                 {$post_text}
-            </p>
+            </div>
             <p class='appendix'>
                 <span>{$date_time}</span>
             </p>

@@ -278,12 +278,13 @@ body {
                     display: block;
                     .tweet-username {
                         position: absolute;
-                        font-size: 150%;
+                        font-size: 250%;
                         top: 30%;
                         color: #3d3d3d;
                     }
                 }
             }
+            .ql-editor {}
         }
     }
     /////////////////////////////////////////////////////
@@ -304,8 +305,8 @@ body {
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
-                width: 50%;
-                max-width: 500px;
+                width: 75%;
+                max-width: 600px;
                 padding: 40px;
                 background-color: #fff;
                 z-index: 2;
@@ -545,4 +546,8 @@ body {
     // .user-profile-all-contents {
     //     // .user-profile {}
     // }
+}
+
+#editor {
+    height: 100px;
 }

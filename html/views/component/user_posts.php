@@ -30,9 +30,9 @@ $new_url = preg_replace($replacement, '', $url);
                 </a>
             <?php endif;?>
         </p>
-        <p class="tweet-content">
-            <?php print(htmlspecialchars_decode($post['post_text']))?>
-        </p>
+        <div class="tweet-content">
+            <?php print($post['post_text'])?>
+        </div>
         <p class="appendix">
             <span><?php print(fun_h($post['date_time']))?></span>
             <?php if (isset($_SESSION['username']) &&
