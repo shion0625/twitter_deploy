@@ -5,6 +5,15 @@
     box-sizing: inherit;
 }
 
+$sizes: xl,lg,md,sm,xs;
+$breakpoint-up: (
+    'xs':'screen and (min-width: 321px)',
+    'sm': 'screen and (min-width: 376px)',
+    'md': 'screen and (min-width: 501px)',
+    'lg': 'screen and (min-width: 961px)',
+    'xl': 'screen and (min-width: 1201px)',
+    ) !default;
+
 html {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -31,7 +40,7 @@ body {
         line-height: 1.5;
         position: relative;
         display: inline-block;
-        padding: 1rem 4rem;
+        padding: 0.5rem 3rem;
         cursor: pointer;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -306,8 +315,8 @@ body {
                 top: 50%;
                 transform: translate(-50%, -50%);
                 width: 75%;
-                max-width: 600px;
-                padding: 40px;
+                max-width: 60rem;
+                padding: 5rem;
                 background-color: #fff;
                 z-index: 2;
                 .tweet-form {
@@ -360,8 +369,8 @@ body {
                 }
                 .tweet-submit-btn {
                     position: absolute;
-                    right: 10;
-                    top: 5;
+                    right: 1rem;
+                    top: 0.6rem;
                     color: #fff;
                     background-color: rgb(61, 175, 228);
                     border-radius: 10vh;

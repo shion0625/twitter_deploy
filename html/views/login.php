@@ -28,47 +28,35 @@ if (!empty($_POST) && isset($_POST['send'])) {
 ?>
 
 <div class="login-all-contents">
-    <h2>ログイン</h2>
-    <div class="login-box">
+  <h2>ログイン</h2>
+  <div class="login-box">
     <div class="sns-contents">
-        <h3>SNSアカウントでログイン</h3>
+      <h3>SNSアカウントでログイン</h3>
     </div>
     <div class="login-contents">
-        <?php if (isset($message)) :?>
-            <div class="message"><?php echo $message;?></div>
-        <?php endif;?>
+      <?php if (isset($message)) :?>
+      <div class="message"><?php echo $message;?></div>
+      <?php endif;?>
 
-        <form method=POST>
+      <form method=POST>
         <?php if (isset($message_email)) :?>
-            <div class="message"><?php echo $message_email;?></div>
+        <div class="message"><?php echo $message_email;?></div>
         <?php endif;?>
-            <input
-            id="input_email"
-            class="login-form-input-email"
-            name="email"
-            type="text"
-            placeholder="メールアドレスを入力して下さい">
-            <div id="pwBox">
-            <?php if (isset($message_pw)) :?>
-                <div class="message"><?php echo $message_pw;?></div>
-            <?php endif;?>
-            <input
-            id="input_password"
-            class="login-form-input-pw"
-            name="password"
-            type="password"
+        <input id="input_email" class="login-form-input-email" name="email" type="text" placeholder="メールアドレスを入力して下さい">
+        <div id="pwBox">
+          <?php if (isset($message_pw)) :?>
+          <div class="message"><?php echo $message_pw;?></div>
+          <?php endif;?>
+          <input id="input_password" class="login-form-input-pw" name="password" type="password"
             placeholder="パスワードを入力して下さい">
-            <i id="eye-icon"class="fas fa-eye"></i>
-            </div>
-            <!-- <div>
+          <i id="eye-icon" class="fas fa-eye"></i>
+        </div>
+        <!-- <div>
             <input id="save" type="checkbox" name="save" value="on">
             <label for="save">次回から自動でログインする</label>
             </div> -->
-            <button
-            name="send"
-            class="login-btn">ログイン</button>
-    </form>
+        <button name="send" class="login-btn">ログイン</button>
+      </form>
     </div>
+  </div>
 </div>
-</div>
-
