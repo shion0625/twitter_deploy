@@ -27,10 +27,11 @@ $(document).on('click', '#js-follow-btn', (e) => {
     });
 });
 
-function alert_animation() {
-    $('#msgAlert').fadeIn(2000);
+function alert_animation(txt) {
+    $('#js-msg-alert').text(txt);
+    $('#js-msg-alert').fadeIn(2000);
     setInterval(() => {
-        $('#msgAlert').fadeOut(2000);
+        $('#js-msg-alert').fadeOut(2000);
     }, 7000);
 };
 

@@ -35,12 +35,8 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../assets/css/style.min.css" rel="stylesheet">
-  <!-- <link href="../assets/css/style.css" rel="stylesheet" > -->
-  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-  <!-- Theme included stylesheets -->
-  <link href="../assets/css/quill.core.min.css" rel="stylesheet">
-  <link href="../assets/css/quill.snow.min.css" rel="stylesheet">
 
+  <script src="https://kit.fontawesome.com/f5a505d08a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="../assets/js/index.js"></script>
@@ -50,36 +46,26 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
 <body>
   <header>
     <div id="header">
-      <?php if (!empty($_SESSION['messageAlert'])) :?>
-      <div class="msg-alert" id="msgAlert">
-        <script type="text/javascript">
-        alert_animation();
-        </script>
-        <?php echo $_SESSION['messageAlert'];
-            $_SESSION['messageAlert'] = '';
-        ?>
+      <div class="msg-alert" id="js-msg-alert">
       </div>
-      <?php endif; ?>
       <div class="header-logo">
         <a href="/">
           <h1>twitter</h1>
         </a>
       </div>
-      <div class="header-nav">
-        <nav>
-          <div class="header-item">
-            <?php if (isset($_SESSION['userID'])) :?>
-            <a href="?page=your_timeline">あなたのタイムライン</a>
-            <?php endif;?>
-          </div>
+      <nav>
+        <div class="header-item">
+          <?php if (isset($_SESSION['userID'])) :?>
+          <a href="?page=your_timeline">あなたのタイムライン</a>
+          <?php endif;?>
+        </div>
 
-          <div class="header-item">
-            <?php if (isset($_SESSION['userID'])) :?>
-            <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
-            <?php endif;?>
-          </div>
-        </nav>
-      </div>
+        <div class="header-item">
+          <?php if (isset($_SESSION['userID'])) :?>
+          <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
+          <?php endif;?>
+        </div>
+      </nav>
       <?php if (isset($_SESSION['userID'])) :?>
       <div>
         <p>
@@ -92,7 +78,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
       <?php endif;?>
       <div class="header-signup">
         <?php if (!isset($_SESSION['userID'])) :?>
-        <a href="?page=signUp" class="btn btn-flat"><span>会員登録</span></a>
+        <a href="?page=signUp" class="btn120 btn-flat"><span>会員登録</span></a>
         <?php endif; ?>
       </div>
       <div class="header-right">
@@ -116,7 +102,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
             </div>
             <p>メニュー</p>
           </div>
-          <nav class="nav-sp">
+          <!-- <nav class="nav-sp">
             <ul>
               <li>
                 <a href="?page=profiles">あなたのタイムライン</a>
@@ -128,7 +114,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
                 <a href="#">あなたのプロフィール</a>
               </li>
             </ul>
-          </nav>
+          </nav> -->
         </div>
       </div>
     </div>

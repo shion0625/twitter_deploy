@@ -23,14 +23,13 @@ $user_posts = $get_post_db->getHomePosts($start_num);
 'use strict';
 const username = <?php echo json_encode($_SESSION['username']);?>;
 const userId = <?php echo json_encode($_SESSION['userID']);?>;
-console.log($('#js-get-post-content'));
 </script>
 <script type="text/javascript" src="../assets/js/websocket.js"></script>
 
 <div id="js-test-contents"></div>
 <div class='home-all-contents'>
   <div class=tweet-btn>
-    <button id="js-show-popup">ツイートする</button>
+    <button id="js-show-popup" class="tweet-submit-btn btn120">ツイートする</button>
   </div>
   <?php if (!empty($_SESSION["userID"])) :?>
   <div class="popup" id="js-popup">
@@ -38,10 +37,11 @@ console.log($('#js-get-post-content'));
       <div class="close-btn" id="js-close-btn">
         <i class="fas fa-times"></i>
       </div>
-      <button id="js-post-btn" class="tweet-submit-btn btn" name="send" form="tweet"
-        onclick="getPostContent();">ツイートする</button>
+      <div class="post-btn-container">
+        <button id="js-post-btn" class="tweet-btn" name="send" form="tweet" onclick="getPostContent();"></button>
+      </div>
       <div id="editor"></div>
-      <input id="js-get-post-content" type="hidden" value="無">
+      <input id="js-get-post-content" type="hidden" value="">
     </div>
     <div class="black-background" id="js-black-bg"></div>
   </div>

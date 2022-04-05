@@ -78,14 +78,13 @@ function followUser() {
     data: $map,
     dataType: 'json'
   }).done(function(data) {
-    alert("successful: ");
-    console.log(data);
     $('#js-follow')[0].textContent = data['follow'];
     $('#js-follower')[0].textContent = data['follower'];
     if (data['status']) {
-      $('#js-submit-btn').text("フォロー中");
-    } else {
       $('#js-submit-btn').text("フォロー");
+    } else {
+      $('#js-submit-btn').text("フォロー中");
+
     }
   }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
     alert("followUser\n error:\n  " + msg.responseText);
@@ -99,15 +98,19 @@ function followUser() {
 <div class="user-profile-all-contents">
   <div class="user-profile">
     <div class="profile-image">
-      <?php if ($is_exit_image) :?>
-      <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>" width="100px" height="auto">
+      <?php if ($is_exit_image) :?> <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
+        width="100px" height="auto">
       <?php else :?>
-      <p>プロフィールの画像を登録してください。</p>
+      <p> プロフィールの画像を登録してください。 </p>
       <?php endif;?>
     </div>
-    <p><?php echo $user_profile['user_name']?></p>
-    <p> フォロー : <span id="js-follow"> <?php echo $follow_num?></span></p>
-    <p>フォロワー : <span id="js-follower"> <?php echo $follower_num?></span></p>
+    <p>
+      <?php echo $user_profile['user_name']?> </p>
+    <p> フォロー:
+      <span id="js-follow">
+        <?php echo $follow_num?> </span>
+    </p>
+    <p> フォロワー: <span id="js-follower"> <?php echo $follower_num?> </span> </p>
     <?php if (!$is_yourself) :?>
     <form action="#" method="post">
       <input type="hidden" id="js-current-user-id" value="<?= $current_user_id ?>">
@@ -118,34 +121,33 @@ function followUser() {
     </form>
     <?php endif;?>
   </div>
-
   <?php if ($is_yourself) :?>
   <div class="setting-profile-contents">
     <form method="post" enctype="multipart/form-data">
       <div class="form-image">
         <?php if (isset($result['image']) && $result['image'] === 'type') :?>
-        <p>*写真は「.gif」、「.jpg」、「.png」の画像を指定してください</p>
+        <p> * 写真は「.gif」、「.jpg」、「.png」 の画像を指定してください</p>
         <?php endif; ?>
-        <label>画像を選択:</label>
+        <label> 画像を選択:</label>
         <input type="file" name="image">
       </div>
       <div class="form-self-introduction">
-        <label for="self-intro">自己紹介:</label>
+        <label for="self-intro"> 自己紹介:</label>
         <input type="text" id="self-intro" name="self-intro" maxlength="30px" value="こんにちは" size="32px">
       </div>
       <div class="birthday">
-        <label for="birthday">誕生日:</label>
+        <label for="birthday"> 誕生日:</label>
         <input type="date" id="birthday" value="" name="birthday">
       </div>
-      <button id="submit-btn" type="submit" class="btn">保存</button>
+      <button id="submit-btn" type="submit" class="btn"> 保存
+      </button>
     </form>
   </div>
   <?php endif;?>
 </div>
-
-<div class=user-tweets-contents>
+<div class="user-tweets-contents">
   <?php if (empty($user_posts)) :
-            echo "あなたはまだ投稿していません。";?>
+      echo "あなたはまだ投稿していません。";?>
   <?php else :?>
   <div id="js-posts" class="user-posts">
     <?php include(__DIR__ . '/component/user_posts.php')?>

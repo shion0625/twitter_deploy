@@ -35,9 +35,17 @@ $new_url = preg_replace($replacement, '', $url);
     <?php if (isset($_SESSION['username']) &&
             ($post['user_name'] == $_SESSION['username'] ||
             strcmp(getenv('ADMIN_USER'), $_SESSION['username']) == 0)) :?>
-  <form action=?page=delete method="POST">
-    <input type="hidden" name="post_id" value="<?php print(fun_h($post['post_id']));?>">
-    <button>削除</button>
+  <form action='?page=delete' method="POST">
+    <div class="dlt-btn">
+      <div class="dlt-btn-back">
+        <p>本当に投稿を削除していいですか>?</p>
+        <button class="dlt-yes">Yes</button>
+        <button class="dlt-no" type="button">No</button>
+        <input type="hidden" name="post_id" value="<?php print(fun_h($post['post_id']));?>">
+        <input type="hidden" name="location_url" value="<?php print($url);?>">
+      </div>
+      <div class="dlt-btn-front">削除</div>
+    </div>
   </form>
   <?php endif;?>
   </p>
