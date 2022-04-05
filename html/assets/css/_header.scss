@@ -1,0 +1,193 @@
+@use "_responsive.scss" as m;
+
+header {
+        width: 100%;
+        #header {
+            height: 6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            // box-shadow: 0rem 0.2rem 0.5rem 0rem rgb(0 0 0 / 10%);
+            .header-logo {
+                h1 {
+                    color: blue;
+                    font-size: 3.2rem;
+                }
+                margin-right: 3%;
+            }
+            nav {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .header-item {
+                    font-size: 2rem;
+                    margin-right: 0.5rem;
+                }
+            }
+            // 会員登録ボタンのデコレーション
+            .header-signup {
+                margin: 0.5rem 1rem 0.5rem 0rem;
+                height: 94%;
+                a.btn {
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                    line-height: 1.5;
+                    position: relative;
+                    display: inline-block;
+                    padding: 1rem 4rem;
+                    cursor: pointer;
+                    user-select: none;
+                    transition: all 0.3s;
+                    text-align: center;
+                    vertical-align: middle;
+                    text-decoration: none;
+                    letter-spacing: 0.1rem;
+                    border-radius: 0.5rem;
+                }
+                a.btn-flat {
+                    overflow: hidden;
+                    padding: 1.5rem 6rem;
+                    color: #fff;
+                    border-radius: 0;
+                    background: #000;
+                }
+                a.btn-flat span {
+                    position: relative;
+                    z-index: 1;
+                }
+                a.btn-flat:before {
+                    position: absolute;
+                    top: 0;
+                    left: calc(-150% + 5rem);
+                    width: 150%;
+                    height: 500%;
+                    content: '';
+                    -webkit-transition: all .5s ease-in-out;
+                    transition: all .5s ease-in-out;
+                    -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+                    transform: rotate(45deg) translateX(0) translateY(0);
+                    background: #64a1e7;
+                }
+                a.btn-flat:after {
+                    position: absolute;
+                    top: -400%;
+                    right: calc(-150% + 5rem);
+                    width: 150%;
+                    height: 500%;
+                    content: '';
+                    -webkit-transition: all .5s ease-in-out;
+                    transition: all .5s ease-in-out;
+                    -webkit-transform: rotate(45deg) translateX(0) translateY(0);
+                    transform: rotate(45deg) translateX(0) translateY(0);
+                    background: #64a1e7;
+                }
+                a.btn-flat:hover:before {
+                    -webkit-transform: rotate(45deg) translateX(0) translateY(-50%);
+                    transform: rotate(45deg) translateX(0) translateY(-50%);
+                }
+                a.btn-flat:hover:after {
+                    -webkit-transform: rotate(45deg) translateX(0) translateY(50%);
+                    transform: rotate(45deg) translateX(0) translateY(50%);
+                }
+            }
+            .header-right {
+                display: flex;
+                height: 6rem;
+                // ログインボタン
+                .header-login {
+                    margin: 0 2rem 0 0;
+                    text-align: center;
+                    a {
+                        background-color: rgb(61, 175, 228);
+                        width: 6rem;
+                        height: 6rem;
+                        border-radius: 50%;
+                        display: block;
+                        color: black;
+                        text-decoration: none;
+                        .fas {
+                            font-size: 2.4rem;
+                            margin-top: 1.2rem;
+                        }
+                        p {
+                            font-size: 1rem;
+                            margin: 0.3rem 0 0 0;
+                        }
+                    }
+                }
+                .header-menu {
+                    margin:  0;
+                    height: 5rem;
+                    .menu-bar {
+                        p {
+                            margin: 0;
+                        }
+                        .hamburger-menu {
+                            display: flex;
+                            align-items: center;
+                            width: 3.2rem;
+                            height: 3.2rem;
+                            cursor: pointer;
+                            z-index: 10;
+                            margin: 0 auto;
+                            .hamburger-menu__line {
+                                display: block;
+                                width: 100%;
+                                height: 0.4rem;
+                                border-radius: 0.4rem;
+                                background-color: #000;
+                                position: relative;
+                                transition: all 0.5s;
+                            }
+                            .hamburger-menu__line::before,
+                            .hamburger-menu__line::after {
+                                content: '';
+                                display: block;
+                                width: 100%;
+                                height: 0.4rem;
+                                border-radius: 0.4rem;
+                                background-color: black;
+                                position: absolute;
+                                transition: all 0.5s;
+                            }
+                            .hamburger-menu__line::before {
+                                transform: translateY(-1.2rem);
+                            }
+                            .hamburger-menu__line::after {
+                                transform: translateY(1.2rem);
+                            }
+                        }
+                        .hamburger-menu.open .hamburger-menu__line {
+                            background-color: transparent;
+                        }
+                        .hamburger-menu.open .hamburger-menu__line::before {
+                            transform: rotate(45deg);
+                        }
+                        .hamburger-menu.open .hamburger-menu__line::after {
+                            transform: rotate(-45deg);
+                        }
+                    }
+                    .nav-sp {
+                        box-sizing: border-box;
+                        position: absolute;
+                        top: 6rem;
+                        right: -30rem;
+                        width: 30rem;
+                        height: 100%;
+                        padding: 2rem 1rem 0;
+                        background-color: rgba(95, 199, 240, 0.5);
+                        text-align: left;
+                        transition: right 0.5s;
+                    }
+                    .nav-sp a {
+                        display: inline-block;
+                        padding: 0.5rem 0;
+                    }
+                    .nav-sp.slide {
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }

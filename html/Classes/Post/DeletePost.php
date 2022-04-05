@@ -1,6 +1,6 @@
 <?php
 /**
- * データベースにユーザの投稿を保存します。
+ * post_idからDBに保存されている投稿を削除します。
  *
  * @category  PHP
  * @author  shion0625 <xkaito0912@gmail.com>
@@ -9,12 +9,13 @@
 
 namespace Classes\Post;
 
-use Controller\Pdo;
 use Controller\Connect;
 
 class DeletePost extends Connect
 {
-    /** @var string $delete_id */
+    /**
+     * @var string $post_id
+     * */
     private $post_id;
 
     public function __construct($post_id)
