@@ -17,17 +17,19 @@ class GetHomePosts extends Connect
      *データベースに保存されているすべての投稿を取得します。
      *投稿者のユーザ名、投稿ID、投稿者のID、投稿テキスト、投稿時間、その投稿しゃのトップ画のタイプとコンテンツ
      *
+     * @param int $start_post
      * @return mixed $post
      */
-    public function getHomePosts()
+    public function getHomePosts(int $start_post)
     {
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "SELECT u.user_name, t.*, i.image_type, i.image_content
+            $query = 'SELECT u.user_name, t.*, i.image_type, i.image_content
             FROM users AS u INNER JOIN tweet AS t ON u.email_encode = t.user_id LEFT OUTER JOIN user_image AS i
-            ON t.user_id = i.user_id ORDER BY t.date_time DESC";
+            ON t.user_id = i.user_id ORDER BY t.date_time DESC LIMIT :post_num ,15';
             $stmt = $dbh->prepare($query);
+            $stmt->bindValue(':post_num', $start_post, PDO::PARAM_INT);
             $stmt->execute();
             $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

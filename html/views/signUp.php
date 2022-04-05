@@ -20,83 +20,64 @@ if (isset($_POST['submit'])) {
 ?>
 
 <div class="signUp-all-contents">
-    <div class="sns-contents">
-        <h2>SNSアカウントで会員登録</h2>
-    </div>
-    <div class="signup-contents">
-        <h2>会員登録</h2>
-        <div class="signup-main">
-            <form action="" method=POST>
-                <?php if (isset($error['invalid'])) :?>
-                    <p class="errMsg">
-                        <?php echo $error['invalid'];?>
-                    </p>
-                <?php endif;?>
-                <div class="box-setting">
-                    <p class="require-pos">
-                        <label for="input_username">ユーザ名:</label>
-                        <span class="require">必須</span>
-                    </p>
-                    <?php if (isset($error['user'])) :?>
-                        <p class="errMsg">
-                            <?php echo $error['user'];?>
-                        </p>
-                    <?php endif;?>
-                    <input
-                    type="text"
-                    id="input_username"
-                    name="username"
-                    placeholder="ユーザー名を入力してください"
-                    spellcheck="true"
-                    <?php if (isset($username)) :?>
-                        value= "<?php print($username)?>">
-                    <?php endif;?>
-                </div>
-                <div class="box-setting">
-                    <p class="require-pos">
-                        <label for="input_email">メールアドレス:</label>
-                        <span class="require">必須</span>
-                    </p>
-                    <?php if (isset($error['email'])) :?>
-                        <p class="errMsg">
-                            <?php echo $error['email'];?>
-                        </p>
-                    <?php endif;?>
-                    <input
-                    type="email"
-                    id="input_email"
-                    name="email"
-                    placeholder="メールアドレスを入力してください">
-                </div>
-                <div class="box-setting">
-                    <p class="require-pos">
-                        <label for="inputPassword">パスワード</label>
-                        <span class="require">必須</span>
-                    </p>
-                    <?php if (isset($error['password'])) :?>
-                        <p class="errMsg">
-                            <?php echo $error['password'];?>
-                        </p>
-                    <?php endif;?>
-                    <div class="password-box">
-                        <input
-                        type="password"
-                        id="inputPassword"
-                        name="password"
-                        placeholder="パスワードを入力して下さい">
-                        <i id="eye-icon"class="fas fa-eye"></i>
-                    </div>
-                    <p>条件:大文字、小文字、数字、記号のすべてを最低一文字は使用して下さい</p>
-                    <p>パスワードは8文字以上24文字以下で入力してください。使用可能な記号は(. / ? -)です</p>
-                </div>
-                <input
-                type="hidden"
-                name="created_date"
-                value="<?php echo date('Y-m-d');?>">
-                <button name="submit"
-                id="signup-btn"
-                type = "submit">会員登録</button>
-            </form>
+  <div class="sns-contents">
+    <h2>SNSアカウントで会員登録</h2>
+  </div>
+  <div class="signup-contents">
+    <h2>会員登録</h2>
+    <div class="signup-main">
+      <form action="" method=POST>
+        <?php if (isset($error['invalid'])) :?>
+        <p class="errMsg">
+          <?php echo $error['invalid'];?>
+        </p>
+        <?php endif;?>
+        <div class="box-setting">
+          <p class="require-pos">
+            <label for="input_username">ユーザ名:</label>
+            <span class="require">必須</span>
+          </p>
+          <?php if (isset($error['user'])) :?>
+          <p class="errMsg">
+            <?php echo $error['user'];?>
+          </p>
+          <?php endif;?>
+          <input type="text" id="input_username" name="username" placeholder="ユーザー名を入力してください" spellcheck="true"
+            <?php if (isset($username)) :?> value="<?php print($username)?>">
+          <?php endif;?>
         </div>
+        <div class="box-setting">
+          <p class="require-pos">
+            <label for="input_email">メールアドレス:</label>
+            <span class="require">必須</span>
+          </p>
+          <?php if (isset($error['email'])) :?>
+          <p class="errMsg">
+            <?php echo $error['email'];?>
+          </p>
+          <?php endif;?>
+          <input type="email" id="input_email" name="email" placeholder="メールアドレスを入力してください">
+        </div>
+        <div class="box-setting">
+          <p class="require-pos">
+            <label for="inputPassword">パスワード</label>
+            <span class="require">必須</span>
+          </p>
+          <?php if (isset($error['password'])) :?>
+          <p class="errMsg">
+            <?php echo $error['password'];?>
+          </p>
+          <?php endif;?>
+          <div class="password-box">
+            <input type="password" id="inputPassword" name="password" placeholder="パスワードを入力して下さい">
+            <i id="eye-icon" class="fas fa-eye"></i>
+          </div>
+          <p>条件:大文字、小文字、数字、記号のすべてを最低一文字は使用して下さい</p>
+          <p>パスワードは8文字以上24文字以下で入力してください。使用可能な記号は(. / ? -)です</p>
+        </div>
+        <input type="hidden" name="created_date" value="<?php echo date('Y-m-d');?>">
+        <button name="submit" id="signup-btn" type="submit">会員登録</button>
+      </form>
     </div>
+  </div>
 </div>

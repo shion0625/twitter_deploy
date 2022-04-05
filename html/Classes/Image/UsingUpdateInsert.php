@@ -28,7 +28,7 @@ class UsingUpdateInsert
         $this->ext = explode("/", (string)$this->type)[1];
     }
 
-        /**
+    /**
      * insertImageメソッドを使用して画像を保存します。
      *
      * @return array $result

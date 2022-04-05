@@ -1,0 +1,55 @@
+.login-all-contents {
+        .login-box {
+            background: linear-gradient(25deg, rgba(175, 223, 238, 0.4), rgba(180, 173, 240, 0.4)), url(../img/bokeh-2072271_1920.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 2rem;
+            margin: 10% 5%;
+            padding: 5% 0;
+        }
+        .sns-contents {
+            width: 45%;
+            background-color: brown;
+            margin-right: 3%;
+        }
+        .login-contents {
+            width: 45%;
+            font-size: 1.4rem;
+            background-color: cadetblue;
+            form {
+                margin: 2% 0;
+                .login-form-input-email {
+                    background: url(../icon/mail.png) no-repeat #ffc1c6 5px center;
+                }
+                .login-form-input-pw {
+                    background: url(../icon/key.png) no-repeat #ffc1c6 5px center;
+                }
+                input {
+                    margin: 0 5%;
+                    padding: 0 0 0 2.6rem;
+                    height: 4rem;
+                    width: 90%;
+                }
+                .login-btn {
+                    text-align: center;
+                    margin: 2% 5% 0 5%;
+                }
+                input::placeholder {
+                    color: rgb(143, 168, 236);
+                    font-size: 1.2rem;
+                }
+                #pwBox {
+                    position: relative;
+                    #eye-icon {
+                        position: absolute;
+                        top: 30%;
+                        right: 8%;
+                        z-index: 10;
+                    }
+                }
+            }
+        }
+    }

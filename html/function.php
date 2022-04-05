@@ -11,6 +11,10 @@ function fun_h($str)
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
+function fun_h_decode($str)
+{
+    return htmlspecialchars_decode($str);
+}
 //すでにログインしている場合（ログインページの場合）
 function fun_require_unlogined_session()
 {

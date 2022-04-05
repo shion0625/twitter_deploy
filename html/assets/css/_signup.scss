@@ -1,0 +1,81 @@
+.signUp-all-contents {
+        margin: 2rem auto;
+        display: flex;
+        width: 95%;
+        padding: 3rem 1rem;
+        background: linear-gradient(to top, rgba(217, 175, 217, 0.7) 0%, rgba(151, 217, 225, 0.7) 100%), url("../img/signUp-bg.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 2rem;
+        h2 {
+            text-align: center;
+        }
+        justify-content: center;
+        .sns-contents {
+            background-color: #f1f4f4;
+            width: 45%;
+            margin: 1rem;
+        }
+        .signUp-contents {
+            background-color: #f1f4f4;
+            width: 45%;
+            margin: 1rem;
+            .signup-main {
+                background-color: white;
+                border-radius: 1rem;
+                width: 90%;
+                margin: 1rem auto;
+                form {
+                    .require {
+                        border: 1px solid #ffc1c6;
+                        color: #f23363;
+                    }
+                    .require-pos {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .box-setting {
+                        width: 90%;
+                        margin: auto;
+                        padding: 1rem 0;
+                    }
+                    .errMsg {
+                        color: red;
+                    }
+                    input {
+                        margin: 0 5%;
+                        padding: 0 0 0 2.6rem;
+                        height: 4rem;
+                        width: 90%;
+                    }
+                    #input_username {
+                        background: url(../icon/user.png) no-repeat #64a1e7 5px center;
+                    }
+                    #input_email {
+                        background: url(../icon/mail.png) no-repeat #64a1e7 5px center;
+                    }
+                    #input_password {
+                        background: url(../icon/key.png) no-repeat #64a1e7 5px center;
+                    }
+                    input::placeholder {
+                        color: rgb(143, 168, 236);
+                        font-size: 1.2rem;
+                    }
+                    .password-box {
+                        position: relative;
+                        #eye-icon {
+                            position: absolute;
+                            top: 37%;
+                            right: 8%;
+                            z-index: 10;
+                        }
+                    }
+                    .signup-btn {
+                        display: block;
+                        margin: 2rem auto;
+                    }
+                }
+            }
+        }
+    }

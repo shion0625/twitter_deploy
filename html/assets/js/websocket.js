@@ -1,60 +1,60 @@
 'use strict';
-$(()=> {
-  const popup = $('#js-popup');
-  if(!popup) return;
-  $('#js-black-bg').on('click', () => {
-      popup.toggleClass('is-show');
-  })
-  $('#js-close-btn').on('click', () => {
-      popup.toggleClass('is-show');
-  })
-  $('#js-show-popup').on('click', ()=> {
-      popup.toggleClass('is-show');
-  });
-  });
+$(() => {
+    const popup = $('#js-popup');
+    if (!popup) return;
+    $('#js-black-bg').on('click', () => {
+        popup.toggleClass('is-show');
+    })
+    $('#js-close-btn').on('click', () => {
+        popup.toggleClass('is-show');
+    })
+    $('#js-show-popup').on('click', () => {
+        popup.toggleClass('is-show');
+    });
+});
 
 //ウェブソケットを使用して送信されたデータをサーバサイドに送信
 let conn = "";
-$(() =>{
-  conn = new WebSocket('ws://localhost:8081');
-// if(conn && conn.readyState === 1) return false;
-  conn.onopen = (event) => {
-  console.log("Connection established!");
-  };
+$(() => {
+    conn = new WebSocket('ws://localhost:8081');
+    // if(conn && conn.readyState === 1) return false;
+    conn.onopen = (event) => {
+        console.log("Connection established!");
+    };
 
-  conn.onerror = (event) => {
-  alert("エラーが発生しました");
-  };
+    conn.onerror = (event) => {
+        alert("エラーが発生しました");
+    };
 
-  conn.onmessage = (event) => {
-    $("#js-posts").prepend(event.data);
-  };
-  conn.onclose = function(event) {
-      alert("切断しました");
-      setTimeout(open, 5000);
-  };
+    conn.onmessage = (event) => {
+        $("#js-posts").prepend(event.data);
+    };
+    conn.onclose = function(event) {
+        alert("切断しました");
+        setTimeout(open, 5000);
+    };
 });
 
 function socketSend() {
-  var $map = {"send": "postInfo"};
-  $.ajax({
-      type: 'POST',
-      url: './views/component/AjaxPosts.php',
-      data: $map,
-      dataType: 'html',
-    }).done(function(data){
-      // ここに処理が完了したときのアクションを書く
-      conn.send(data);
-  }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown){
-      alert("socketSend \nerror: \n"+msg.responseText);
-      console.log(msg);
-      console.log(XMLHttpRequest.status);
-      console.log(textStatus);
-      console.log(errorThrown);
-  });
+    var $map = { "send": "postInfo" };
+    $.ajax({
+        type: 'POST',
+        url: './views/component/AjaxPosts.php',
+        data: $map,
+        dataType: 'html',
+    }).done(function(data) {
+        conn.send(data);
+    }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
+        alert("socketSend \nerror: \n" + msg.responseText);
+        console.log(msg);
+        console.log(XMLHttpRequest.status);
+        console.log(textStatus);
+        console.log(errorThrown);
+    });
 }
-function close(){
-  conn.close();
+
+function close() {
+    conn.close();
 }
 
 // function htmlentities(str){
