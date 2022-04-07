@@ -7,7 +7,7 @@ ini_set("memory_limit", "3072M");
 ob_start();
 session_start();
 require __DIR__ .'/vendor/autoload.php';
-require(__DIR__ . '/function.php');
+require_once __DIR__ . '/function.php';
 
 
 $page = $_GET['page'] ?? "home.php";

@@ -1,172 +1,85 @@
 .home-all-contents {
-    .tweet-btn{
-        .tweet-submit-btn {
-            color: #fff;
-            background-color: rgb(61, 175, 228);
-            border-radius: 10vh;
-            margin-bottom: 1rem;
-        }
+  .tweet-btn {
+    .tweet-submit-btn {
+      color: #fff;
+      background-color: rgb(61, 175, 228);
+      border-radius: 10vh;
+      margin-bottom: 1rem;
     }
-        .popup {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            opacity: 0;
-            //このvisibilityによって背景の色を今は普通のままに抑えている
-            visibility: hidden;
-            transition: .6s;
-            .popup-inner {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                width: 75%;
-                max-width: 60rem;
-                padding: 5rem;
-                background-color: #fff;
-                z-index: 2;
-                .tweet-form {
-                    .post-error-msg {
-                        color: red;
-                        display: none;
-                    }
-                    .tweet-textarea {
-                        width: 100%;
-                        height: 90%;
-                        padding: 5px;
-                        border: 1px solid;
-                        border-bottom: 0px;
-                        resize: none;
-                        font-size: 1.8rem;
-                        .bold {
-                            font-weight: bold;
-                        }
-                        .underline {
-                            text-decoration: underline;
-                        }
-                        .italic {
-                            font-style: italic;
-                        }
-                    }
-                    .tweet-items {
-                        border: 1px solid;
-                        border-top: 0px;
-                        margin: 0px;
-                        padding: 10px 0;
-                        .tweet-item {
-                            font-size: 16px;
-                            margin-left: 8px;
-                        }
-                    }
-                }
-                .close-btn {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 50px;
-                    height: 50px;
-                    line-height: 50px;
-                    text-align: center;
-                    cursor: pointer;
-                    i {
-                        font-size: 20px;
-                        color: #333;
-                    }
-                }
-                .tweet-btn{
-                    position: absolute;
-                    right: 1rem;
-                    top: 0.6rem;
-                }
-                .post-btn-container{
-                    $main-color: #1ECD97;
-                    $sub-color: #bbbbbb;
-                    font-family: 'Roboto', sans-serif;
-                    .tweet-btn {
-                        outline:none;
-                        height: 40px;
-                        text-align: center;
-                        width: 130px;
-                        border-radius:40px;
-                        background: #fff;
-                        border: 2px solid $main-color;
-                        color:$main-color;
-                        letter-spacing:1px;
-                        text-shadow:0;
-                        font-size: 1.2rem;
-                        font-weight:bold;
-                        cursor: pointer;
-                        transition: all 0.25s ease;
-                        &:hover {
-                            color:white;
-                            background: $main-color;
-                        }
-                        &:active {
-                            letter-spacing: 2px ;
-                        }
-                        &:after {
-                            content:"ツイートする";
-                        }
-                    }
-                    .onclic {
-                        width: 40px;
-                        border-color:$sub-color;
-                        border-width:3px;
-                        font-size:0;
-                        border-left-color:$main-color;
-                        animation: rotating 2s 0.25s linear infinite;
-                        &:after {
-                            content:"";
-                        }
-                        &:hover {
-                            color:$main-color;
-                            background: white;
-                        }
-                    }
-                    .validate {
-                        font-size:13px;
-                        color: white;
-                        background: $main-color;
-                        &:after {
-                            font-family:'FontAwesome';
-                            content:"\f00c";
-                        }
-                    }
-                    .fail-validate{
-                        font-size:13px;
-                        color: red;
-                        background: white;
-                        &:after {
-                            font-family:'FontAwesome';
-                            content:"\f00d";
-                        }
-                    }
-                    @keyframes rotating {
-                        from {
-                            transform: rotate(0deg);
-                        }
-                        to {
-                            transform: rotate(360deg);
-                        }
-                    }
-                }
-            }
-            .black-background {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.3);
-                z-index: 1;
-                cursor: pointer;
-            }
-        }
-        .is-show {
-            opacity: 1;
-            visibility: visible;
-        }
+  }
+  .post-btn-container {
+    $main-color: #1ECD97;
+    $sub-color: #bbbbbb;
+    font-family: 'Roboto', sans-serif;
+    .tweet-btn {
+      position: absolute;
+      right: 1rem;
+      top: 0.6rem;
+      outline: none;
+      height: 4rem;
+      text-align: center;
+      width: 13rem;
+      border-radius: 4rem;
+      background: #fff;
+      border: 0.2rem solid $main-color;
+      color: $main-color;
+      letter-spacing: 0.1rem;
+      text-shadow: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      &:hover {
+        color: white;
+        background: $main-color;
+      }
+      &:active {
+        letter-spacing: 0.2rem;
+      }
+      &:after {
+        content: "ツイートする";
+      }
+    }
+    .onclic {
+      width: 4rem;
+      border-color: $sub-color;
+      border-width: 0.3rem;
+      font-size: 0;
+      border-left-color: $main-color;
+      animation: rotating 2s 0.25s linear infinite;
+      &:after {
+        content: "";
+      }
+      &:hover {
+        color: $main-color;
+        background: white;
+      }
+    }
+    .validate {
+      font-size: 1.3rem;
+      color: white;
+      background: $main-color;
+      &:after {
+        font-family: 'FontAwesome';
+        content: "\f00c";
+      }
+    }
+    .fail-validate {
+      font-size: 1.3rem;
+      color: red;
+      background: white;
+      &:after {
+        font-family: 'FontAwesome';
+        content: "\f00d";
+      }
+    }
+    @keyframes rotating {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
 }

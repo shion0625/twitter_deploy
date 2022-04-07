@@ -98,10 +98,10 @@ function followUser() {
 <div class="user-profile-all-contents">
   <div class="user-profile">
     <div class="profile-image">
-      <?php if ($is_exit_image) :?> <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
-        width="100px" height="auto">
+      <?php if ($is_exit_image) :?> <img class="user_profile_image"
+        src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>">
       <?php else :?>
-      <p> プロフィールの画像を登録してください。 </p>
+      <p> プロフィールの画像を登録してください。</p>
       <?php endif;?>
     </div>
     <p>
@@ -112,36 +112,55 @@ function followUser() {
     </p>
     <p> フォロワー: <span id="js-follower"> <?php echo $follower_num?> </span> </p>
     <?php if (!$is_yourself) :?>
-    <form action="#" method="post">
-      <input type="hidden" id="js-current-user-id" value="<?= $current_user_id ?>">
-      <input type="hidden" id="js-profile-user-id" value="<?= $profile_user_id ?>">
-      <button id="js-submit-btn" class="display-follow-button" type="button" value="doFollow" onclick="followUser()">
-        <?php echo $follow_button_text ?>
-      </button>
-    </form>
+    <input type="hidden" id="js-current-user-id" value="<?= $current_user_id ?>">
+    <input type="hidden" id="js-profile-user-id" value="<?= $profile_user_id ?>">
+    <button id="js-submit-btn" class="display-follow-button" type="button" value="doFollow" onclick="followUser()">
+      <?php echo $follow_button_text ?>
+    </button>
     <?php endif;?>
   </div>
   <?php if ($is_yourself) :?>
   <div class="setting-profile-contents">
-    <form method="post" enctype="multipart/form-data">
-      <div class="form-image">
-        <?php if (isset($result['image']) && $result['image'] === 'type') :?>
-        <p> * 写真は「.gif」、「.jpg」、「.png」 の画像を指定してください</p>
-        <?php endif; ?>
-        <label> 画像を選択:</label>
-        <input type="file" name="image">
+    <button id="js-show-popup">プロフィールの編集</button>
+    <div class="popup" id="js-popup">
+      <div class="popup-inner">
+        <div class="close-btn" id="js-close-btn">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="preview-content">
+          <img id="js-image-preview" class="image-preview">
+        </div>
+        <form method="post" enctype="multipart/form-data">
+          <div class="form-image">
+            <?php if (isset($result['image']) && $result['image'] === 'type') :?>
+            <p> * 写真は「.gif」、「.jpg」、「.png」 の画像を指定してください</p>
+            <?php endif; ?>
+            <label class="choice-image-label">
+              <input id="js-user-image" type="file" name="image" accept="image/*">画像を選択
+            </label>
+          </div>
+          <div class="user-name">
+            <label for="user-name"> ユーザ名:</label>
+            <p><input type="text" id="user-name" value="" name="user-name"></p>
+          </div>
+          <div class="birthday">
+            <label for="birthday"> 誕生日:</label>
+            <p><input type="date" id="birthday" value="" name="birthday"></p>
+          </div>
+          <div class="form-self-introduction">
+            <label for="self-intro"> 自己紹介:</label>
+            <p><input type="text" id="self-intro" class="input-text" name="self-intro" maxlength="30px" value=""></p>
+          </div>
+          <div class="main-color">
+            <label for="main-color"> カラー:</label>
+            <p><input type="color" id="main-color" value="" name="main-color"></p>
+          </div>
+          <button id="submit-btn" type="submit" class="btn"> 保存
+          </button>
+        </form>
       </div>
-      <div class="form-self-introduction">
-        <label for="self-intro"> 自己紹介:</label>
-        <input type="text" id="self-intro" name="self-intro" maxlength="30px" value="こんにちは" size="32px">
-      </div>
-      <div class="birthday">
-        <label for="birthday"> 誕生日:</label>
-        <input type="date" id="birthday" value="" name="birthday">
-      </div>
-      <button id="submit-btn" type="submit" class="btn"> 保存
-      </button>
-    </form>
+      <div class="black-background" id="js-black-bg"></div>
+    </div>
   </div>
   <?php endif;?>
 </div>
@@ -154,3 +173,16 @@ function followUser() {
   </div>
   <?php endif;?>
 </div>
+
+<script>
+$(() => {
+  $('#js-user-image').on('change', function(e) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $("#js-image-preview").attr('src', e.target.result);
+      $("#js-image-preview").addClass('image-preview-size');
+    }
+    reader.readAsDataURL(e.target.files[0]);
+  });
+});
+</script>

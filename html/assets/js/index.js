@@ -1,4 +1,18 @@
 'use strict';
+$(() => {
+    const popup = $('#js-popup');
+    if (!popup) return;
+    $('#js-black-bg').on('click', () => {
+        popup.toggleClass('is-show');
+    })
+    $('#js-close-btn').on('click', () => {
+        popup.toggleClass('is-show');
+    })
+    $('#js-show-popup').on('click', () => {
+        popup.toggleClass('is-show');
+    });
+});
+
 $(document).on('click', '#js-follow-btn', (e) => {
     e.stopPropagation();
     let current_user_id = $('#js-current-user-id').val();
