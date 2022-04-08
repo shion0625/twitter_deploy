@@ -19,13 +19,6 @@ $get_post_db = new GetHomePosts();
 $user_posts = $get_post_db->getHomePosts($start_num);
 ?>
 
-<script type="text/javascript">
-'use strict';
-const username = <?php echo json_encode($_SESSION['username']);?>;
-const userId = <?php echo json_encode($_SESSION['userID']);?>;
-</script>
-<script type="text/javascript" src="../assets/js/websocket.js"></script>
-
 <div id="js-test-contents"></div>
 <div class='home-all-contents'>
   <div class=tweet-btn>
@@ -41,7 +34,6 @@ const userId = <?php echo json_encode($_SESSION['userID']);?>;
         <button id="js-post-btn" class="tweet-btn" name="send" form="tweet" onclick="getPostContent();"></button>
       </div>
       <div id="editor"></div>
-      <input id="js-get-post-content" type="hidden" value="">
     </div>
     <div class="black-background" id="js-black-bg"></div>
   </div>
@@ -62,5 +54,188 @@ const userId = <?php echo json_encode($_SESSION['userID']);?>;
     <?php include(__DIR__ . '/component/user_posts.php')?>
   </div>
 </div>
+
+<script type="text/javascript" src="../assets/js/quill.min.js"></script>
+<script>
+'use strict';
+const userId = <?php echo json_encode($_SESSION['userID']);?>;
+
+function validate(flag) {
+  $("#js-post-btn").removeClass("onclic");
+  if (flag) $("#js-post-btn").addClass("validate", 200, successCallback());
+  else $("#js-post-btn").addClass("fail-validate", 200, failCallback());
+}
+
+function successCallback() {
+  setTimeout(() => {
+    $("#js-post-btn").removeClass("validate");
+  }, 2000);
+}
+
+function failCallback() {
+  setTimeout(() => {
+    $("#js-post-btn").removeClass("fail-validate");
+  }, 2000);
+}
+
+var toolbarOptions;
+
+var windowWidth = $(window).width();
+var windowSm = 630;
+if (windowWidth <= windowSm) {
+  toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+
+    [{
+      'list': 'ordered'
+    }, {
+      'list': 'bullet'
+    }],
+
+    [{
+      'script': 'sub'
+    }, {
+      'script': 'super'
+    }],
+
+    [{
+      'direction': 'rtl'
+    }],
+
+    [{
+      'size': ['small', false, 'large', 'huge']
+    }],
+    [{
+      'header': [1, 2, 3, 4, 5, 6, false]
+    }],
+
+    [{
+      'color': []
+    }, {
+      'background': []
+    }],
+    [{
+      'font': []
+    }],
+    [{
+      'align': []
+    }],
+
+    ['clean']
+  ];
+} else {
+  toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    [{
+      'header': 1
+    }, {
+      'header': 2
+    }],
+
+    [{
+      'list': 'ordered'
+    }, {
+      'list': 'bullet'
+    }],
+
+    [{
+      'script': 'sub'
+    }, {
+      'script': 'super'
+    }],
+    [{
+      'indent': '-1'
+    }, {
+      'indent': '+1'
+    }],
+    [{
+      'direction': 'rtl'
+    }],
+
+    [{
+      'size': ['small', false, 'large', 'huge']
+    }],
+    [{
+      'header': [1, 2, 3, 4, 5, 6, false]
+    }],
+
+    [{
+      'color': []
+    }, {
+      'background': []
+    }],
+    [{
+      'font': []
+    }],
+    [{
+      'align': []
+    }],
+
+    ['clean']
+  ];
+}
+
+// Initialize Quill editor
+
+const options = {
+  // debug: 'info',
+  modules: {
+    toolbar: toolbarOptions
+  },
+  placeholder: '投稿内容を記入してください！！',
+  readOnly: false,
+  theme: 'snow'
+};
+
+const quill = new Quill('#editor', options);
+quill.on('text-change', function(delta, oldDelta, source) {
+  $('#js-get-post-content').val($('.ql-editor').html());
+});
+
+function getPostContent() {
+  $("#js-post-btn").addClass("onclic", 200);
+  let inputData = quill.root.innerHTML;
+  let length = quill.getLength();
+  console.log(length);
+
+  if (length <= 1) {
+    setTimeout(() => {
+      validate(false);
+      alert_animation("投稿内容が入力されていません。");
+    }, 800);
+    return;
+  }
+  let map = {
+    postHtml: inputData,
+    send: "postSend",
+    sender: userId
+  };
+  $.ajax({
+      type: "POST",
+      url: "./views/component/AjaxPosts.php",
+      data: map,
+      dataType: "text",
+    })
+    .done(function(data) {
+      socketSend();
+      setTimeout(() => {
+        validate(true);
+        alert_animation("投稿が正常に完了しました。");
+        quill.deleteText(0, 100000);
+      }, 800);
+    })
+    .fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
+      validate(false);
+      alert_animation('投稿に失敗しました。');
+      console.log(msg);
+      console.log(XMLHttpRequest.status);
+      console.log(textStatus);
+      console.log(errorThrown);
+    });
+}
+</script>
+<script type="text/javascript" src="../assets/js/websocket.js"></script>
 <!-- 012345<span>6789AB</span>CDEFGHIJKLMNOPQRSTUVWXYZ -->
 <!-- 私の名前は淀川海都です。\nよろしくお願いします。 -->

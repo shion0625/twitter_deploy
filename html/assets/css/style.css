@@ -55,7 +55,7 @@ table {
 
 body {
   width: 100vw;
-  margin: 0;
+  margin: 0 1px 0 0;
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -65,9 +65,7 @@ body .vsc-initialized {
 body a {
   text-decoration: none;
 }
-body .btn120,
-body a.btn120,
-body button.btn120 {
+body .btn120, body a.btn120, body button.btn120 {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.5;
@@ -123,13 +121,15 @@ body .user-posts .post {
   @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 }
 body .user-posts .post .user-header {
-  height: 3.5rem;
+  height: 5rem;
+  margin-bottom: 1rem;
 }
 body .user-posts .post .user-header .post-user-detail {
   position: relative;
   display: block;
 }
 body .user-posts .post .user-header .post-user-detail .tweet-username {
+  margin-left: 1rem;
   position: absolute;
   font-size: 2.5rem;
   top: 30%;
@@ -244,8 +244,7 @@ body .user-posts .post .dlt-btn-back button.dlt-no:hover {
 body .user-posts .post .dlt-btn.dlt-is-open .dlt-btn-back {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
-body .user-posts .post .dlt-btn[data-direction=left] .dlt-btn-back,
-body .user-posts .post .dlt-btn[data-direction=right] .dlt-btn-back {
+body .user-posts .post .dlt-btn[data-direction=left] .dlt-btn-back, body .user-posts .post .dlt-btn[data-direction=right] .dlt-btn-back {
   transform: translateZ(-2px) rotateY(180deg);
 }
 body .user-posts .post .dlt-btn.dlt-is-open {
@@ -263,6 +262,62 @@ body .user-posts .post .dlt-btn[data-direction=bottom].dlt-is-open {
 }
 body .user-posts .post .dlt-btn[data-direction=left].dlt-is-open {
   transform: rotateY(-180deg);
+}
+body .popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.6s;
+  overflow: auto;
+}
+body .popup .popup-inner {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  max-width: 60rem;
+  padding: 3rem 10rem;
+  background-color: #fff;
+  z-index: 2;
+}
+@media screen and (max-width: 630px) {
+  body .popup .popup-inner {
+    padding: 3rem 5rem;
+  }
+}
+body .popup .popup-inner .close-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+body .popup .popup-inner .close-btn i {
+  font-size: 20px;
+  color: #333;
+}
+body .popup .black-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  cursor: pointer;
+}
+body .is-show {
+  opacity: 1;
+  visibility: visible;
 }
 
 /*!
@@ -2121,139 +2176,69 @@ header #header .header-right .header-menu .nav-sp.slide {
   border-radius: 10vh;
   margin-bottom: 1rem;
 }
-.home-all-contents .popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.6s;
+.home-all-contents .post-btn-container {
+  font-family: "Roboto", sans-serif;
 }
-.home-all-contents .popup .popup-inner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 75%;
-  max-width: 60rem;
-  padding: 5rem;
-  background-color: #fff;
-  z-index: 2;
-}
-.home-all-contents .popup .popup-inner .tweet-form .post-error-msg {
-  color: red;
-  display: none;
-}
-.home-all-contents .popup .popup-inner .tweet-form .tweet-textarea {
-  width: 100%;
-  height: 90%;
-  padding: 5px;
-  border: 1px solid;
-  border-bottom: 0px;
-  resize: none;
-  font-size: 1.8rem;
-}
-.home-all-contents .popup .popup-inner .tweet-form .tweet-textarea .bold {
-  font-weight: bold;
-}
-.home-all-contents .popup .popup-inner .tweet-form .tweet-textarea .underline {
-  text-decoration: underline;
-}
-.home-all-contents .popup .popup-inner .tweet-form .tweet-textarea .italic {
-  font-style: italic;
-}
-.home-all-contents .popup .popup-inner .tweet-form .tweet-items {
-  border: 1px solid;
-  border-top: 0px;
-  margin: 0px;
-  padding: 10px 0;
-}
-.home-all-contents .popup .popup-inner .tweet-form .tweet-items .tweet-item {
-  font-size: 16px;
-  margin-left: 8px;
-}
-.home-all-contents .popup .popup-inner .close-btn {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  cursor: pointer;
-}
-.home-all-contents .popup .popup-inner .close-btn i {
-  font-size: 20px;
-  color: #333;
-}
-.home-all-contents .popup .popup-inner .tweet-btn {
+.home-all-contents .post-btn-container .tweet-btn {
   position: absolute;
   right: 1rem;
   top: 0.6rem;
-}
-.home-all-contents .popup .popup-inner .post-btn-container {
-  font-family: "Roboto", sans-serif;
-}
-.home-all-contents .popup .popup-inner .post-btn-container .tweet-btn {
   outline: none;
-  height: 40px;
+  height: 4rem;
   text-align: center;
-  width: 130px;
-  border-radius: 40px;
+  width: 13rem;
+  border-radius: 4rem;
   background: #fff;
-  border: 2px solid #1ECD97;
+  border: 0.2rem solid #1ECD97;
   color: #1ECD97;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
   text-shadow: 0;
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.25s ease;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .tweet-btn:hover {
+.home-all-contents .post-btn-container .tweet-btn:hover {
   color: white;
   background: #1ECD97;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .tweet-btn:active {
-  letter-spacing: 2px;
+.home-all-contents .post-btn-container .tweet-btn:active {
+  letter-spacing: 0.2rem;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .tweet-btn:after {
+.home-all-contents .post-btn-container .tweet-btn:after {
   content: "ツイートする";
 }
-.home-all-contents .popup .popup-inner .post-btn-container .onclic {
-  width: 40px;
+.home-all-contents .post-btn-container .onclic {
+  width: 4rem;
   border-color: #bbbbbb;
-  border-width: 3px;
+  border-width: 0.3rem;
   font-size: 0;
   border-left-color: #1ECD97;
   -webkit-animation: rotating 2s 0.25s linear infinite;
           animation: rotating 2s 0.25s linear infinite;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .onclic:after {
+.home-all-contents .post-btn-container .onclic:after {
   content: "";
 }
-.home-all-contents .popup .popup-inner .post-btn-container .onclic:hover {
+.home-all-contents .post-btn-container .onclic:hover {
   color: #1ECD97;
   background: white;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .validate {
-  font-size: 13px;
+.home-all-contents .post-btn-container .validate {
+  font-size: 1.3rem;
   color: white;
   background: #1ECD97;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .validate:after {
+.home-all-contents .post-btn-container .validate:after {
   font-family: "FontAwesome";
   content: "\f00c";
 }
-.home-all-contents .popup .popup-inner .post-btn-container .fail-validate {
-  font-size: 13px;
+.home-all-contents .post-btn-container .fail-validate {
+  font-size: 1.3rem;
   color: red;
   background: white;
 }
-.home-all-contents .popup .popup-inner .post-btn-container .fail-validate:after {
+.home-all-contents .post-btn-container .fail-validate:after {
   font-family: "FontAwesome";
   content: "\f00d";
 }
@@ -2272,20 +2257,6 @@ header #header .header-right .header-menu .nav-sp.slide {
   to {
     transform: rotate(360deg);
   }
-}
-.home-all-contents .popup .black-background {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 1;
-  cursor: pointer;
-}
-.home-all-contents .is-show {
-  opacity: 1;
-  visibility: visible;
 }
 
 .signUp-all-contents {
@@ -2458,6 +2429,54 @@ header #header .header-right .header-menu .nav-sp.slide {
   line-height: 1.6em;
 }
 
+.user-profile-all-contents .user-profile .profile-image {
+  text-align: center;
+}
+.user-profile-all-contents .user-profile .profile-image .user_profile_image {
+  border-radius: 50%;
+  width: 15rem;
+  height: 15rem;
+  border: 0.8rem solid #00cc00;
+}
+.user-profile-all-contents .preview-content {
+  border-radius: 50%;
+  display: block;
+  width: 18rem;
+  height: 18rem;
+  border: 0.5rem dashed #eee;
+  padding: 1rem;
+  margin: 2rem auto;
+}
+.user-profile-all-contents .preview-content .image-preview {
+  border-radius: 50%;
+}
+.user-profile-all-contents .preview-content .image-preview-size {
+  width: 15rem;
+  height: 15rem;
+}
+.user-profile-all-contents form {
+  font-size: 1.5rem;
+}
+.user-profile-all-contents form input[type=text],
+.user-profile-all-contents form input[type=date] {
+  width: 30rem;
+}
+.user-profile-all-contents form .form-image {
+  text-align: center;
+}
+.user-profile-all-contents form .form-image .choice-image-label {
+  padding: 10px 25px;
+  margin: 0 0 10px;
+  background: #1ecd97;
+  color: #fff;
+  display: inline-block;
+  cursor: pointer;
+}
+.user-profile-all-contents form .form-image input[type=file] {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
 /*共通のscssファイル
 ==========================================*/
 /*共通の外部ファイル
