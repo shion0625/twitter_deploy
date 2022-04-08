@@ -1,17 +1,4 @@
 'use strict';
-$(() => {
-    const popup = $('#js-popup');
-    if (!popup) return;
-    $('#js-black-bg').on('click', () => {
-        popup.toggleClass('is-show');
-    })
-    $('#js-close-btn').on('click', () => {
-        popup.toggleClass('is-show');
-    })
-    $('#js-show-popup').on('click', () => {
-        popup.toggleClass('is-show');
-    });
-});
 
 //ウェブソケットを使用して送信されたデータをサーバサイドに送信
 let conn = "";
@@ -56,16 +43,3 @@ function socketSend() {
 function close() {
     conn.close();
 }
-
-// function htmlentities(str){
-//   return String(str).replace(/&/g,"&amp;")
-//       .replace(/</g,"&lt;")
-//       .replace(/>/g,"&gt;")
-//       .replace(/"/g,"&quot;")
-// }
-
-// function createElem(element, className) {
-//   const newElement = $("<"+element + " class=" + className +">")[0];
-//   // console.log(newElement);
-//   return newElement;
-// }
