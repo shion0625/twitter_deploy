@@ -1,4 +1,5 @@
 <?php
+
 use Classes\Post\GetHomePosts;
 use Classes\Post\AllPostNum;
 
@@ -55,10 +56,15 @@ $user_posts = $get_post_db->getHomePosts($start_num);
   </div>
 </div>
 
-<script type="text/javascript" src="../assets/js/quill.min.js"></script>
+<script type="text/javascript" src="assets/js/quill.min.js"></script>
+
 <script>
 'use strict';
-const userId = <?php echo json_encode($_SESSION['userID']);?>;
+let userId;
+<?php if(!empty($_SESSION["userID"])):?>
+userId = <?php echo json_encode($_SESSION['userID']);?>
+<?php endif;?>
+
 
 function validate(flag) {
   $("#js-post-btn").removeClass("onclic");
@@ -189,16 +195,24 @@ const options = {
   theme: 'snow'
 };
 
-const quill = new Quill('#editor', options);
-quill.on('text-change', function(delta, oldDelta, source) {
-  $('#js-get-post-content').val($('.ql-editor').html());
-});
+let quill;
+if ($('#editor')[0]) {
+  quill = new Quill('#editor', options);
+  quill.on('text-change', function(delta, oldDelta, source) {
+    $('#js-get-post-content').val($('.ql-editor').html());
+  });
+}
 
 function getPostContent() {
   $("#js-post-btn").addClass("onclic", 200);
+  if (!quill) {
+    setTimeout(() => {
+      validate(false);
+      alert_animation("不正な入力です。");
+    }, 800);
+  }
   let inputData = quill.root.innerHTML;
   let length = quill.getLength();
-  console.log(length);
 
   if (length <= 1) {
     setTimeout(() => {
@@ -206,7 +220,14 @@ function getPostContent() {
       alert_animation("投稿内容が入力されていません。");
     }, 800);
     return;
+  } else if (!userId) {
+    setTimeout(() => {
+      validate(false);
+      alert_animation("ログインしてから投稿してください。");
+    }, 800);
+    return;
   }
+
   let map = {
     postHtml: inputData,
     send: "postSend",
@@ -236,6 +257,6 @@ function getPostContent() {
     });
 }
 </script>
-<script type="text/javascript" src="../assets/js/websocket.js"></script>
+<script type="text/javascript" src="assets/js/websocket.js"></script>
 <!-- 012345<span>6789AB</span>CDEFGHIJKLMNOPQRSTUVWXYZ -->
 <!-- 私の名前は淀川海都です。\nよろしくお願いします。 -->

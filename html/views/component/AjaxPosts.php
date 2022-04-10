@@ -29,8 +29,8 @@ if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInf
     $user_id = (string)$user_post["user_id"];
     $post_text = (string)$user_post["post_text"];
     $date_time = (string)$user_post["date_time"];
-    $image_type = (string)$user_post["image_type"] || null;
-    $image_content = (string)base64_encode($user_post["image_content"])  || null;
+    $image_type = (string)$user_post["image_type"];
+    $image_content = (string)base64_encode($user_post["image_content"]);
 }
 
 if (!empty($_POST) && $_POST['send'] == 'postSend') {

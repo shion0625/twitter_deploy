@@ -55,7 +55,7 @@ table {
 
 body {
   width: 100vw;
-  margin: 0 1px 0 0;
+  margin: 0.5rem 0;
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -2284,65 +2284,68 @@ header #header .header-right .header-menu .nav-sp.slide {
   width: 45%;
   margin: 1rem;
 }
-.signUp-all-contents .signUp-contents .signup-main {
+.signUp-all-contents .signUp-contents .signUp-main {
   background-color: white;
   border-radius: 1rem;
   width: 90%;
   margin: 1rem auto;
 }
-.signUp-all-contents .signUp-contents .signup-main form .require {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting {
+  margin: 0.5rem;
+}
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .require {
   border: 1px solid #ffc1c6;
   color: #f23363;
 }
-.signUp-all-contents .signUp-contents .signup-main form .require-pos {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .require-pos {
   display: flex;
   justify-content: space-between;
 }
-.signUp-all-contents .signUp-contents .signup-main form .box-setting {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .box-setting {
   width: 90%;
   margin: auto;
   padding: 1rem 0;
 }
-.signUp-all-contents .signUp-contents .signup-main form .errMsg {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .errMsg {
   color: red;
 }
-.signUp-all-contents .signUp-contents .signup-main form input {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting input {
   margin: 0 5%;
-  padding: 0 0 0 2.6rem;
+  padding: 0 0 0 4rem;
   height: 4rem;
   width: 90%;
 }
-.signUp-all-contents .signUp-contents .signup-main form #input_username {
-  background: url(../icon/user.png) no-repeat #64a1e7 5px center;
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .input-username {
+  background: url(../icon/user.png) no-repeat #64a1e7 0.3rem center;
 }
-.signUp-all-contents .signUp-contents .signup-main form #input_email {
-  background: url(../icon/mail.png) no-repeat #64a1e7 5px center;
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .input-email {
+  background: url(../icon/mail.png) no-repeat #64a1e7 0.3rem center;
 }
-.signUp-all-contents .signUp-contents .signup-main form #input_password {
-  background: url(../icon/key.png) no-repeat #64a1e7 5px center;
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .input-password {
+  background: url(../icon/key.png) no-repeat #64a1e7 0.3rem center;
 }
-.signUp-all-contents .signUp-contents .signup-main form input::-moz-placeholder {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting input::-moz-placeholder {
   color: #8fa8ec;
   font-size: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signup-main form input:-ms-input-placeholder {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting input:-ms-input-placeholder {
   color: #8fa8ec;
   font-size: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signup-main form input::placeholder {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting input::placeholder {
   color: #8fa8ec;
   font-size: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signup-main form .password-box {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .password-box {
   position: relative;
 }
-.signUp-all-contents .signUp-contents .signup-main form .password-box #eye-icon {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .password-box #eye-icon {
   position: absolute;
   top: 37%;
   right: 8%;
   z-index: 10;
 }
-.signUp-all-contents .signUp-contents .signup-main form .signup-btn {
+.signUp-all-contents .signUp-contents .signUp-main .box-setting .signUp-btn {
   display: block;
   margin: 2rem auto;
 }

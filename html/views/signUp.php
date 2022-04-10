@@ -23,9 +23,9 @@ if (isset($_POST['submit'])) {
   <div class="sns-contents">
     <h2>SNSアカウントで会員登録</h2>
   </div>
-  <div class="signup-contents">
+  <div class="signUp-contents">
     <h2>会員登録</h2>
-    <div class="signup-main">
+    <div class="signUp-main">
       <form action="" method=POST>
         <?php if (isset($error['invalid'])) :?>
         <p class="errMsg">
@@ -42,9 +42,8 @@ if (isset($_POST['submit'])) {
             <?php echo $error['user'];?>
           </p>
           <?php endif;?>
-          <input type="text" id="input_username" name="username" placeholder="ユーザー名を入力してください" spellcheck="true"
-            <?php if (isset($username)) :?> value="<?php print($username)?>">
-          <?php endif;?>
+          <input type="text" id="input_username" class="input-username" name="username" placeholder="ユーザー名を入力してください"
+            spellcheck="true" value="<?php print($username)?>">
         </div>
         <div class="box-setting">
           <p class="require-pos">
@@ -56,7 +55,7 @@ if (isset($_POST['submit'])) {
             <?php echo $error['email'];?>
           </p>
           <?php endif;?>
-          <input type="email" id="input_email" name="email" placeholder="メールアドレスを入力してください">
+          <input type="email" id="input_email" class="input-email" name="email" placeholder="メールアドレスを入力してください">
         </div>
         <div class="box-setting">
           <p class="require-pos">
@@ -69,7 +68,8 @@ if (isset($_POST['submit'])) {
           </p>
           <?php endif;?>
           <div class="password-box">
-            <input type="password" id="inputPassword" name="password" placeholder="パスワードを入力して下さい">
+            <input type="password" id="js-input-password" class="input-password" name="password"
+              placeholder="パスワードを入力して下さい">
             <i id="eye-icon" class="fas fa-eye"></i>
           </div>
           <p>条件:大文字、小文字、数字、記号のすべてを最低一文字は使用して下さい</p>

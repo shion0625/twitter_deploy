@@ -52,7 +52,7 @@ function alert_animation(txt) {
 //パスワードの可視化と不可視化
 $(() => {
     $('#eye-icon').on('click', () => {
-        const input = $('#inputPassword');
+        const input = $('#js-input-password');
         if (input.attr('type') == 'password') {
             input.attr('type', 'text');
         } else {
