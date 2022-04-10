@@ -9,7 +9,6 @@ session_start();
 require __DIR__ .'/vendor/autoload.php';
 require_once __DIR__ . '/function.php';
 
-
 $page = $_GET['page'] ?? "home.php";
 
 include(__DIR__ . '/views/header.php');

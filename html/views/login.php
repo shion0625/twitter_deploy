@@ -47,7 +47,7 @@ if (!empty($_POST) && isset($_POST['send'])) {
           <?php if (isset($message_pw)) :?>
           <div class="message"><?php echo $message_pw;?></div>
           <?php endif;?>
-          <input id="input_password" class="login-form-input-pw" name="password" type="password"
+          <input id="js-input-password" class="login-form-input-pw" name="password" type="password"
             placeholder="パスワードを入力して下さい">
           <i id="eye-icon" class="fas fa-eye"></i>
         </div>
