@@ -35,12 +35,24 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <script src="https://kit.fontawesome.com/f5a505d08a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="assets/js/index.js"></script>
   <title>twitter</title>
 </head>
 
 <body>
   <header>
     <div id="header">
+      <?php if($_SESSION['messageAlert']):?>
+      <div class="msg-alert">
+        <script type="text/javascript">
+        alert_animation();
+        </script>
+        <?php
+        echo $_SESSION['messageAlert'];
+        $_SESSION['messageAlert'] = '';
+        ?>
+      </div>
+      <?php endif;?>
       <div class="msg-alert" id="js-msg-alert">
       </div>
       <div class="header-logo">
