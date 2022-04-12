@@ -2,26 +2,32 @@
 
 use Classes\Image\UsingUpdateInsert;
 use Classes\Image\UsingGetImage;
-use Classes\User\GetUserInfo;
 use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
+use Classes\User\UserInfo;
 
-$_SESSION['messageAlert'] ='';
 $page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
+$url = $_SERVER['REQUEST_URI'];
+
+$profile_user_id = (string)$_GET['id'];
+$current_user_id = $_SESSION['userID'];
+//このページに送信されたユーザIDが自分だった場合設定ページが表示される。
+$is_yourself = $profile_user_id == $current_user_id;
+
+$user_info = new UserInfo($profile_user_id);
+
 if (isset($_GET['id'])) {
-    $profile_user_id = (string)$_GET['id'];
-    $get_user_info = new GetUserInfo($profile_user_id);
-    [$user_posts, $max_page]= $get_user_info->getUserPost($start_num);
-    $user_profile = $get_user_info->getUserProfile();
+    [$user_posts, $max_page]= $user_info->getUserPost($start_num);
+    $user_profile = $user_info->getUserProfile();
     $get_image = new UsingGetImage('user_id', $profile_user_id);
     $image = $get_image->usingGetImage();
 }
 
 if (!isset($_SESSION['userID'])) {
-    $_SESSION['messageAlert'] ='あなたのユーザIDが設定されていません。ログインしてください。';
+    echo '<script>', 'alert_animation("あなたのユーザIDが設定されていません。ログインしてください。");', '</script>';
     header('Location: ?page=');
 }
 $is_exit_image = false;
@@ -31,20 +37,29 @@ if (!empty($image)) {
     $image_content = $image['image_content'];
 }
 
-$current_user_id = $_SESSION['userID'];
-//このページに送信されたユーザIDが自分だった場合設定ページが表示される。
-$is_yourself = $profile_user_id == $current_user_id;
 
-if ($is_yourself) {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['image']['name'])) {
-        // 画像を保存 すでに画像がデータベース内にあればupdate,なければinsertされる。
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
+    if (!empty($_FILES['image']['name'])) {
         $using_insert_update = new UsingUpdateInsert($is_exit_image);
         $result = $using_insert_update->actionImage();
         if ($result['update'] || $result['insert']) {
-            $_SESSION['messageAlert'] = "画像の保存に成功しました。";
-            header("Location: ?page=profiles&id=${current_user_id}");
-            exit();
+            $_SESSION['messageAlert'] = '画像の保存に成功しました';
+          header("location: {$url}");
+          exit();
         }
+    }
+    if (!empty($_POST['username'])) {
+        if (empty($_POST['birthday'])) {
+            $_POST['birthday'] =null;
+        }
+        $result = $user_info->updateUserInfo($_POST['username'], $_POST['birthday'], $_POST['selfIntro'], $_POST['color']);
+        $_SESSION['messageAlert'] = 'ユーザ情報が保存されました。';
+        header("location: {$url}");
+        exit();
+    } else {
+        $_SESSION['messageAlert'] = 'ユーザ名が入力されていません。';
+        header("location: {$url}");
+        exit();
     }
 }
 
@@ -54,63 +69,41 @@ if (!$is_yourself) {
     if ($is_follow) {
         $follow_button_text="フォロー中";
     } else {
-        $follow_button_text="フォロー";
+      $follow_button_text="フォロー";
     }
 }
-$GetNumFollow = new GetNumFollow($profile_user_id);
-$follow_num = $GetNumFollow->numFollow();
-$follower_num = $GetNumFollow->numFollower();
-?>
+  $GetNumFollow = new GetNumFollow($profile_user_id);
+  $follow_num = $GetNumFollow->numFollow();
+  $follower_num = $GetNumFollow->numFollower();
+  ?>
 
-<script>
-function followUser() {
-  let doFollowBtn = $('#js-submit-btn').val();
-  let currentId = $('#js-current-user-id').val();
-  let profileId = $('#js-profile-user-id').val();
-  let $map = {
-    "type": doFollowBtn,
-    "currentId": currentId,
-    "profileId": profileId
-  };
-  $.ajax({
-    type: 'POST',
-    url: 'views/component/AjaxFollowProcess.php',
-    data: $map,
-    dataType: 'json'
-  }).done(function(data) {
-    $('#js-follow')[0].textContent = data['follow'];
-    $('#js-follower')[0].textContent = data['follower'];
-    if (data['status']) {
-      $('#js-submit-btn').text("フォロー");
-    } else {
-      $('#js-submit-btn').text("フォロー中");
-
-    }
-  }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
-    alert("followUser\n error:\n  " + msg.responseText);
-    console.log(msg);
-    console.log(XMLHttpRequest.status);
-    console.log(textStatus);
-    console.log(errorThrown);
-  });
-}
-</script>
 <div class="user-profile-all-contents">
   <div class="user-profile">
     <div class="profile-image">
+      <?php if ($is_yourself) :?>
       <?php if ($is_exit_image) :?> <img class="user_profile_image"
         src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>">
       <?php else :?>
       <p> プロフィールの画像を登録してください。</p>
       <?php endif;?>
+      <?php endif;?>
     </div>
-    <p>
-      <?php echo $user_profile['user_name']?> </p>
-    <p> フォロー:
-      <span id="js-follow">
-        <?php echo $follow_num?> </span>
+    <p class="profile-username">
+      <?php echo $user_profile['user_name']?>
     </p>
-    <p> フォロワー: <span id="js-follower"> <?php echo $follower_num?> </span> </p>
+    <?php if ($user_profile['self_introduction']) :?>
+    <div class="self-introduction">
+      <?php echo fun_h($user_profile['self_introduction'])?>
+    </div>
+    <?php endif;?>
+    <?php if ($user_profile['created_date'] || $user_profile['birthday']) :?>
+    <div>
+      <span class="birthday"><?php echo fun_h($user_profile['birthday']);?></span>
+      <span class="created-date"><?php echo fun_h($user_profile['created_date']);?></span>
+    </div>
+    <?php endif;?>
+    <div> フォロー:<span id="js-follow"><?php echo $follow_num?> </span></div>
+    <div> フォロワー: <span id="js-follower"> <?php echo $follower_num?> </span> </div>
     <?php if (!$is_yourself) :?>
     <input type="hidden" id="js-current-user-id" value="<?= $current_user_id ?>">
     <input type="hidden" id="js-profile-user-id" value="<?= $profile_user_id ?>">
@@ -141,30 +134,36 @@ function followUser() {
           </div>
           <div class="user-name">
             <label for="user-name"> ユーザ名:</label>
-            <p><input type="text" id="user-name" value="" name="user-name"></p>
+            <p><input type="text" id="js-username" value="<?php echo fun_h($user_profile['user_name']);?>"
+                name="username">
+            </p>
           </div>
           <div class="birthday">
             <label for="birthday"> 誕生日:</label>
-            <p><input type="date" id="birthday" value="" name="birthday"></p>
+            <p><input type="date" id="js-birthday" value="<?php echo $user_profile['birthday'];?>" name="birthday">
+            </p>
           </div>
           <div class="form-self-introduction">
             <label for="self-intro"> 自己紹介:</label>
-            <p><input type="text" id="self-intro" class="input-text" name="self-intro" maxlength="30px" value=""></p>
+            <p><input type="text" id="js-self-intro" class="input-text" name="self-intro" maxlength="30px"
+                value="<?php echo fun_h($user_profile['self_introduction']);?>"> </p>
           </div>
-          <div class="main-color">
+          <div class=" main-color">
             <label for="main-color"> カラー:</label>
-            <p><input type="color" id="main-color" value="" name="main-color"></p>
+            <p><input type="color" id="js-color" name="main-color"></p>
           </div>
-          <button id="submit-btn" type="submit" class="btn"> 保存
+          <button type="submit" class="btn" value="updateUserInfo">
+            保存
           </button>
         </form>
       </div>
-      <div class="black-background" id="js-black-bg"></div>
+      <div class=" black-background" id="js-black-bg">
+      </div>
     </div>
   </div>
   <?php endif;?>
 </div>
-<div class="user-tweets-contents">
+<div class=" user-tweets-contents">
   <?php if (empty($user_posts)) :
       echo "あなたはまだ投稿していません。";?>
   <?php else :?>
@@ -175,6 +174,39 @@ function followUser() {
 </div>
 
 <script>
+function followUser() {
+  console.log('followUser');
+  let doFollowBtn = $('#js-submit-btn').val();
+  let currentId = $('#js-current-user-id').val();
+  let profileId = $('#js-profile-user-id').val();
+  let $map = {
+    "type": doFollowBtn,
+    "currentId": currentId,
+    "profileId": profileId
+  };
+  $.ajax({
+    type: 'POST',
+    url: 'views/component/AjaxFollowProcess.php',
+    data: $map,
+    dataType: 'json'
+  }).done(function(data) {
+    $('#js-follow')[0].textContent = data['follow'];
+    $('#js-follower')[0].textContent = data['follower'];
+    if (data['status']) {
+      $('#js-submit-btn').text("フォロー");
+    } else {
+      $('#js-submit-btn').text("フォロー中");
+
+    }
+  }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
+    alert("followUser\n error:\n  " + msg.responseText);
+    console.log(msg);
+    console.log(XMLHttpRequest.status);
+    console.log(textStatus);
+    console.log(errorThrown);
+  });
+}
+
 $(() => {
   $('#js-user-image').on('change', function(e) {
     var reader = new FileReader();

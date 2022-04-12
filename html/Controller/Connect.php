@@ -31,9 +31,9 @@ class Connect extends Pdo
      */
     public function __construct()
     {
-        /** .envファイルを読み込みます。 */
-        $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/../');
-        $dotenv->load();
+/** .envファイルを読み込みます。 */
+    $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/../');
+    $dotenv->load();
         $this-> DSN = getenv('DB_DSN');
         $this-> USER = getenv('DB_USER');
         $this->PASSWORD = getenv('DB_PASSWORD');
@@ -45,36 +45,13 @@ class Connect extends Pdo
      */
     protected function connectDb()
     {
-        $isLocal = true;////localの時trueに変える。
-        if ($isLocal) {
-            /// local環境の時
-            error_reporting(E_ALL & ~E_NOTICE);
-            try {
-                $dbh = new Pdo($this->DSN, $this->USER, $this->PASSWORD);
-                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $e) {
-                print_r("Connect 接続失敗: ".$e->getMessage()."\n");
-                exit();
-            }
-            return $dbh;
-        } else {
-            //For server
-            $url = parse_url(getenv('CLEARDB_DATABASE_URL'));
-            $server = $url["host"];
-            $username = $url["user"];
-            $password = $url["pass"];
-            $db = substr($url["path"], 1);
-            $pdo = new PDO(
-                'mysql:host=' . $server . ';dbname=' . $db . ';charset=utf8mb4',
-                $username,
-                $password,
-                [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
-                ]
-            );
-            return $pdo;
+        try {
+            $dbh = new Pdo($this->DSN, $this->USER, $this->PASSWORD);
+            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            print_r("Connect 接続失敗: ".$e->getMessage()."\n");
+            exit();
         }
+        return $dbh;
     }
 }

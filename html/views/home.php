@@ -61,7 +61,7 @@ $user_posts = $get_post_db->getHomePosts($start_num);
 <script>
 'use strict';
 let userId;
-<?php if(!empty($_SESSION["userID"])):?>
+<?php if (!empty($_SESSION["userID"])):?>
 userId = <?php echo json_encode($_SESSION['userID']);?>
 <?php endif;?>
 
@@ -258,5 +258,3 @@ function getPostContent() {
 }
 </script>
 <script type="text/javascript" src="assets/js/websocket.js"></script>
-<!-- 012345<span>6789AB</span>CDEFGHIJKLMNOPQRSTUVWXYZ -->
-<!-- 私の名前は淀川海都です。\nよろしくお願いします。 -->
