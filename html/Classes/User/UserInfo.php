@@ -12,7 +12,7 @@ namespace Classes\User;
 use Controller\Pdo;
 use Controller\Connect;
 
-class GetUserInfo extends Connect
+class UserInfo extends Connect
 {
     /** @var string $user_id */
     private $user_id;
@@ -63,5 +63,25 @@ class GetUserInfo extends Connect
             exit('データベースエラー getUserProfile');
         }
         return $user_profile;
+    }
+
+    public function updateUserInfo($username, $birthday, $intro, $color)
+    {
+        parent::__construct();
+        $dbh = $this->connectDb();
+        try {
+            $query = "UPDATE users SET user_name=:username, birthday=:birthday, self_introduction=:intro, color=:color WHERE email_encode=:user_id";
+            $stmt = $dbh->prepare($query);
+            $stmt->bindValue(":username", $username, PDO::PARAM_STR);
+            $stmt->bindValue(":birthday", $birthday);
+            $stmt->bindValue(":intro", $intro, PDO::PARAM_STR);
+            $stmt->bindValue(":color", $color, PDO::PARAM_STR);
+            $stmt->bindValue(":user_id", $this->user_id, PDO::PARAM_STR);
+            $flag = $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e;
+            exit('データベースエラー updateUserInfo');
+        }
+        return $flag;
     }
 }

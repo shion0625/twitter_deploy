@@ -2,7 +2,7 @@
 
 use Classes\Image\UsingUpdateInsert;
 use Classes\Image\UsingGetImage;
-use Classes\User\GetUserInfo;
+use Classes\User\UserInfo;
 use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 
@@ -11,9 +11,12 @@ $page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
+$profile_user_id;
+$get_user_info;
+
 if (isset($_GET['id'])) {
     $profile_user_id = (string)$_GET['id'];
-    $get_user_info = new GetUserInfo($profile_user_id);
+    $get_user_info = new UserInfo($profile_user_id);
     [$user_posts, $max_page]= $get_user_info->getUserPost($start_num);
     $user_profile = $get_user_info->getUserProfile();
     $get_image = new UsingGetImage('user_id', $profile_user_id);
@@ -45,6 +48,27 @@ if ($is_yourself) {
             header("Location: ?page=profiles&id=${current_user_id}");
             exit();
         }
+    }
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $profile_user_id){
+      if(!$_POST['username']){
+        $_SESSION['messageAlert'] = "ユーザ名が入力されていません。";
+        header("Location: ?page=profiles&id=${current_user_id}");
+        exit();
+      }
+      $result = $get_user_info->updateUserInfo($_POST['username'], $_POST['birthday'], $_POST['self-intro'], $_POST['main-color']);
+      if($result){
+        $_SESSION['messageAlert'] = "ユーザ情報を更新しました。";
+        header("Location: ?page=profiles&id=${current_user_id}");
+        exit();
+      }else{
+        $_SESSION['messageAlert'] = "ユーザ情報の変更に失敗しました。";
+        header("Location: ?page=profiles&id=${current_user_id}");
+        exit();
+      }
+    }else{
+        $_SESSION['messageAlert'] = "フォームの送信に失敗しました。";
+        header("Location: ?page=profiles&id=${current_user_id}");
+        exit();
     }
 }
 
@@ -136,21 +160,21 @@ function followUser() {
                 <input id="js-user-image" type="file" name="image" accept="image/*">画像を選択
               </label>
             </div>
-            <div class="user-name">
-              <label for="user-name"> ユーザ名:</label>
-              <p><input type="text" id="user-name" value="" name="user-name"></p>
+            <div class="username">
+              <label for="username"> ユーザ名:</label>
+              <p><input type="text" value="" name="username"></p>
             </div>
             <div class="birthday">
               <label for="birthday"> 誕生日:</label>
-              <p><input type="date" id="birthday" value="" name="birthday"></p>
+              <p><input type="date" value="" name="birthday"></p>
             </div>
             <div class="form-self-introduction">
               <label for="self-intro"> 自己紹介:</label>
-              <p><input type="text" id="self-intro" class="input-text" name="self-intro" maxlength="30px" value=""></p>
+              <p><input type="text" class="input-text" name="self-intro" maxlength="30px" value=""></p>
             </div>
             <div class="main-color">
               <label for="main-color"> カラー:</label>
-              <p><input type="color" id="main-color" value="" name="main-color"></p>
+              <p><input type="color" value="" name="main-color"></p>
             </div>
             <button id="submit-btn" type="submit" class="btn"> 保存
             </button>
