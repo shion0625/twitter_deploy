@@ -33,8 +33,8 @@ $new_url = preg_replace($replacement, '', $url);
   <p class="appendix">
     <span><?php print(fun_h($post['date_time']))?></span>
     <?php if (isset($_SESSION['username']) &&
-            ($post['user_name'] == $_SESSION['username'] ||
-            strcmp(getenv('ADMIN_USER'), $_SESSION['username']) == 0)) :?>
+            (strcmp($post['user_id'], $_SESSION['userID']) == 0||
+            strcmp(getenv('ADMIN_USER'), $_SESSION['userID']) == 0)) :?>
   <form action='?page=delete' method="POST">
     <div class="dlt-btn">
       <div class="dlt-btn-back">

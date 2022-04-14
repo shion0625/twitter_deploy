@@ -1,39 +1,43 @@
-let btn = document.querySelector('.dlt-btn');
-if (btn != null) {
-  let btnFront = btn.querySelector('.dlt-btn-front'),
-    btnYes = btn.querySelector( '.dlt-btn-back .dlt-yes' ),
-    btnNo = btn.querySelector('.dlt-btn-back .dlt-no');
-  btnFront.addEventListener( 'click', function( event ) {
-    let mx = event.clientX - btn.offsetLeft,
-      my = event.clientY - btn.offsetTop;
+let btnArray = document.querySelectorAll('.dlt-btn');
 
-    let w = btn.offsetWidth,
-        h = btn.offsetHeight;
+for(let btn of btnArray) {
+  if (btn != null) {
+    let btnFront = btn.querySelector('.dlt-btn-front'),
+      btnYes = btn.querySelector( '.dlt-btn-back .dlt-yes' ),
+      btnNo = btn.querySelector('.dlt-btn-back .dlt-no');
+    btnFront.addEventListener( 'click', function( event ) {
+      let mx = event.clientX - btn.offsetLeft,
+        my = event.clientY - btn.offsetTop;
 
-    let directions = [
-      { id: 'top', x: w/2, y: 0 },
-      { id: 'right', x: w, y: h/2 },
-      { id: 'bottom', x: w/2, y: h },
-      { id: 'left', x: 0, y: h/2 }
-    ];
+      let w = btn.offsetWidth,
+          h = btn.offsetHeight;
 
-    directions.sort( function( a, b ) {
-      return distance( mx, my, a.x, a.y ) - distance( mx, my, b.x, b.y );
+      let directions = [
+        { id: 'top', x: w/2, y: 0 },
+        { id: 'right', x: w, y: h/2 },
+        { id: 'bottom', x: w/2, y: h },
+        { id: 'left', x: 0, y: h/2 }
+      ];
+
+      directions.sort( function( a, b ) {
+        return distance( mx, my, a.x, a.y ) - distance( mx, my, b.x, b.y );
+      } );
+
+      btn.setAttribute( 'data-direction', directions.shift().id );
+      btn.classList.add( 'dlt-is-open' );
+
     } );
 
-    btn.setAttribute( 'data-direction', directions.shift().id );
-    btn.classList.add( 'dlt-is-open' );
+    btnYes.addEventListener( 'click', function( event ) {
+      btn.classList.remove( 'dlt-is-open' );
+    } );
 
-  } );
-
-  btnYes.addEventListener( 'click', function( event ) {
-    btn.classList.remove( 'dlt-is-open' );
-  } );
-
-  btnNo.addEventListener( 'click', function( event ) {
-    btn.classList.remove( 'dlt-is-open' );
-  } );
+    btnNo.addEventListener( 'click', function( event ) {
+      btn.classList.remove( 'dlt-is-open' );
+    } );
+  }
 }
+
 function distance( x1, y1, x2, y2 ) {
   let dx = x1-x2;
   let dy = y1-y2;

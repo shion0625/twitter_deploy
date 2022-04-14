@@ -42,10 +42,10 @@ $(document).on('click', '#js-follow-btn', (e) => {
 });
 
 function alert_animation(txt) {
-    $('#js-msg-alert').text(txt);
-    $('#js-msg-alert').fadeIn(2000);
+    $('.msg-alert').text(txt);
+    $('.msg-alert').fadeIn(2000);
     setInterval(() => {
-        $('#js-msg-alert').fadeOut(2000);
+        $('.msg-alert').fadeOut(2000);
     }, 7000);
 };
 

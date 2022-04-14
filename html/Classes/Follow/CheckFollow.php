@@ -30,8 +30,8 @@ class CheckFollow extends Connect
             FROM following
             WHERE follow_id = :follow_id AND followed_id = :followed_id LIMIT 1";
             $stmt = $dbh->prepare($sql);
-            $stmt->bindValue(":follow_id", $this->follow_user);
-            $stmt->bindValue(":followed_id", $this->followed_user);
+            $stmt->bindValue(":follow_id", $this->follow_user, PDO::PARAM_STR);
+            $stmt->bindValue(":followed_id", $this->followed_user, PDO::PARAM_STR);
             $stmt->execute();
             $flag = $stmt->fetch();
         } catch (PDOException $e) {

@@ -35,6 +35,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <script src="https://kit.fontawesome.com/f5a505d08a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="assets/js/index.js"></script>
   <title>twitter</title>
 </head>
 
