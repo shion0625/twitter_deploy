@@ -2,6 +2,7 @@
   $image-size: 15rem;
   $color: #00cc00;
   .user-profile{
+    font-family: serif;
     .profile-image{
       text-align: center;
       .user_profile_image{
@@ -11,47 +12,72 @@
         border: 0.8rem solid $color;
       }
     }
-  }
-///////popupの中////////////
-    .preview-content{
-    border-radius: 50%;
-    display: block;
-    width: 18rem;
-    height: 18rem;
-    border: 0.5rem dashed #eee;
-    padding: 1rem;
-    margin: 2rem auto;
-    .image-preview{
-      border-radius: 50%;
+    .username{
+        text-align: center;
+        font-size: 4rem;
+        margin: 1rem 0;
     }
-    .image-preview-size{
-      width:$image-size;
-      height: $image-size;
+    .follow-container{
+      display:flex;
+      justify-content: center;
+      flex-wrap:nowrap;
+      .follow{
+        margin-right: 1rem;
+        font-size: 2rem;
+      }
+      .follower{
+        margin-left: 1rem;
+        font-size: 2rem;
+      }
     }
-  }
-  form{
-    font-size: 1.5rem;
-    input[type="text"],
-    input[type="date"]{
-      width: 30rem;
-    }
-    .form-image{
-      text-align: center;
-      .choice-image-label{
-        padding: 10px 25px;
-        margin: 0 0 10px;
-        background: #1ecd97;
+    .setting-profile-contents{
+      .setting-profile-btn{
         color: #fff;
-        display: inline-block;
-        cursor: pointer;
+        background-color: black;
+        border-radius: 10vh;
+        margin-bottom: 1rem;
+        margin: 1rem 0rem 2rem 2rem;
       }
-      input[type="file"] {
-        opacity: 0;
-        visibility: hidden;
-        position: absolute;
+          ///////popupの中////////////
+        .preview-content{
+        border-radius: 50%;
+        display: block;
+        width: 18rem;
+        height: 18rem;
+        border: 0.5rem dashed #eee;
+        padding: 1rem;
+        margin: 2rem auto;
+        .image-preview{
+          border-radius: 50%;
+        }
+        .image-preview-size{
+          width:$image-size;
+          height: $image-size;
+        }
       }
-    }
-    .birthday{
+      form{
+        font-size: 1.5rem;
+        input[type="text"],
+        input[type="date"]{
+          width: 30rem;
+        }
+        .form-image{
+          text-align: center;
+          .choice-image-label{
+            padding: 10px 25px;
+            margin: 0 0 10px;
+            background: #1ecd97;
+            color: #fff;
+            display: inline-block;
+            cursor: pointer;
+          }
+          input[type="file"] {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+          }
+        }
+      }
     }
   }
 }
