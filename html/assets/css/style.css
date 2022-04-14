@@ -2174,7 +2174,7 @@ header #header .header-right .header-menu .nav-sp.slide {
   color: #fff;
   background-color: #3dafe4;
   border-radius: 10vh;
-  margin-bottom: 1rem;
+  margin: 1rem 0rem 2rem 2rem;
 }
 .home-all-contents .post-btn-container {
   font-family: "Roboto", sans-serif;
@@ -2432,6 +2432,9 @@ header #header .header-right .header-menu .nav-sp.slide {
   line-height: 1.6em;
 }
 
+.user-profile-all-contents .user-profile {
+  font-family: serif;
+}
 .user-profile-all-contents .user-profile .profile-image {
   text-align: center;
 }
@@ -2441,7 +2444,32 @@ header #header .header-right .header-menu .nav-sp.slide {
   height: 15rem;
   border: 0.8rem solid #00cc00;
 }
-.user-profile-all-contents .preview-content {
+.user-profile-all-contents .user-profile .username {
+  text-align: center;
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+.user-profile-all-contents .user-profile .follow-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.user-profile-all-contents .user-profile .follow-container .follow {
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+.user-profile-all-contents .user-profile .follow-container .follower {
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents .setting-profile-btn {
+  color: #fff;
+  background-color: black;
+  border-radius: 10vh;
+  margin-bottom: 1rem;
+  margin: 1rem 0rem 2rem 2rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents .preview-content {
   border-radius: 50%;
   display: block;
   width: 18rem;
@@ -2450,24 +2478,24 @@ header #header .header-right .header-menu .nav-sp.slide {
   padding: 1rem;
   margin: 2rem auto;
 }
-.user-profile-all-contents .preview-content .image-preview {
+.user-profile-all-contents .user-profile .setting-profile-contents .preview-content .image-preview {
   border-radius: 50%;
 }
-.user-profile-all-contents .preview-content .image-preview-size {
+.user-profile-all-contents .user-profile .setting-profile-contents .preview-content .image-preview-size {
   width: 15rem;
   height: 15rem;
 }
-.user-profile-all-contents form {
+.user-profile-all-contents .user-profile .setting-profile-contents form {
   font-size: 1.5rem;
 }
-.user-profile-all-contents form input[type=text],
-.user-profile-all-contents form input[type=date] {
+.user-profile-all-contents .user-profile .setting-profile-contents form input[type=text],
+.user-profile-all-contents .user-profile .setting-profile-contents form input[type=date] {
   width: 30rem;
 }
-.user-profile-all-contents form .form-image {
+.user-profile-all-contents .user-profile .setting-profile-contents form .form-image {
   text-align: center;
 }
-.user-profile-all-contents form .form-image .choice-image-label {
+.user-profile-all-contents .user-profile .setting-profile-contents form .form-image .choice-image-label {
   padding: 10px 25px;
   margin: 0 0 10px;
   background: #1ecd97;
@@ -2475,11 +2503,12 @@ header #header .header-right .header-menu .nav-sp.slide {
   display: inline-block;
   cursor: pointer;
 }
-.user-profile-all-contents form .form-image input[type=file] {
+.user-profile-all-contents .user-profile .setting-profile-contents form .form-image input[type=file] {
   opacity: 0;
   visibility: hidden;
   position: absolute;
 }
+
 /*共通のscssファイル
 ==========================================*/
 /*共通の外部ファイル

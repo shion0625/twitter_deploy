@@ -42,7 +42,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
 <body>
   <header>
     <div id="header">
-      <?php if($_SESSION['messageAlert']):?>
+      <?php if ($_SESSION['messageAlert']):?>
       <div class="msg-alert">
         <script type="text/javascript">
         alert_animation();
@@ -53,8 +53,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
         ?>
       </div>
       <?php endif;?>
-      <div class="msg-alert" id="js-msg-alert">
-      </div>
+      <div class="msg-alert" id="js-msg-alert"></div>
       <div class="header-logo">
         <a href="/">
           <h1>twitter</h1>
