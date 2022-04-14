@@ -11,6 +11,7 @@ $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
 $profile_user_id;
+$current_user_id = $_SESSION['userID'];
 $get_user_info;
 $url = $_SERVER['REQUEST_URI'];
 
@@ -23,9 +24,12 @@ if (isset($_GET['id'])) {
     $image = $get_image->usingGetImage();
 }
 
+$is_yourself = $current_user_id == $profile_user_id;
+
 if (!isset($_SESSION['userID'])) {
     echo '<script>', 'alert_animation("あなたのユーザIDが設定されていません。ログインしてください。");', '</script>';
     header('Location: ?page=');
+    exit();
 }
 $is_exit_image = false;
 if (!empty($image)) {
@@ -51,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
         header("Location: {$url}");
         exit();
       }
-       if (empty($_POST['birthday'])) {
+      if (empty($_POST['birthday'])) {
           $_POST['birthday'] =null;
-       }
+      }
       $result = $get_user_info->updateUserInfo($_POST['username'], $_POST['birthday'], $_POST['self-intro'], $_POST['main-color']);
       if($result){
         $_SESSION['messageAlert'] = "ユーザ情報を更新しました。";
@@ -61,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
         exit();
       }else{
         $_SESSION['messageAlert'] = "ユーザ情報の変更に失敗しました。";
-        header("location: {$url}");        
+        header("location: {$url}");
         exit();
       }
     }else{
@@ -96,20 +100,20 @@ if (!$is_yourself) {
       <?php endif;?>
       <?php endif;?>
     </div>
-    <p class="username"><?php echo $user_profile['user_name']?></p>
+    <p class="profile-username"><?php echo $user_profile['user_name']?></p>
     <div class="follow-container">
       <div class="follow">フォロー: <span id="js-follow"><?php echo $follow_num?></span></div>
       <div class="follower">フォロワー: <span id="js-follower"><?php echo $follower_num?></span></div>
     </div>
-      <?php if ($user_profile['self_introduction']) :?>
-    <div class="self-introduction">
+    <?php if ($user_profile['self_introduction']) :?>
+    <div class="profile-self-introduction">
       <?php echo fun_h($user_profile['self_introduction'])?>
     </div>
     <?php endif;?>
     <?php if ($user_profile['created_date'] || $user_profile['birthday']) :?>
     <div>
-      <span class="birthday"><?php echo fun_h($user_profile['birthday']);?></span>
-      <span class="created-date"><?php echo fun_h($user_profile['created_date']);?></span>
+      <span class="profile-birthday"><?php echo fun_h($user_profile['birthday']);?></span>
+      <span class="profile-created-date"><?php echo fun_h($user_profile['created_date']);?></span>
     </div>
     <?php endif;?>
     <?php if (!$is_yourself) :?>
@@ -149,7 +153,8 @@ if (!$is_yourself) {
             </div>
             <div class="form-self-introduction">
               <label for="self-intro"> 自己紹介:</label>
-              <p><input type="text" class="input-text" name="self-intro" maxlength="30px" value="<?php echo fun_h($user_profile['self_introduction']);?>"></p>
+              <p><input type="text" class="input-text" name="self-intro" maxlength="30px"
+                  value="<?php echo fun_h($user_profile['self_introduction']);?>"></p>
             </div>
             <div class="main-color">
               <label for="main-color"> カラー:</label>
