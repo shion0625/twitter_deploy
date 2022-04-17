@@ -20,16 +20,16 @@ $new_url = preg_replace($replacement, '', $url);
       <?php if (isset($post['image_type']) && isset($post['image_content'])) :
                         $image_content = base64_encode($post['image_content']);?>
       <img src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>" class="user-top-image"
-        style=" border-color: <?php echo $post['color'];?>;background-color: <?php echo $post['color'];?>;">
+        style=" border-color: <?php echo fun_h($post['color']);?>;background-color: <?php echo fun_h($post['color']);?>;">
       <?php endif;?>
       <span class="tweet-username">
-        <?php print(fun_h($post['user_name']))?>
+        <?php echo fun_h($post['user_name']);?>
       </span>
     </a>
     <?php endif;?>
   </p>
   <div class="tweet-content">
-    <?php print($post['post_text'])?>
+    <?php echo $post['post_text'];?>
   </div>
   <p class="appendix">
     <span><?php print(fun_h($post['date_time']))?></span>

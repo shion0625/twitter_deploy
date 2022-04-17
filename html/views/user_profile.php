@@ -98,33 +98,37 @@ if (!$is_yourself) {
       <?php if ($is_yourself) :?>
       <?php if ($is_exit_image) :?> <img class="user_profile_image"
         src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
-        style=" border-color: <?php echo $user_profile['color'];?>;background-color: <?php echo $user_profile['color'];?>;">
+        style=" border-color: <?php echo fun_h($user_profile['color']);?>;background-color: <?php echo fun_h($user_profile['color']);?>;">
       <?php else :?>
       <p>プロフィールの画像を登録してください。</p>
       <?php endif;?>
       <?php endif;?>
     </div>
-    <p class=" profile-username"><?php echo $user_profile['user_name']?></p>
-    <div class="follow-container">
-      <div class="follow">フォロー: <span id="js-follow"><?php echo $follow_num?></span></div>
-      <div class="follower">フォロワー: <span id="js-follower"><?php echo $follower_num?></span></div>
+    <p class=" profile-username"><?php echo fun_h($user_profile['user_name'])?></p>
+    <div class="profile-date">
+      <span class="profile-birthday"> <i class="fa-solid fa-cake-candles"></i>
+        <?php echo fun_h($user_profile['birthday']);?></span>
+      <span class="profile-created-date"> <i class="fa-solid fa-calendar-days"></i>
+        <?php echo fun_h($user_profile['created_date']);?>
+      </span>
     </div>
+
     <?php if ($user_profile['self_introduction']) :?>
     <div class="profile-self-introduction">
       <?php echo fun_h($user_profile['self_introduction'])?>
     </div>
     <?php endif;?>
-    <?php if ($user_profile['created_date'] || $user_profile['birthday']) :?>
-    <div>
-      <span class="profile-birthday"><?php echo fun_h($user_profile['birthday']);?></span>
-      <span class="profile-created-date"><?php echo fun_h($user_profile['created_date']);?></span>
+    <div class="follow-container">
+      <div class="follow">フォロー: <span id="js-follow"><?php echo fun_h($follow_num)?></span></div>
+      <div class="follower">フォロワー: <span id="js-follower"><?php echo fun_h($follower_num)?></span></div>
     </div>
+    <?php if ($user_profile['created_date'] || $user_profile['birthday']) :?>
     <?php endif;?>
     <?php if (!$is_yourself) :?>
     <input type="hidden" id="js-current-user-id" value="<?= $current_user_id ?>">
     <input type="hidden" id="js-profile-user-id" value="<?= $profile_user_id ?>">
     <button id="js-submit-btn" class="display-follow-button" type="button" value="doFollow" onclick="followUser()">
-      <?php echo $follow_button_text ?>
+      <?php echo fun_h($follow_button_text) ?>
     </button>
     <?php endif;?>
     <?php if ($is_yourself) :?>
@@ -153,7 +157,7 @@ if (!$is_yourself) {
             </div>
             <div class="birthday">
               <label for="birthday"> 誕生日:</label>
-              <p><input type="date" value="<?php echo $user_profile['birthday'];?>" name="birthday"></p>
+              <p><input type="date" value="<?php echo fun_h($user_profile['birthday']);?>" name="birthday"></p>
             </div>
             <div class="form-self-introduction">
               <label for="self-intro"> 自己紹介:</label>
@@ -162,7 +166,8 @@ if (!$is_yourself) {
             </div>
             <div class="main-color">
               <label for="main-color"> カラー:</label>
-              <p><input id="js-main-color" type="color" value="<?php echo $user_profile['color'];?>" name="main-color">
+              <p><input id="js-main-color" type="color" value="<?php echo fun_h($user_profile['color']);?>"
+                  name="main-color">
               </p>
             </div>
             <button id="submit-btn" type="submit" class="btn"> 保存
