@@ -51,7 +51,7 @@ class UserInfo extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "SELECT u.user_name, u.self_introduction, u.birthday,u.created_date, i.image_type, i.image_content
+            $query = "SELECT u.user_name, u.self_introduction, u.birthday,u.created_date,u.color, i.image_type, i.image_content
             FROM users AS u LEFT OUTER JOIN user_image AS i ON u.email_encode = i.user_id
             WHERE u.email_encode=:user_id LIMIT 1";
             $stmt = $dbh->prepare($query);

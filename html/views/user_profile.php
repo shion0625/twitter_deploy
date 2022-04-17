@@ -22,6 +22,9 @@ if (isset($_GET['id'])) {
     $user_profile = $get_user_info->getUserProfile();
     $get_image = new UsingGetImage('user_id', $profile_user_id);
     $image = $get_image->usingGetImage();
+    if(!$user_profile['color']){
+      $user_profile['color'] = "#000000";
+    };
 }
 
 $is_yourself = $current_user_id == $profile_user_id;
@@ -94,13 +97,14 @@ if (!$is_yourself) {
     <div class="profile-image">
       <?php if ($is_yourself) :?>
       <?php if ($is_exit_image) :?> <img class="user_profile_image"
-        src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>">
+        src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
+        style=" border-color: <?php echo $user_profile['color'];?>;background-color: <?php echo $user_profile['color'];?>;">
       <?php else :?>
       <p>プロフィールの画像を登録してください。</p>
       <?php endif;?>
       <?php endif;?>
     </div>
-    <p class="profile-username"><?php echo $user_profile['user_name']?></p>
+    <p class=" profile-username"><?php echo $user_profile['user_name']?></p>
     <div class="follow-container">
       <div class="follow">フォロー: <span id="js-follow"><?php echo $follow_num?></span></div>
       <div class="follower">フォロワー: <span id="js-follower"><?php echo $follower_num?></span></div>
@@ -158,7 +162,8 @@ if (!$is_yourself) {
             </div>
             <div class="main-color">
               <label for="main-color"> カラー:</label>
-              <p><input type="color" value="" name="main-color"></p>
+              <p><input id="js-main-color" type="color" value="<?php echo $user_profile['color'];?>" name="main-color">
+              </p>
             </div>
             <button id="submit-btn" type="submit" class="btn"> 保存
             </button>
@@ -169,7 +174,7 @@ if (!$is_yourself) {
     </div>
     <?php endif;?>
   </div>
-  <div class="user-tweets-contents">
+  <div class=" user-tweets-contents">
     <?php if (empty($user_posts)) :
       echo "あなたはまだ投稿していません。";?>
     <?php else :?>
@@ -182,7 +187,6 @@ if (!$is_yourself) {
 
 <script>
 function followUser() {
-  console.log('followUser');
   let doFollowBtn = $('#js-submit-btn').val();
   let currentId = $('#js-current-user-id').val();
   let profileId = $('#js-profile-user-id').val();

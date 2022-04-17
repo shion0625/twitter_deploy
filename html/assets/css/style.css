@@ -2442,7 +2442,7 @@ header #header .header-right .header-menu .nav-sp.slide {
   border-radius: 50%;
   width: 15rem;
   height: 15rem;
-  border: 0.8rem solid #00cc00;
+  border: 0.8rem solid;
 }
 .user-profile-all-contents .user-profile .profile-username {
   text-align: center;
