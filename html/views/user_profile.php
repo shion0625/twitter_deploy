@@ -170,7 +170,7 @@ if (!$is_yourself) {
                   name="main-color">
               </p>
             </div>
-            <button id="submit-btn" type="submit" class="btn"> 保存
+            <button id="submit-btn" class="btn120 btn-gradient" type="submit" class="btn"> 保存
             </button>
           </form>
         </div>

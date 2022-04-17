@@ -64,6 +64,7 @@ body .vsc-initialized {
 }
 body a {
   text-decoration: none;
+  color: black;
 }
 body .btn120, body a.btn120, body button.btn120 {
   font-size: 1.6rem;
@@ -2523,6 +2524,20 @@ header #header .header-right .header-menu .nav-sp.slide {
   opacity: 0;
   visibility: hidden;
   position: absolute;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient {
+  transform: skew(-15deg);
+  color: #fff;
+  border-radius: 0;
+  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-top: 1rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient:hover {
+  transform: skew(0);
+  color: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 /*共通のscssファイル
