@@ -19,7 +19,8 @@ $new_url = preg_replace($replacement, '', $url);
     <a href="/?page=profiles&id=<?php echo $post['user_id']?>" class="post-user-detail">
       <?php if (isset($post['image_type']) && isset($post['image_content'])) :
                         $image_content = base64_encode($post['image_content']);?>
-      <img src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>" class="user-top-image">
+      <img src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>" class="user-top-image"
+        style=" border-color: <?php echo $post['color'];?>;background-color: <?php echo $post['color'];?>;">
       <?php endif;?>
       <span class="tweet-username">
         <?php print(fun_h($post['user_name']))?>

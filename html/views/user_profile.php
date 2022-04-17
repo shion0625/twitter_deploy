@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
     $get_image = new UsingGetImage('user_id', $profile_user_id);
     $image = $get_image->usingGetImage();
     if(!$user_profile['color']){
-      $user_profile['color'] = "#000000";
+      $user_profile['color'] = "#3dafe4";
     };
 }
 

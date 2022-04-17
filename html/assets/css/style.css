@@ -91,6 +91,7 @@ body .user-top-image {
   border-radius: 50%;
   -o-object-position: center;
      object-position: center;
+  border: 0.2rem solid #3dafe4;
 }
 body .msg-alert {
   display: inline-block;
