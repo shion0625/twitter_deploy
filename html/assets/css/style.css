@@ -64,6 +64,7 @@ body .vsc-initialized {
 }
 body a {
   text-decoration: none;
+  color: black;
 }
 body .btn120, body a.btn120, body button.btn120 {
   font-size: 1.6rem;
@@ -91,6 +92,7 @@ body .user-top-image {
   border-radius: 50%;
   -o-object-position: center;
      object-position: center;
+  border: 0.2rem solid #3dafe4;
 }
 body .msg-alert {
   display: inline-block;
@@ -2442,17 +2444,32 @@ header #header .header-right .header-menu .nav-sp.slide {
   border-radius: 50%;
   width: 15rem;
   height: 15rem;
-  border: 0.8rem solid #00cc00;
+  border: 0.8rem solid;
 }
 .user-profile-all-contents .user-profile .profile-username {
   text-align: center;
   font-size: 4rem;
-  margin: 1rem 0;
+  margin: 1rem 0 0.5rem;
+}
+.user-profile-all-contents .user-profile .profile-date {
+  font-size: 1rem;
+  color: gray;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.user-profile-all-contents .user-profile .profile-date .profile-birthday {
+  margin-right: 2rem;
+}
+.user-profile-all-contents .user-profile .profile-self-introduction {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 .user-profile-all-contents .user-profile .follow-container {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+  color: grey;
 }
 .user-profile-all-contents .user-profile .follow-container .follow {
   margin-right: 1rem;
@@ -2507,6 +2524,20 @@ header #header .header-right .header-menu .nav-sp.slide {
   opacity: 0;
   visibility: hidden;
   position: absolute;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient {
+  transform: skew(-15deg);
+  color: #fff;
+  border-radius: 0;
+  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-top: 1rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient:hover {
+  transform: skew(0);
+  color: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 /*共通のscssファイル

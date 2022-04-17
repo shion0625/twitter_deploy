@@ -213,8 +213,9 @@ function getPostContent() {
   }
   let inputData = quill.root.innerHTML;
   let length = quill.getLength();
+  let inputValue = $('.ql-editor')[0].innerText.trim().length;
 
-  if (length <= 1) {
+  if (length <= 1 || inputValue == 0) {
     setTimeout(() => {
       validate(false);
       alert_animation("投稿内容が入力されていません。");

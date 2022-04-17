@@ -1,11 +1,14 @@
 <?php
 use Classes\Image\UsingGetImage;
+use Classes\User\UserInfo;
 
 $user_id = $_SESSION['userID'] ?? null;
 
 if ($user_id) {
     $using_get_image = new UsingGetImage('user_id', $user_id);
     $image = $using_get_image->usingGetImage();
+    $current_user_info = new UserInfo($user_id);
+    $current_profile = $current_user_info->getUserProfile();
     if (isset($image['image_type']) && isset($image['image_content'])) {
         $image_type=$image['image_type'];
         $image_content=$image['image_content'];
@@ -48,7 +51,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
         alert_animation();
         </script>
         <?php
-        echo $_SESSION['messageAlert'];
+        echo fun_h($_SESSION['messageAlert']);
         $_SESSION['messageAlert'] = '';
         ?>
       </div>
@@ -62,22 +65,24 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
       <nav>
         <div class="header-item">
           <?php if (isset($_SESSION['userID'])) :?>
-          <a href="?page=your_timeline">あなたのタイムライン</a>
+          <a href="?page=your_timeline" style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのタイムライン</a>
           <?php endif;?>
         </div>
 
-        <div class="header-item">
+        <div class=" header-item">
           <?php if (isset($_SESSION['userID'])) :?>
-          <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
+          <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>"
+            style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのプロフィール</a>
           <?php endif;?>
         </div>
       </nav>
       <?php if (isset($_SESSION['userID'])) :?>
       <div>
         <?php if ($is_exist_image) :?>
-        <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>" class="user-top-image">
+        <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>" class="user-top-image"
+          style=" border-color: <?php echo fun_h($current_profile['color']);?>;background-color: <?php echo fun_h($current_profile['color']);?>;">
         <?php endif;?>
-        <p><?php print($_SESSION['username'])?>さん</p>
+        <p><?php echo fun_h($current_profile['user_name'])?>さん</p>
       </div>
       <?php endif;?>
       <div class="header-signup">
