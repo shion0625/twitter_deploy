@@ -71,9 +71,14 @@ $(() => {
             $('.nav-sp').removeClass('slide');
             // ハンバーガーメニューを元に戻す
             $('.hamburger-menu').removeClass('open');
+            setTimeout(() => {
+                $('.nav-sp').addClass('none');
+            }, 600);
         } else {
-            // ナビゲーションを表示
-            $('.nav-sp').addClass('slide');
+            $('.nav-sp').removeClass('none');
+            setTimeout(() => {
+                $('.nav-sp').addClass('slide');
+            }, 100);
             // ハンバーガーメニューを✖印に変更
             $('.hamburger-menu').addClass('open');
         }

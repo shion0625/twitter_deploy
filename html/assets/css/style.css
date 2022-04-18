@@ -348,6 +348,10 @@ body .is-show {
   opacity: 1;
   visibility: visible;
 }
+body .change-page {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
 
 /*!
  * Quill Editor v1.3.6
@@ -2017,6 +2021,7 @@ body .is-show {
 
 header {
   width: 100%;
+  margin-bottom: 4rem;
 }
 header #header {
   height: 6rem;
@@ -2031,6 +2036,11 @@ header #header .header-logo h1 {
   color: blue;
   font-size: 3.2rem;
 }
+@media screen and (max-width: 630px) {
+  header #header .header-menu-tab-none {
+    display: none;
+  }
+}
 header #header nav {
   height: 100%;
   display: flex;
@@ -2038,7 +2048,7 @@ header #header nav {
   justify-content: space-between;
 }
 header #header nav .header-item {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-right: 2.5rem;
 }
 header #header .header-signup {
@@ -2131,6 +2141,12 @@ header #header .header-right .header-login a p {
 header #header .header-right .header-menu {
   margin: 0;
   height: 5rem;
+  margin-top: auto;
+}
+@media screen and (min-width: 631px) {
+  header #header .header-right .header-menu {
+    display: none;
+  }
 }
 header #header .header-right .header-menu .menu-bar p {
   margin: 0;
@@ -2180,16 +2196,20 @@ header #header .header-right .header-menu .menu-bar .hamburger-menu.open .hambur
   transform: rotate(-45deg);
 }
 header #header .header-right .header-menu .nav-sp {
+  font-size: 2rem;
   box-sizing: border-box;
   position: absolute;
   top: 6rem;
-  right: -30rem;
-  width: 30rem;
-  height: 100%;
-  padding: 2rem 1rem 0;
-  background-color: rgba(95, 199, 240, 0.5);
+  right: -50%;
+  width: 45%;
+  padding: 2rem 2rem;
+  background-color: #5fc7f0;
   text-align: left;
   transition: right 0.5s;
+  z-index: 999;
+}
+header #header .header-right .header-menu .nav-sp .li-item {
+  margin-bottom: 1rem;
 }
 header #header .header-right .header-menu .nav-sp a {
   display: inline-block;
@@ -2197,6 +2217,9 @@ header #header .header-right .header-menu .nav-sp a {
 }
 header #header .header-right .header-menu .nav-sp.slide {
   right: 0;
+}
+header #header .header-right .header-menu .nav-sp.none {
+  display: none;
 }
 
 .home-all-contents .tweet-btn .tweet-submit-btn {
