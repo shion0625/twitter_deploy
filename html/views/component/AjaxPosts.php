@@ -24,7 +24,8 @@ if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInf
     }
     $get_post_db = new GetNewestPost();
     $user_post = $get_post_db->getNewestPost()[0];
-    $user_name = (string)$user_post['user_name'];
+    $user_name = fun_h((string)$user_post['user_name']);
+    $user_color = fun_h((string)$user_post['color']);
     $post_id = (string)$user_post["post_id"];
     $user_id = (string)$user_post["user_id"];
     $post_text = (string)$user_post["post_text"];
@@ -45,14 +46,17 @@ if (!empty($_POST) && $_POST['send'] == 'postInfo') {
                 <a
                 href='/?page=profiles&id={$user_id}'
                 class='post-user-detail'>
-                <img class='user-top-image' src='data:{$image_type};base64,{$image_content}'>
+                <img class='user-top-image' src='data:{$image_type};base64,{$image_content}'
+                style='border-color: {$user_color}; background-color: {$user_color};'>
                     <span class='tweet-username'>
                         {$user_name}
                     </span>
                 </a>
             </p>
             <div class='tweet-content'>
-                {$post_text}
+                <div class='tweet-content-inner'>
+                    {$post_text}
+                </div>
             </div>
                 <p class='appendix'>
                     <span>{$date_time}</span>
@@ -64,14 +68,17 @@ if (!empty($_POST) && $_POST['send'] == 'postInfo') {
             <p class='user-header'>
                 <a
                 href='/?page=profiles&id={$user_id}'
-                class='post-user-detail'>
+                class='post-user-detail'
+                style='border-color: {$user_color}; background-color: {$user_color};'>
                     <span class='tweet-username'>
                         {$user_name}
                     </span>
                 </a>
             </p>
             <div class='tweet-content'>
-                {$post_text}
+                <div class='tweet-content-inner'>
+                    {$post_text}
+                </div>
             </div>
             <p class='appendix'>
                 <span>{$date_time}</span>
