@@ -93,6 +93,7 @@ body .user-top-image {
   -o-object-position: center;
      object-position: center;
   border: 0.2rem solid #3dafe4;
+  background-color: #3dafe4;
 }
 body .msg-alert {
   display: inline-block;
@@ -124,7 +125,8 @@ body .user-posts .post {
 }
 body .user-posts .post .user-header {
   height: 5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
+  word-break: break-word;
 }
 body .user-posts .post .user-header .post-user-detail {
   position: relative;
@@ -136,6 +138,7 @@ body .user-posts .post .user-header .post-user-detail .tweet-username {
   font-size: 2.5rem;
   top: 30%;
   color: #3d3d3d;
+  width: 80%;
 }
 body .user-posts .post .tweet-content {
   font-size: 1.2rem;
@@ -2464,6 +2467,7 @@ header #header .header-right .header-menu .nav-sp.slide {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
+  white-space: pre-wrap;
 }
 .user-profile-all-contents .user-profile .follow-container {
   display: flex;
@@ -2524,6 +2528,10 @@ header #header .header-right .header-menu .nav-sp.slide {
   opacity: 0;
   visibility: hidden;
   position: absolute;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .input-self-intro {
+  width: 30rem;
+  height: 6rem;
 }
 .user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient {
   transform: skew(-15deg);

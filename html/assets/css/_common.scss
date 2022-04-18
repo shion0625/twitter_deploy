@@ -39,6 +39,7 @@ body {
     border-radius: 50%;
     object-position: center;
     border: 0.2rem solid #3dafe4;
+    background-color: #3dafe4;
   }
   .msg-alert {
     display: inline-block;
@@ -67,7 +68,8 @@ body {
       border: 0.2rem solid;
       .user-header {
         height: 5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
+        word-break: break-word;
         .post-user-detail {
           position: relative;
           display: block;
@@ -77,6 +79,7 @@ body {
             font-size: 2.5rem;
             top: 30%;
             color: #3d3d3d;
+            width: 80%;
           }
         }
       }
