@@ -2,56 +2,122 @@
   $image-size: 15rem;
   $color: #00cc00;
   .user-profile{
+    font-family: serif;
     .profile-image{
       text-align: center;
       .user_profile_image{
         border-radius: 50%;
         width: $image-size;
         height: $image-size;
-        border: 0.8rem solid $color;
+        border: 0.8rem solid;
       }
     }
-  }
-///////popupの中////////////
-    .preview-content{
-    border-radius: 50%;
-    display: block;
-    width: 18rem;
-    height: 18rem;
-    border: 0.5rem dashed #eee;
-    padding: 1rem;
-    margin: 2rem auto;
-    .image-preview{
-      border-radius: 50%;
+    .profile-username{
+        text-align: center;
+        font-size: 4rem;
+        margin: 1rem 0 0.5rem;
     }
-    .image-preview-size{
-      width:$image-size;
-      height: $image-size;
-    }
-  }
-  form{
-    font-size: 1.5rem;
-    input[type="text"],
-    input[type="date"]{
-      width: 30rem;
-    }
-    .form-image{
+    .profile-date{
+      font-size: 1rem;
+      color: gray;
       text-align: center;
-      .choice-image-label{
-        padding: 10px 25px;
-        margin: 0 0 10px;
-        background: #1ecd97;
-        color: #fff;
-        display: inline-block;
-        cursor: pointer;
-      }
-      input[type="file"] {
-        opacity: 0;
-        visibility: hidden;
-        position: absolute;
+      margin-bottom: 2rem;
+      .profile-birthday{
+        margin-right: 2rem;
       }
     }
-    .birthday{
+    .profile-self-introduction{
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      white-space: pre-wrap;
+    }
+    .follow-container{
+      display:flex;
+      justify-content: center;
+      flex-wrap:nowrap;
+      color: grey;
+      .follow{
+        margin-right: 1rem;
+        font-size: 2rem;
+      }
+      .follower{
+        margin-left: 1rem;
+        font-size: 2rem;
+      }
+    }
+    .setting-profile-contents{
+      .setting-profile-btn{
+        color: #fff;
+        background-color: black;
+        border-radius: 10vh;
+        margin-bottom: 1rem;
+        margin: 1rem 0rem 2rem 2rem;
+      }
+          ///////popupの中////////////
+        .preview-content{
+        border-radius: 50%;
+        display: block;
+        width: 18rem;
+        height: 18rem;
+        border: 0.5rem dashed #eee;
+        padding: 1rem;
+        margin: 2rem auto;
+        .image-preview{
+          border-radius: 50%;
+        }
+        .image-preview-size{
+          width:$image-size;
+          height: $image-size;
+        }
+      }
+      form{
+        font-size: 1.5rem;
+        input[type="text"],
+        input[type="date"]{
+          width: 30rem;
+        }
+        .form-image{
+          text-align: center;
+          .choice-image-label{
+            padding: 10px 25px;
+            margin: 0 0 10px;
+            background: #1ecd97;
+            color: #fff;
+            display: inline-block;
+            cursor: pointer;
+          }
+          input[type="file"] {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+          }
+        }
+        .input-self-intro{
+          width: 30rem;
+          height: 6rem;
+        }
+        .btn-gradient{
+            -webkit-transform: skew(-15deg);
+            transform: skew(-15deg);
+            color: #fff;
+            border-radius: 0;
+            background-image: -webkit-gradient(linear, left top, right top, from(#2af598), to(#009efd));
+            background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
+            background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+            border: none;
+            margin-top: 1rem;
+        }
+        .btn-gradient:hover {
+            -webkit-transform: skew(0);
+            transform: skew(0);
+            color: #fff;
+            -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+        }
+      }
     }
   }
 }

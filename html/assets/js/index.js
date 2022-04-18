@@ -42,10 +42,10 @@ $(document).on('click', '#js-follow-btn', (e) => {
 });
 
 function alert_animation(txt) {
-    $('#js-msg-alert').text(txt);
-    $('#js-msg-alert').fadeIn(2000);
+    $('.msg-alert').text(txt);
+    $('.msg-alert').fadeIn(2000);
     setInterval(() => {
-        $('#js-msg-alert').fadeOut(2000);
+        $('.msg-alert').fadeOut(2000);
     }, 7000);
 };
 
@@ -71,9 +71,14 @@ $(() => {
             $('.nav-sp').removeClass('slide');
             // ハンバーガーメニューを元に戻す
             $('.hamburger-menu').removeClass('open');
+            setTimeout(() => {
+                $('.nav-sp').addClass('none');
+            }, 600);
         } else {
-            // ナビゲーションを表示
-            $('.nav-sp').addClass('slide');
+            $('.nav-sp').removeClass('none');
+            setTimeout(() => {
+                $('.nav-sp').addClass('slide');
+            }, 100);
             // ハンバーガーメニューを✖印に変更
             $('.hamburger-menu').addClass('open');
         }

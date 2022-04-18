@@ -18,7 +18,7 @@ if (isset($_SESSION['userID'])) {
   </div>
   <?php else :?>
   <div>
-    <p>ログインしてください</p>
+    <p>フォローしているユーザの投稿がありません。</p>
   </div>
   <?php endif;?>
 </div>

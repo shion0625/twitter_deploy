@@ -19,22 +19,26 @@ $new_url = preg_replace($replacement, '', $url);
     <a href="/?page=profiles&id=<?php echo $post['user_id']?>" class="post-user-detail">
       <?php if (isset($post['image_type']) && isset($post['image_content'])) :
                         $image_content = base64_encode($post['image_content']);?>
-      <img src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>" class="user-top-image">
+      <img src="data:<?php echo $post['image_type'] ?>;base64,<?php echo $image_content; ?>" class="user-top-image"
+        style="border-color: <?php echo fun_h($post['color']);?>;background-color: <?php echo fun_h($post['color']);?>;">
       <?php endif;?>
       <span class="tweet-username">
-        <?php print(fun_h($post['user_name']))?>
+        <?php echo fun_h($post['user_name']);?>
       </span>
     </a>
     <?php endif;?>
   </p>
   <div class="tweet-content">
-    <?php print($post['post_text'])?>
+    <div class="tweet-content-inner">
+      <?php echo $post['post_text'];?>
+    </div>
   </div>
+
   <p class="appendix">
     <span><?php print(fun_h($post['date_time']))?></span>
     <?php if (isset($_SESSION['username']) &&
-            ($post['user_name'] == $_SESSION['username'] ||
-            strcmp(getenv('ADMIN_USER'), $_SESSION['username']) == 0)) :?>
+            (strcmp($post['user_id'], $_SESSION['userID']) == 0||
+            strcmp(getenv('ADMIN_USER'), $_SESSION['userID']) == 0)) :?>
   <form action='?page=delete' method="POST">
     <div class="dlt-btn">
       <div class="dlt-btn-back">
@@ -51,7 +55,7 @@ $new_url = preg_replace($replacement, '', $url);
   </p>
 </div>
 <?php endforeach;?>
-<p>
+<p class="change-page">
   <?php if ($page_num>1) :
             $next_num = $page_num-1;
             if (strpos($new_url, '?')) {
@@ -60,7 +64,8 @@ $new_url = preg_replace($replacement, '', $url);
                 $param = $new_url . '?page_num=' . $next_num;
             }
             ?>
-  <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a> |
+  <a href="<?php echo $param; ?>"
+    style="color: <?php echo fun_h($current_profile['color']);?>;"><?php echo $next_num; ?>ページ目へ</a> |
   <?php endif;?>
   <?php if ($page_num<$max_page) :
             $next_num = $page_num+1;
@@ -70,6 +75,49 @@ $new_url = preg_replace($replacement, '', $url);
                 $param = $new_url . '?page_num=' . $next_num;
             }
             ?>
-  <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a>
+  <a href="<?php echo $param; ?>"
+    style="color: <?php echo fun_h($current_profile['color']);?>;"><?php echo $next_num; ?>ページ目へ</a>
   <?php endif;?>
 </p>
+
+<script>
+$(() => {
+  let box = $('.tweet-content');
+  box.after('<div class="more">MORE</div>');
+  let more = $('.more');
+
+  for (let i = 0; i < box.length; i++) {
+    var boxInnerH = $('.tweet-content-inner').eq(i).innerHeight();
+    if (boxInnerH < 70) {
+      more.eq(i).hide();
+    } else {
+      box.eq(i).css({
+        height: '5rem'
+      });
+    }
+  }
+
+  function adClass() {
+    $(this).next(more).addClass('is-active');
+  }
+
+  function remClass() {
+    $(this).next(more).removeClass('is-active');
+  }
+
+  more.on('click', function() {
+    var index = more.index(this);
+    var boxThis = box.eq(index);
+    var innerH = $('.tweet-content-inner').eq(index).innerHeight();
+    if ($(this).hasClass('is-active')) {
+      boxThis.animate({
+        height: '5rem'
+      }, 200, remClass);
+    } else {
+      boxThis.animate({
+        height: innerH
+      }, 200, adClass);
+    }
+  });
+});
+</script>

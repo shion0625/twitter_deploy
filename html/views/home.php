@@ -61,7 +61,7 @@ $user_posts = $get_post_db->getHomePosts($start_num);
 <script>
 'use strict';
 let userId;
-<?php if(!empty($_SESSION["userID"])):?>
+<?php if (!empty($_SESSION["userID"])):?>
 userId = <?php echo json_encode($_SESSION['userID']);?>
 <?php endif;?>
 
@@ -213,8 +213,9 @@ function getPostContent() {
   }
   let inputData = quill.root.innerHTML;
   let length = quill.getLength();
+  let inputValue = $('.ql-editor')[0].innerText.trim().length;
 
-  if (length <= 1) {
+  if (length <= 1 || inputValue == 0) {
     setTimeout(() => {
       validate(false);
       alert_animation("投稿内容が入力されていません。");
@@ -258,5 +259,3 @@ function getPostContent() {
 }
 </script>
 <script type="text/javascript" src="assets/js/websocket.js"></script>
-<!-- 012345<span>6789AB</span>CDEFGHIJKLMNOPQRSTUVWXYZ -->
-<!-- 私の名前は淀川海都です。\nよろしくお願いします。 -->

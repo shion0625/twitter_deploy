@@ -24,7 +24,7 @@ class GetNewestPost extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "SELECT u.user_name, t.*, i.image_type, i.image_content
+            $query = "SELECT u.user_name,u.color, t.*, i.image_type, i.image_content
             FROM users AS u INNER JOIN tweet AS t ON u.email_encode = t.user_id LEFT OUTER JOIN user_image AS i
             ON t.user_id = i.user_id WHERE post_id = (SELECT MAX(post_id)FROM tweet)";
             $stmt = $dbh->prepare($query);

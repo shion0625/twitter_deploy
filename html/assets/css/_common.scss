@@ -10,6 +10,7 @@ body {
   }
   a {
     text-decoration: none;
+    color: black;
   }
   .btn120, a.btn120, button.btn120 {
     font-size: 1.6rem;
@@ -37,6 +38,8 @@ body {
     height: 5rem;
     border-radius: 50%;
     object-position: center;
+    border: 0.2rem solid #3dafe4;
+    background-color: #3dafe4;
   }
   .msg-alert {
     display: inline-block;
@@ -65,7 +68,8 @@ body {
       border: 0.2rem solid;
       .user-header {
         height: 5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
+        word-break: break-word;
         .post-user-detail {
           position: relative;
           display: block;
@@ -75,11 +79,44 @@ body {
             font-size: 2.5rem;
             top: 30%;
             color: #3d3d3d;
+            width: 80%;
           }
         }
       }
       .tweet-content {
         font-size: 1.2rem;
+        overflow: hidden;
+          .tweet-content-inner {
+              padding: 1rem 2rem;
+              line-height: initial;
+          }
+      }
+
+      .more{
+          margin-top: 1.5rem;
+          text-align: center;
+          color: #2e9ce5;
+          cursor: pointer;
+          background: rgba(255,255,255,0);
+          background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(0%, rgba(255,255,255,0)), color-stop(31%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+          background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          &:after{
+            content:'↓';
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2rem;
+            -webkit-transition: .3s;
+            transition: .3s;
+          }
+          &.is-active{
+            &:after{
+              -webkit-transform:rotate(180deg);
+              transform:rotate(180deg);
+            }
+          }
       }
       .appendix {
         margin: 1.5rem 0 0.5rem;
@@ -265,5 +302,9 @@ body {
   .is-show {
     opacity: 1;
     visibility: visible;
+  }
+  .change-page{
+    font-size: 1.2rem;
+    margin-top: 1rem;
   }
 }

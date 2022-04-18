@@ -64,6 +64,7 @@ body .vsc-initialized {
 }
 body a {
   text-decoration: none;
+  color: black;
 }
 body .btn120, body a.btn120, body button.btn120 {
   font-size: 1.6rem;
@@ -91,6 +92,8 @@ body .user-top-image {
   border-radius: 50%;
   -o-object-position: center;
      object-position: center;
+  border: 0.2rem solid #3dafe4;
+  background-color: #3dafe4;
 }
 body .msg-alert {
   display: inline-block;
@@ -122,7 +125,8 @@ body .user-posts .post {
 }
 body .user-posts .post .user-header {
   height: 5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
+  word-break: break-word;
 }
 body .user-posts .post .user-header .post-user-detail {
   position: relative;
@@ -134,9 +138,34 @@ body .user-posts .post .user-header .post-user-detail .tweet-username {
   font-size: 2.5rem;
   top: 30%;
   color: #3d3d3d;
+  width: 80%;
 }
 body .user-posts .post .tweet-content {
   font-size: 1.2rem;
+  overflow: hidden;
+}
+body .user-posts .post .tweet-content .tweet-content-inner {
+  padding: 1rem 2rem;
+  line-height: initial;
+}
+body .user-posts .post .more {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #2e9ce5;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(0%, rgba(255, 255, 255, 0)), color-stop(31%, white), color-stop(100%, white));
+  background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, white 31%, white 100%);
+}
+body .user-posts .post .more:after {
+  content: "↓";
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+body .user-posts .post .more.is-active:after {
+  transform: rotate(180deg);
 }
 body .user-posts .post .appendix {
   margin: 1.5rem 0 0.5rem;
@@ -318,6 +347,10 @@ body .popup .black-background {
 body .is-show {
   opacity: 1;
   visibility: visible;
+}
+body .change-page {
+  font-size: 1.2rem;
+  margin-top: 1rem;
 }
 
 /*!
@@ -1988,6 +2021,7 @@ body .is-show {
 
 header {
   width: 100%;
+  margin-bottom: 4rem;
 }
 header #header {
   height: 6rem;
@@ -2002,6 +2036,11 @@ header #header .header-logo h1 {
   color: blue;
   font-size: 3.2rem;
 }
+@media screen and (max-width: 630px) {
+  header #header .header-menu-tab-none {
+    display: none;
+  }
+}
 header #header nav {
   height: 100%;
   display: flex;
@@ -2010,7 +2049,7 @@ header #header nav {
 }
 header #header nav .header-item {
   font-size: 2rem;
-  margin-right: 0.5rem;
+  margin-right: 2.5rem;
 }
 header #header .header-signup {
   margin: 0.5rem 1rem 0.5rem 0rem;
@@ -2102,6 +2141,12 @@ header #header .header-right .header-login a p {
 header #header .header-right .header-menu {
   margin: 0;
   height: 5rem;
+  margin-top: auto;
+}
+@media screen and (min-width: 631px) {
+  header #header .header-right .header-menu {
+    display: none;
+  }
 }
 header #header .header-right .header-menu .menu-bar p {
   margin: 0;
@@ -2151,16 +2196,20 @@ header #header .header-right .header-menu .menu-bar .hamburger-menu.open .hambur
   transform: rotate(-45deg);
 }
 header #header .header-right .header-menu .nav-sp {
+  font-size: 2rem;
   box-sizing: border-box;
   position: absolute;
   top: 6rem;
-  right: -30rem;
-  width: 30rem;
-  height: 100%;
-  padding: 2rem 1rem 0;
-  background-color: rgba(95, 199, 240, 0.5);
+  right: -50%;
+  width: 45%;
+  padding: 2rem 2rem;
+  background-color: #5fc7f0;
   text-align: left;
   transition: right 0.5s;
+  z-index: 999;
+}
+header #header .header-right .header-menu .nav-sp .li-item {
+  margin-bottom: 1rem;
 }
 header #header .header-right .header-menu .nav-sp a {
   display: inline-block;
@@ -2169,12 +2218,15 @@ header #header .header-right .header-menu .nav-sp a {
 header #header .header-right .header-menu .nav-sp.slide {
   right: 0;
 }
+header #header .header-right .header-menu .nav-sp.none {
+  display: none;
+}
 
 .home-all-contents .tweet-btn .tweet-submit-btn {
   color: #fff;
   background-color: #3dafe4;
   border-radius: 10vh;
-  margin-bottom: 1rem;
+  margin: 1rem 0rem 2rem 2rem;
 }
 .home-all-contents .post-btn-container {
   font-family: "Roboto", sans-serif;
@@ -2432,6 +2484,9 @@ header #header .header-right .header-menu .nav-sp.slide {
   line-height: 1.6em;
 }
 
+.user-profile-all-contents .user-profile {
+  font-family: serif;
+}
 .user-profile-all-contents .user-profile .profile-image {
   text-align: center;
 }
@@ -2439,9 +2494,50 @@ header #header .header-right .header-menu .nav-sp.slide {
   border-radius: 50%;
   width: 15rem;
   height: 15rem;
-  border: 0.8rem solid #00cc00;
+  border: 0.8rem solid;
 }
-.user-profile-all-contents .preview-content {
+.user-profile-all-contents .user-profile .profile-username {
+  text-align: center;
+  font-size: 4rem;
+  margin: 1rem 0 0.5rem;
+}
+.user-profile-all-contents .user-profile .profile-date {
+  font-size: 1rem;
+  color: gray;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.user-profile-all-contents .user-profile .profile-date .profile-birthday {
+  margin-right: 2rem;
+}
+.user-profile-all-contents .user-profile .profile-self-introduction {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  white-space: pre-wrap;
+}
+.user-profile-all-contents .user-profile .follow-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  color: grey;
+}
+.user-profile-all-contents .user-profile .follow-container .follow {
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+.user-profile-all-contents .user-profile .follow-container .follower {
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents .setting-profile-btn {
+  color: #fff;
+  background-color: black;
+  border-radius: 10vh;
+  margin-bottom: 1rem;
+  margin: 1rem 0rem 2rem 2rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents .preview-content {
   border-radius: 50%;
   display: block;
   width: 18rem;
@@ -2450,24 +2546,24 @@ header #header .header-right .header-menu .nav-sp.slide {
   padding: 1rem;
   margin: 2rem auto;
 }
-.user-profile-all-contents .preview-content .image-preview {
+.user-profile-all-contents .user-profile .setting-profile-contents .preview-content .image-preview {
   border-radius: 50%;
 }
-.user-profile-all-contents .preview-content .image-preview-size {
+.user-profile-all-contents .user-profile .setting-profile-contents .preview-content .image-preview-size {
   width: 15rem;
   height: 15rem;
 }
-.user-profile-all-contents form {
+.user-profile-all-contents .user-profile .setting-profile-contents form {
   font-size: 1.5rem;
 }
-.user-profile-all-contents form input[type=text],
-.user-profile-all-contents form input[type=date] {
+.user-profile-all-contents .user-profile .setting-profile-contents form input[type=text],
+.user-profile-all-contents .user-profile .setting-profile-contents form input[type=date] {
   width: 30rem;
 }
-.user-profile-all-contents form .form-image {
+.user-profile-all-contents .user-profile .setting-profile-contents form .form-image {
   text-align: center;
 }
-.user-profile-all-contents form .form-image .choice-image-label {
+.user-profile-all-contents .user-profile .setting-profile-contents form .form-image .choice-image-label {
   padding: 10px 25px;
   margin: 0 0 10px;
   background: #1ecd97;
@@ -2475,11 +2571,30 @@ header #header .header-right .header-menu .nav-sp.slide {
   display: inline-block;
   cursor: pointer;
 }
-.user-profile-all-contents form .form-image input[type=file] {
+.user-profile-all-contents .user-profile .setting-profile-contents form .form-image input[type=file] {
   opacity: 0;
   visibility: hidden;
   position: absolute;
 }
+.user-profile-all-contents .user-profile .setting-profile-contents form .input-self-intro {
+  width: 30rem;
+  height: 6rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient {
+  transform: skew(-15deg);
+  color: #fff;
+  border-radius: 0;
+  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-top: 1rem;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient:hover {
+  transform: skew(0);
+  color: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
 /*共通のscssファイル
 ==========================================*/
 /*共通の外部ファイル

@@ -25,7 +25,7 @@ class GetHomePosts extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = 'SELECT u.user_name, t.*, i.image_type, i.image_content
+            $query = 'SELECT u.user_name, u.color, t.*, i.image_type, i.image_content
             FROM users AS u INNER JOIN tweet AS t ON u.email_encode = t.user_id LEFT OUTER JOIN user_image AS i
             ON t.user_id = i.user_id ORDER BY t.date_time DESC LIMIT :post_num ,15';
             $stmt = $dbh->prepare($query);

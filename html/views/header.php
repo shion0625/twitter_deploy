@@ -1,11 +1,14 @@
 <?php
 use Classes\Image\UsingGetImage;
+use Classes\User\UserInfo;
 
 $user_id = $_SESSION['userID'] ?? null;
 
 if ($user_id) {
     $using_get_image = new UsingGetImage('user_id', $user_id);
     $image = $using_get_image->usingGetImage();
+    $current_user_info = new UserInfo($user_id);
+    $current_profile = $current_user_info->getUserProfile();
     if (isset($image['image_type']) && isset($image['image_content'])) {
         $image_type=$image['image_type'];
         $image_content=$image['image_content'];
@@ -35,47 +38,60 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <script src="https://kit.fontawesome.com/f5a505d08a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="assets/js/index.js"></script>
   <title>twitter</title>
 </head>
 
 <body>
   <header>
     <div id="header">
-      <div class="msg-alert" id="js-msg-alert">
+      <?php if ($_SESSION['messageAlert']):?>
+      <div class="msg-alert">
+        <script type="text/javascript">
+        alert_animation();
+        </script>
+        <?php
+        echo fun_h($_SESSION['messageAlert']);
+        $_SESSION['messageAlert'] = '';
+        ?>
       </div>
+      <?php endif;?>
+      <div class="msg-alert" id="js-msg-alert"></div>
       <div class="header-logo">
         <a href="/">
           <h1>twitter</h1>
         </a>
       </div>
-      <nav>
-        <div class="header-item">
+      <nav class="header-menu-tab-none">
+        <div class=" header-item">
           <?php if (isset($_SESSION['userID'])) :?>
-          <a href="?page=your_timeline">あなたのタイムライン</a>
+          <a href="?page=your_timeline" style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのタイムライン</a>
           <?php endif;?>
         </div>
 
         <div class="header-item">
           <?php if (isset($_SESSION['userID'])) :?>
-          <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
+          <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>"
+            style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのプロフィール</a>
           <?php endif;?>
         </div>
       </nav>
       <?php if (isset($_SESSION['userID'])) :?>
       <div>
         <?php if ($is_exist_image) :?>
-        <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>" class="user-top-image">
+        <img src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>" class="user-top-image"
+          style=" border-color: <?php echo fun_h($current_profile['color']);?>;background-color: <?php echo fun_h($current_profile['color']);?>;">
         <?php endif;?>
-        <p><?php print($_SESSION['username'])?>さん</p>
+        <p><?php echo fun_h($current_profile['user_name'])?>さん</p>
       </div>
       <?php endif;?>
-      <div class="header-signup">
+      <div class="header-signup header-menu-tab-none">
         <?php if (!isset($_SESSION['userID'])) :?>
         <a href="?page=signUp" class="btn120 btn-flat"><span>会員登録</span></a>
         <?php endif; ?>
       </div>
       <div class="header-right">
-        <div class="header-login">
+        <div class="header-login header-menu-tab-none">
           <?php if (isset($_SESSION['userID'])) :?>
           <a href="?page=logout" alt="ログアウトボタン">
             <i class="fas fa-door-closed"></i>
@@ -95,19 +111,32 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
             </div>
             <p>メニュー</p>
           </div>
-          <!-- <nav class="nav-sp">
+          <menu class="nav-sp none">
             <ul>
-              <li>
-                <a href="?page=profiles">あなたのタイムライン</a>
+              <li class="li-item">
+                <a href="?page=your_timeline">あなたのタイムライン</a>
               </li>
-              <li>
-                <a href="?page=yourTweets">あなたのツイート</a>
+              <li class="li-item">
+                <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
               </li>
-              <li>
-                <a href="#">あなたのプロフィール</a>
+              <?php if (!isset($_SESSION['userID'])) :?>
+              <li class="li-item">
+                <a href="?page=signUp"><span>会員登録</span></a>
+              </li>
+              <?php endif; ?>
+              <li class="li-item">
+                <?php if (isset($_SESSION['userID'])) :?>
+                <a href="?page=logout" alt="ログアウトボタン">
+                  <p><i class="fas fa-door-closed"></i>ログアウト</p>
+                </a>
+                <?php else :?>
+                <a href="?page=login" alt="ログインボタン">
+                  <p><i class="fas fa-door-open"></i>>ログイン</p>
+                </a>
+                <?php endif; ?>
               </li>
             </ul>
-          </nav> -->
+          </menu>
         </div>
       </div>
     </div>
