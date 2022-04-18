@@ -22,9 +22,6 @@ if (isset($_GET['id'])) {
     $user_profile = $get_user_info->getUserProfile();
     $get_image = new UsingGetImage('user_id', $profile_user_id);
     $image = $get_image->usingGetImage();
-    if(!$user_profile['color']){
-      $user_profile['color'] = "#3dafe4";
-    };
 }
 
 $is_yourself = $current_user_id == $profile_user_id;
@@ -43,26 +40,36 @@ if (!empty($image)) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
-    if (!empty($_FILES['image']['name'])) {
-        $using_insert_update = new UsingUpdateInsert($is_exit_image);
-        $result = $using_insert_update->actionImage();
-        if ($result['update'] || $result['insert']) {
-            $_SESSION['messageAlert'] = '画像の保存に成功しました';
-          header("location: {$url}");
-          exit();
-        }
-    }
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && $profile_user_id){
-      if(!$_POST['username']){
+    if (!$_POST['username']) {
         $_SESSION['messageAlert'] = "ユーザ名が入力されていません。";
         header("Location: {$url}");
         exit();
       }
+      $_POST['username'] = trim($_POST['username']);
+      if(strlen($_POST['username']) > 30){
+          $_SESSION['messageAlert'] = "ユーザ名の文字数が限界を超過しています。";
+          header("Location: {$url}");
+          exit();
+      }
+    if(!empty($_POST['self-intro'])){
+      $trimmed = trim($_POST['self-intro']);
+      $_POST['self-intro'] = $trimmed;
+      if(strlen($_POST['self-intro']) > 255){
+          $_SESSION['messageAlert'] = "自己紹介の文字数が限界を超過しています。";
+          header("Location: {$url}");
+          exit();
+      }
+    }
+    if (!empty($_FILES['image']['name'])) {
+      if($_FILES['image']['type']){}
+        $using_insert_update = new UsingUpdateInsert($is_exit_image);
+        $resultImage = $using_insert_update->actionImage();
+    }
       if (empty($_POST['birthday'])) {
           $_POST['birthday'] =null;
       }
-      $result = $get_user_info->updateUserInfo($_POST['username'], $_POST['birthday'], $_POST['self-intro'], $_POST['main-color']);
-      if($result){
+      $resultUser = $get_user_info->updateUserInfo(trim($_POST['username']), $_POST['birthday'], trim($_POST['self-intro']), $_POST['main-color']);
+      if($resultUser){
         $_SESSION['messageAlert'] = "ユーザ情報を更新しました。";
         header("Location: {$url}");
         exit();
@@ -71,12 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
         header("location: {$url}");
         exit();
       }
-    }else{
-        $_SESSION['messageAlert'] = "フォームの送信に失敗しました。";
-        header("Location: {$url}");
-        exit();
     }
-}
 
 if (!$is_yourself) {
     $CheckFollow=new CheckFollow($current_user_id, $profile_user_id);
@@ -96,9 +98,9 @@ if (!$is_yourself) {
   <div class="user-profile">
     <div class="profile-image">
       <?php if ($is_yourself) :?>
-      <?php if ($is_exit_image) :?> <img class="user_profile_image"
-        src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
-        style=" border-color: <?php echo fun_h($user_profile['color']);?>;background-color: <?php echo fun_h($user_profile['color']);?>;">
+      <?php if ($is_exit_image) :?>
+      <img class="user_profile_image" src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
+        style="border-color:<?php echo fun_h($user_profile['color']);?>; background-color: <?php echo fun_h($user_profile['color']);?>;">
       <?php else :?>
       <p>プロフィールの画像を登録してください。</p>
       <?php endif;?>
@@ -114,9 +116,7 @@ if (!$is_yourself) {
     </div>
 
     <?php if ($user_profile['self_introduction']) :?>
-    <div class="profile-self-introduction">
-      <?php echo fun_h($user_profile['self_introduction'])?>
-    </div>
+    <div class="profile-self-introduction"><?php echo fun_h($user_profile['self_introduction'])?></div>
     <?php endif;?>
     <div class="follow-container">
       <div class="follow">フォロー: <span id="js-follow"><?php echo fun_h($follow_num)?></span></div>
@@ -153,7 +153,9 @@ if (!$is_yourself) {
             </div>
             <div class="username">
               <label for="username"> ユーザ名:</label>
-              <p><input type="text" value="<?php echo fun_h($user_profile['user_name']);?>" name="username"></p>
+              <p><input type="text" value="<?php echo fun_h($user_profile['user_name']);?>" name="username"
+                  maxlength="30">
+              </p>
             </div>
             <div class="birthday">
               <label for="birthday"> 誕生日:</label>
@@ -161,8 +163,8 @@ if (!$is_yourself) {
             </div>
             <div class="form-self-introduction">
               <label for="self-intro"> 自己紹介:</label>
-              <p><input type="text" class="input-text" name="self-intro" maxlength="30px"
-                  value="<?php echo fun_h($user_profile['self_introduction']);?>"></p>
+              <p><textarea class="input-self-intro" name="self-intro"><?php echo fun_h($user_profile['self_introduction']);?>
+                </textarea></p>
             </div>
             <div class="main-color">
               <label for="main-color"> カラー:</label>

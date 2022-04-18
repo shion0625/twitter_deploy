@@ -30,6 +30,7 @@
       font-size: 2rem;
       margin-bottom: 1rem;
       text-align: center;
+      white-space: pre-wrap;
     }
     .follow-container{
       display:flex;
@@ -91,6 +92,10 @@
             visibility: hidden;
             position: absolute;
           }
+        }
+        .input-self-intro{
+          width: 30rem;
+          height: 6rem;
         }
         .btn-gradient{
             -webkit-transform: skew(-15deg);
