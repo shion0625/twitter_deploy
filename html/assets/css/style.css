@@ -2211,9 +2211,12 @@ header #header .header-right .header-menu .nav-sp {
 header #header .header-right .header-menu .nav-sp .li-item {
   margin-bottom: 1rem;
 }
-header #header .header-right .header-menu .nav-sp a {
+header #header .header-right .header-menu .nav-sp .li-item a {
   display: inline-block;
   padding: 0.5rem 0;
+}
+header #header .header-right .header-menu .nav-sp .li-item a i {
+  margin-right: 1rem;
 }
 header #header .header-right .header-menu .nav-sp.slide {
   right: 0;
