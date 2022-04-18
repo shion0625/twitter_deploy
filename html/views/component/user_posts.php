@@ -55,7 +55,7 @@ $new_url = preg_replace($replacement, '', $url);
   </p>
 </div>
 <?php endforeach;?>
-<p>
+<p class="change-page">
   <?php if ($page_num>1) :
             $next_num = $page_num-1;
             if (strpos($new_url, '?')) {
@@ -64,7 +64,8 @@ $new_url = preg_replace($replacement, '', $url);
                 $param = $new_url . '?page_num=' . $next_num;
             }
             ?>
-  <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a> |
+  <a href="<?php echo $param; ?>"
+    style="color: <?php echo fun_h($current_profile['color']);?>;"><?php echo $next_num; ?>ページ目へ</a> |
   <?php endif;?>
   <?php if ($page_num<$max_page) :
             $next_num = $page_num+1;
@@ -74,7 +75,8 @@ $new_url = preg_replace($replacement, '', $url);
                 $param = $new_url . '?page_num=' . $next_num;
             }
             ?>
-  <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a>
+  <a href="<?php echo $param; ?>"
+    style="color: <?php echo fun_h($current_profile['color']);?>;"><?php echo $next_num; ?>ページ目へ</a>
   <?php endif;?>
 </p>
 
