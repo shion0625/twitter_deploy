@@ -29,8 +29,11 @@ $new_url = preg_replace($replacement, '', $url);
     <?php endif;?>
   </p>
   <div class="tweet-content">
-    <?php echo $post['post_text'];?>
+    <div class="tweet-content-inner">
+      <?php echo $post['post_text'];?>
+    </div>
   </div>
+
   <p class="appendix">
     <span><?php print(fun_h($post['date_time']))?></span>
     <?php if (isset($_SESSION['username']) &&
@@ -74,3 +77,45 @@ $new_url = preg_replace($replacement, '', $url);
   <a href="<?php echo $param; ?>"><?php echo $next_num; ?>ページ目へ</a>
   <?php endif;?>
 </p>
+
+<script>
+$(() => {
+  let box = $('.tweet-content');
+  box.after('<div class="more">MORE</div>');
+  let more = $('.more');
+
+  for (let i = 0; i < box.length; i++) {
+    var boxInnerH = $('.tweet-content-inner').eq(i).innerHeight();
+    if (boxInnerH < 70) {
+      more.eq(i).hide();
+    } else {
+      box.eq(i).css({
+        height: '5rem'
+      });
+    }
+  }
+
+  function adClass() {
+    $(this).next(more).addClass('is-active');
+  }
+
+  function remClass() {
+    $(this).next(more).removeClass('is-active');
+  }
+
+  more.on('click', function() {
+    var index = more.index(this);
+    var boxThis = box.eq(index);
+    var innerH = $('.tweet-content-inner').eq(index).innerHeight();
+    if ($(this).hasClass('is-active')) {
+      boxThis.animate({
+        height: '5rem'
+      }, 200, remClass);
+    } else {
+      boxThis.animate({
+        height: innerH
+      }, 200, adClass);
+    }
+  });
+});
+</script>

@@ -14,9 +14,6 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/');
 $dotenv->load();
 
-
-print_r($_SESSION);
-
 $page = $_GET['page'] ?? "home.php";
 
 include(__DIR__ . '/views/header.php');

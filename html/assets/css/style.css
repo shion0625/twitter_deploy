@@ -142,6 +142,30 @@ body .user-posts .post .user-header .post-user-detail .tweet-username {
 }
 body .user-posts .post .tweet-content {
   font-size: 1.2rem;
+  overflow: hidden;
+}
+body .user-posts .post .tweet-content .tweet-content-inner {
+  padding: 1rem 2rem;
+  line-height: initial;
+}
+body .user-posts .post .more {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #2e9ce5;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(0%, rgba(255, 255, 255, 0)), color-stop(31%, white), color-stop(100%, white));
+  background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, white 31%, white 100%);
+}
+body .user-posts .post .more:after {
+  content: "↓";
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+body .user-posts .post .more.is-active:after {
+  transform: rotate(180deg);
 }
 body .user-posts .post .appendix {
   margin: 1.5rem 0 0.5rem;
@@ -2014,8 +2038,8 @@ header #header nav {
   justify-content: space-between;
 }
 header #header nav .header-item {
-  font-size: 2rem;
-  margin-right: 0.5rem;
+  font-size: 1.5rem;
+  margin-right: 2.5rem;
 }
 header #header .header-signup {
   margin: 0.5rem 1rem 0.5rem 0rem;
