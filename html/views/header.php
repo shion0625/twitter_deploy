@@ -114,15 +114,19 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
           <menu class="nav-sp none">
             <ul>
               <li class="li-item">
-                <a href="?page=your_timeline">あなたのタイムライン</a>
+                <a href="?page=your_timeline"><i class="fa-solid fa-message"></i>あなたのタイムライン</a>
               </li>
+              <hr color="black">
               <li class="li-item">
-                <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>">あなたのプロフィール</a>
+                <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>"><i
+                    class="fa-solid fa-address-card"></i>あなたのプロフィール</a>
               </li>
+              <hr color="black">
               <?php if (!isset($_SESSION['userID'])) :?>
               <li class="li-item">
-                <a href="?page=signUp"><span>会員登録</span></a>
+                <a href="?page=signUp"><i class="fa-solid fa-registered"></i>会員登録</a>
               </li>
+              <hr color="black">
               <?php endif; ?>
               <li class="li-item">
                 <?php if (isset($_SESSION['userID'])) :?>
@@ -135,6 +139,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
                 </a>
                 <?php endif; ?>
               </li>
+              <hr color="black">
             </ul>
           </menu>
         </div>
