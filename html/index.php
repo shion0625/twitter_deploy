@@ -3,8 +3,6 @@
 *各ページへのルータまたすべてのページで使用するファイルも読み込んでいる
 *
 */
-ini_set("memory_limit", "3072M");
-ob_start();
 session_start();
 
 require __DIR__ .'/vendor/autoload.php';
