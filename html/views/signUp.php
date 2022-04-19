@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
           </p>
           <?php endif;?>
           <input type="text" id="input_username" class="input-username" name="username" placeholder="ユーザー名を入力してください"
-            spellcheck="true" value="<?php print($username)?>">
+            spellcheck="true">
         </div>
         <div class="box-setting">
           <p class="require-pos">

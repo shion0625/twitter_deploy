@@ -10,7 +10,7 @@ body {
   }
   a {
     text-decoration: none;
-    color: black;
+    color: #3dafe4;
   }
   .btn120, a.btn120, button.btn120 {
     font-size: 1.6rem;
@@ -306,5 +306,11 @@ body {
   .change-page{
     font-size: 1.2rem;
     margin-top: 1rem;
+  }
+  .common-error-msg{
+    color: #e34e49;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
   }
 }

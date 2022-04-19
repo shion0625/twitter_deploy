@@ -64,7 +64,7 @@ body .vsc-initialized {
 }
 body a {
   text-decoration: none;
-  color: black;
+  color: #3dafe4;
 }
 body .btn120, body a.btn120, body button.btn120 {
   font-size: 1.6rem;
@@ -351,6 +351,12 @@ body .is-show {
 body .change-page {
   font-size: 1.2rem;
   margin-top: 1rem;
+}
+body .common-error-msg {
+  color: #e34e49;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
 }
 
 /*!
@@ -2497,7 +2503,8 @@ header #header .header-right .header-menu .nav-sp.none {
   border-radius: 50%;
   width: 15rem;
   height: 15rem;
-  border: 0.8rem solid;
+  border: 0.8rem solid #3dafe4;
+  background-color: #3dafe4;
 }
 .user-profile-all-contents .user-profile .profile-username {
   text-align: center;
