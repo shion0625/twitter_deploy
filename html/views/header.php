@@ -24,6 +24,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
     // header("Location: ?page=login");
     // exit();
 }
+$deploy_pass = getenv("PASS_DEPLOY");
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +34,12 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/assets/css/style.min.css" rel="stylesheet">
+  <link href="<?php echo getenv('PASS_DEPLOY');?>/assets/css/style.min.css" rel="stylesheet">
 
   <script src="https://kit.fontawesome.com/f5a505d08a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="assets/js/index.js"></script>
+  <script type="text/javascript" src="<?php echo getenv('PASS_DEPLOY');?>/assets/js/index.js"></script>
   <title>shiontter</title>
 </head>
 
