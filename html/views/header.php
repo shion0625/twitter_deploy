@@ -39,13 +39,13 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="assets/js/index.js"></script>
-  <title>twitter</title>
+  <title>shiontter</title>
 </head>
 
 <body>
   <header>
     <div id="header">
-      <?php if ($_SESSION['messageAlert']):?>
+      <?php if (isset($_SESSION['messageAlert'])&&($_SESSION['messageAlert'])):?>
       <div class="msg-alert">
         <script type="text/javascript">
         alert_animation();
@@ -59,7 +59,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
       <div class="msg-alert" id="js-msg-alert"></div>
       <div class="header-logo">
         <a href="/">
-          <h1>twitter</h1>
+          <h1>shiontter</h1>
         </a>
       </div>
       <nav class="header-menu-tab-none">
