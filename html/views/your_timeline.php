@@ -18,7 +18,7 @@ if (isset($_SESSION['userID'])) {
   </div>
   <?php else :?>
   <div>
-    <p>フォローしているユーザの投稿がありません。</p>
+    <p class="common-error-msg">フォローしているユーザの投稿がありません。</p>
   </div>
   <?php endif;?>
 </div>

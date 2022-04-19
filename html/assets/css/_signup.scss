@@ -1,5 +1,19 @@
-.signUp-all-contents {
-        margin: 2rem auto;
+.signUp-all-contents{
+        h2 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #152d4a;
+            margin-bottom: 2rem;
+        }
+        .v_line_fix {
+            width: 0.2rem;
+            height: 5rem;
+            background-color: #24ebe2;
+            margin: auto;
+        }
+    .signUp-box {
+        margin: 0 auto 2rem;
         display: flex;
         width: 95%;
         padding: 3rem 1rem;
@@ -8,26 +22,44 @@
         background-repeat: no-repeat;
         background-position: center;
         border-radius: 2rem;
-        h2 {
-            text-align: center;
-        }
         justify-content: center;
         .sns-contents {
             background-color: #f1f4f4;
             width: 45%;
             margin: 1rem;
+            border-radius: 2rem;
+            padding: 0.5rem;
         }
         .signUp-contents {
             background-color: #f1f4f4;
             width: 45%;
             margin: 1rem;
+            border-radius: 2rem;
             .signUp-main {
                 background-color: white;
                 border-radius: 1rem;
                 width: 90%;
                 margin: 1rem auto;
+                padding: 1rem;
+                .signup-btn {
+                    margin: 2rem auto 1rem;
+                    display: block;
+                    padding: 0.25em 0.5em;
+                    text-decoration: none;
+                    color: #FFF;
+                    background: #03A9F4;
+                    border: solid 1px #0f9ada;
+                    border-radius: 4px;
+                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+                    text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+                    &:active{
+                        border: solid 1px #03A9F4;
+                        box-shadow: none;
+                        text-shadow: none;
+                    }
+                }
                 .box-setting{
-                    margin: 0.5rem;
+                    margin: 0 0.5rem 3rem;
                     .require {
                         border: 1px solid #ffc1c6;
                         color: #f23363;
@@ -35,6 +67,7 @@
                     .require-pos {
                         display: flex;
                         justify-content: space-between;
+                        margin-bottom: 1.2rem;
                     }
                     .box-setting {
                         width: 90%;
@@ -43,28 +76,35 @@
                     }
                     .errMsg {
                         color: red;
+                        margin: 0.5rem;
                     }
                     input {
                         margin: 0 5%;
                         padding: 0 0 0 4rem;
                         height: 4rem;
                         width: 90%;
+                        box-shadow:0 1rem 2rem -0.5rem rgb(0 0 0 / 14%);
+                        &:focus{
+                            color: #01294c;
+                            background-color: #d9f6ff;
+                        }
                     }
                     .input-username {
-                        background: url(../icon/user.png) no-repeat #64a1e7 0.3rem center;
+                        background: url(../icon/user.png) no-repeat 0.3rem center;
                     }
                     .input-email {
-                        background: url(../icon/mail.png) no-repeat #64a1e7 0.3rem center;
+                        background: url(../icon/mail.png) no-repeat 0.3rem center;
                     }
                     .input-password {
-                        background: url(../icon/key.png) no-repeat #64a1e7 0.3rem center;
+                        background: url(../icon/key.png) no-repeat 0.3rem center;
                     }
                     input::placeholder {
-                        color: rgb(143, 168, 236);
+                        color: rgb(29, 50, 105);
                         font-size: 1.2rem;
                     }
                     .password-box {
                         position: relative;
+                        margin-bottom: 1rem;
                         #eye-icon {
                             position: absolute;
                             top: 37%;
@@ -72,11 +112,8 @@
                             z-index: 10;
                         }
                     }
-                    .signUp-btn {
-                        display: block;
-                        margin: 2rem auto;
-                    }
                 }
             }
         }
     }
+}

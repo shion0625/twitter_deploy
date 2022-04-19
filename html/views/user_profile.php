@@ -102,7 +102,7 @@ if (!$is_yourself) {
       <img class="user_profile_image" src="data:<?php echo $image_type ?>;base64,<?php echo $image_content; ?>"
         style="border-color:<?php echo fun_h($user_profile['color']);?>; background-color: <?php echo fun_h($user_profile['color']);?>;">
       <?php else :?>
-      <p>プロフィールの画像を登録してください。</p>
+      <p class="common-error-msg">プロフィールの画像を登録してください。</p>
       <?php endif;?>
       <?php endif;?>
     </div>
@@ -181,9 +181,9 @@ if (!$is_yourself) {
     </div>
     <?php endif;?>
   </div>
-  <div class=" user-tweets-contents">
-    <?php if (empty($user_posts)) :
-      echo "あなたはまだ投稿していません。";?>
+  <div class="user-tweets-contents">
+    <?php if (empty($user_posts)) :?>
+    <p class="common-error-msg"> <?php echo "あなたはまだ投稿していません。";?> </p>
     <?php else :?>
     <div id="js-posts" class="user-posts">
       <?php include(__DIR__ . '/component/user_posts.php')?>

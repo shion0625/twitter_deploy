@@ -32,7 +32,7 @@ class Connect extends Pdo
     public function __construct()
     {
 /** .envファイルを読み込みます。 */
-    $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/../');
+    $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/../'.getenv("PASS_ENV"));
     $dotenv->load();
         $this-> DSN = getenv('DB_DSN');
         $this-> USER = getenv('DB_USER');

@@ -24,6 +24,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
     // header("Location: ?page=login");
     // exit();
 }
+$deploy_pass = getenv("PASS_DEPLOY");
 ?>
 
 <!DOCTYPE html>
@@ -33,19 +34,19 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/assets/css/style.min.css" rel="stylesheet">
+  <link href="<?php echo getenv('PASS_DEPLOY');?>/assets/css/style.min.css" rel="stylesheet">
 
   <script src="https://kit.fontawesome.com/f5a505d08a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="assets/js/index.js"></script>
-  <title>twitter</title>
+  <script type="text/javascript" src="<?php echo getenv('PASS_DEPLOY');?>/assets/js/index.js"></script>
+  <title>shiontter</title>
 </head>
 
 <body>
   <header>
     <div id="header">
-      <?php if ($_SESSION['messageAlert']):?>
+      <?php if (isset($_SESSION['messageAlert'])&&($_SESSION['messageAlert'])):?>
       <div class="msg-alert">
         <script type="text/javascript">
         alert_animation();
@@ -59,23 +60,21 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
       <div class="msg-alert" id="js-msg-alert"></div>
       <div class="header-logo">
         <a href="/">
-          <h1>twitter</h1>
+          <h1>shiontter</h1>
         </a>
       </div>
+      <?php if (isset($_SESSION['userID'])) :?>
       <nav class="header-menu-tab-none">
         <div class=" header-item">
-          <?php if (isset($_SESSION['userID'])) :?>
           <a href="?page=your_timeline" style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのタイムライン</a>
-          <?php endif;?>
         </div>
 
         <div class="header-item">
-          <?php if (isset($_SESSION['userID'])) :?>
           <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>"
             style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのプロフィール</a>
-          <?php endif;?>
         </div>
       </nav>
+      <?php endif;?>
       <?php if (isset($_SESSION['userID'])) :?>
       <div>
         <?php if ($is_exist_image) :?>
@@ -113,6 +112,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
           </div>
           <menu class="nav-sp none">
             <ul>
+              <?php if (isset($_SESSION['userID'])) :?>
               <li class="li-item">
                 <a href="?page=your_timeline"><i class="fa-solid fa-message"></i>あなたのタイムライン</a>
               </li>
@@ -122,7 +122,7 @@ if (isset($_SESSION['userID']) && $_SESSION['time'] + 3600 > time()) {
                     class="fa-solid fa-address-card"></i>あなたのプロフィール</a>
               </li>
               <hr color="black">
-              <?php if (!isset($_SESSION['userID'])) :?>
+              <?php else: ?>
               <li class="li-item">
                 <a href="?page=signUp"><i class="fa-solid fa-registered"></i>会員登録</a>
               </li>

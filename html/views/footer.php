@@ -1,4 +1,4 @@
-  <script type="text/javascript" src="assets/js/dltBtn.js"></script>
+  <script type="text/javascript" src="<?php echo getenv('PASS_DEPLOY');?>/assets/js/dltBtn.js"></script>
   </body>
 
   </html>

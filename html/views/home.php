@@ -56,7 +56,7 @@ $user_posts = $get_post_db->getHomePosts($start_num);
   </div>
 </div>
 
-<script type="text/javascript" src="assets/js/quill.min.js"></script>
+<script type="text/javascript" src="<?php echo getenv('PASS_DEPLOY');?>/assets/js/quill.min.js"></script>
 
 <script>
 'use strict';
@@ -67,7 +67,7 @@ userId = <?php echo json_encode($_SESSION['userID']);?>
 
 
 function validate(flag) {
-  $("#js-post-btn").removeClass("onclic");
+  $(" #js-post-btn").removeClass("onclic");
   if (flag) $("#js-post-btn").addClass("validate", 200, successCallback());
   else $("#js-post-btn").addClass("fail-validate", 200, failCallback());
 }
@@ -258,4 +258,4 @@ function getPostContent() {
     });
 }
 </script>
-<script type="text/javascript" src="assets/js/websocket.js"></script>
+<script type="text/javascript" src="<?php echo getenv('PASS_DEPLOY');?>/assets/js/websocket.js"></script>
