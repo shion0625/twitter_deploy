@@ -1,4 +1,19 @@
+@use "_responsive.scss" as m;
+
 .login-all-contents {
+    h2{
+        text-align: center;
+        font-size: 3rem;
+        font-weight: bold;
+        color: #152d4a;
+        margin-bottom: 2rem;
+    }
+    .v_line_fix {
+        width: 0.2rem;
+        height: 5rem;
+        background-color: #f38de2;
+        margin: auto;
+    }
         .login-box {
             background: linear-gradient(25deg, rgba(175, 223, 238, 0.4), rgba(180, 173, 240, 0.4)), url(../img/bokeh-2072271_1920.jpg);
             background-size: cover;
@@ -7,8 +22,9 @@
             display: flex;
             justify-content: center;
             border-radius: 2rem;
-            margin: 10% 5%;
-            padding: 5% 0;
+            margin: 0 5% 5%;
+            padding: 10rem 0;
+            height: 37rem;
         }
         .sns-contents {
             width: 45%;
@@ -18,27 +34,57 @@
         .login-contents {
             width: 45%;
             font-size: 1.4rem;
-            background-color: cadetblue;
             form {
                 margin: 2% 0;
+                .errMsg{
+                    color: red;
+                    margin: 0.5rem 0rem 0.5rem 5%;
+                }
                 .login-form-input-email {
-                    background: url(../icon/mail.png) no-repeat #ffc1c6 5px center;
+                    background: url(../icon/mail.png) no-repeat #FDD5E1 5px center;
                 }
                 .login-form-input-pw {
-                    background: url(../icon/key.png) no-repeat #ffc1c6 5px center;
+                    background: url(../icon/key.png) no-repeat #FDD5E1 5px center;
                 }
                 input {
                     margin: 0 5%;
                     padding: 0 0 0 2.6rem;
                     height: 4rem;
                     width: 90%;
+                    @include m.mq(tab){
+                        padding: 0 0 0 3.6rem;
+                        font-size: 1.8rem;
+                    }
+                    @include m.mq(sp){
+                        padding: 0 0 0 4.6rem;
+                        font-size: 1.4rem;
+                    }
                 }
                 .login-btn {
+                    margin: 3rem 5% 0 5%;
+                    display: inline-block;
+                    position: relative;
+                    text-decoration: none;
+                    color: #f9a9ae;
+                    width: 90%;
+                    height: 5rem;
+                    line-height: 5rem;
+                    border-radius: 0.5rem;
                     text-align: center;
-                    margin: 2% 5% 0 5%;
+                    overflow: hidden;
+                    font-weight: bold;
+                    background: linear-gradient(#fed6e3 0%, #ffaaaa 100%);
+                    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+                    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+                    &:active{
+                        -webkit-transform: translateY(2px);
+                        transform: translateY(2px);
+                        box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+                        background-image: linear-gradient(#fed6e3 0%, #ffbcbc 100%);
+                    }
                 }
                 input::placeholder {
-                    color: rgb(143, 168, 236);
+                    color: rgb(253, 167, 117);
                     font-size: 1.2rem;
                 }
                 #pwBox {

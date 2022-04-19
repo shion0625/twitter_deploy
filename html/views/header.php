@@ -63,20 +63,18 @@ $deploy_pass = getenv("PASS_DEPLOY");
           <h1>shiontter</h1>
         </a>
       </div>
+      <?php if (isset($_SESSION['userID'])) :?>
       <nav class="header-menu-tab-none">
         <div class=" header-item">
-          <?php if (isset($_SESSION['userID'])) :?>
           <a href="?page=your_timeline" style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのタイムライン</a>
-          <?php endif;?>
         </div>
 
         <div class="header-item">
-          <?php if (isset($_SESSION['userID'])) :?>
           <a href="?page=profiles&id=<?php echo $_SESSION['userID']?>"
             style="color: <?php echo fun_h($current_profile['color']);?>;">あなたのプロフィール</a>
-          <?php endif;?>
         </div>
       </nav>
+      <?php endif;?>
       <?php if (isset($_SESSION['userID'])) :?>
       <div>
         <?php if ($is_exist_image) :?>
@@ -114,6 +112,7 @@ $deploy_pass = getenv("PASS_DEPLOY");
           </div>
           <menu class="nav-sp none">
             <ul>
+              <?php if (isset($_SESSION['userID'])) :?>
               <li class="li-item">
                 <a href="?page=your_timeline"><i class="fa-solid fa-message"></i>あなたのタイムライン</a>
               </li>
@@ -123,7 +122,7 @@ $deploy_pass = getenv("PASS_DEPLOY");
                     class="fa-solid fa-address-card"></i>あなたのプロフィール</a>
               </li>
               <hr color="black">
-              <?php if (!isset($_SESSION['userID'])) :?>
+              <?php else: ?>
               <li class="li-item">
                 <a href="?page=signUp"><i class="fa-solid fa-registered"></i>会員登録</a>
               </li>

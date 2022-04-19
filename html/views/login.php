@@ -29,6 +29,7 @@ if (!empty($_POST) && isset($_POST['send'])) {
 
 <div class="login-all-contents">
   <h2>ログイン</h2>
+  <div class="v_line_fix"></div>
   <div class="login-box">
     <div class="sns-contents">
       <h3>SNSアカウントでログイン</h3>
@@ -40,13 +41,13 @@ if (!empty($_POST) && isset($_POST['send'])) {
 
       <form method=POST>
         <?php if (isset($message_email)) :?>
-        <div class="message"><?php echo $message_email;?></div>
+        <div class="errMsg"><?php echo $message_email;?></div>
         <?php endif;?>
         <input id="input_email" class="login-form-input-email" name="email" type="text" placeholder="メールアドレスを入力して下さい">
+        <?php if (isset($message_pw)) :?>
+        <div class="errMsg"><?php echo $message_pw;?></div>
+        <?php endif;?>
         <div id="pwBox">
-          <?php if (isset($message_pw)) :?>
-          <div class="message"><?php echo $message_pw;?></div>
-          <?php endif;?>
           <input id="js-input-password" class="login-form-input-pw" name="password" type="password"
             placeholder="パスワードを入力して下さい">
           <i id="eye-icon" class="fas fa-eye"></i>

@@ -2220,6 +2220,7 @@ header #header .header-right .header-menu .nav-sp .li-item {
 header #header .header-right .header-menu .nav-sp .li-item a {
   display: inline-block;
   padding: 0.5rem 0;
+  color: black;
 }
 header #header .header-right .header-menu .nav-sp .li-item a i {
   margin-right: 1rem;
@@ -2320,8 +2321,21 @@ header #header .header-right .header-menu .nav-sp.none {
   }
 }
 
-.signUp-all-contents {
-  margin: 2rem auto;
+.signUp-all-contents h2 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #152d4a;
+  margin-bottom: 2rem;
+}
+.signUp-all-contents .v_line_fix {
+  width: 0.2rem;
+  height: 5rem;
+  background-color: #24ebe2;
+  margin: auto;
+}
+.signUp-all-contents .signUp-box {
+  margin: 0 auto 2rem;
   display: flex;
   width: 95%;
   padding: 3rem 1rem;
@@ -2332,85 +2346,120 @@ header #header .header-right .header-menu .nav-sp.none {
   border-radius: 2rem;
   justify-content: center;
 }
-.signUp-all-contents h2 {
-  text-align: center;
-}
-.signUp-all-contents .sns-contents {
+.signUp-all-contents .signUp-box .sns-contents {
   background-color: #f1f4f4;
   width: 45%;
   margin: 1rem;
+  border-radius: 2rem;
+  padding: 0.5rem;
 }
-.signUp-all-contents .signUp-contents {
+.signUp-all-contents .signUp-box .signUp-contents {
   background-color: #f1f4f4;
   width: 45%;
   margin: 1rem;
+  border-radius: 2rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main {
   background-color: white;
   border-radius: 1rem;
   width: 90%;
   margin: 1rem auto;
+  padding: 1rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting {
-  margin: 0.5rem;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .signup-btn {
+  margin: 2rem auto 1rem;
+  display: block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: #03A9F4;
+  border: solid 1px #0f9ada;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .require {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .signup-btn:active {
+  border: solid 1px #03A9F4;
+  box-shadow: none;
+  text-shadow: none;
+}
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting {
+  margin: 0 0.5rem 3rem;
+}
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .require {
   border: 1px solid #ffc1c6;
   color: #f23363;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .require-pos {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .require-pos {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .box-setting {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .box-setting {
   width: 90%;
   margin: auto;
   padding: 1rem 0;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .errMsg {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .errMsg {
   color: red;
+  margin: 0.5rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting input {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting input {
   margin: 0 5%;
   padding: 0 0 0 4rem;
   height: 4rem;
   width: 90%;
+  box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.14);
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .input-username {
-  background: url(../icon/user.png) no-repeat #64a1e7 0.3rem center;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting input:focus {
+  color: #01294c;
+  background-color: #d9f6ff;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .input-email {
-  background: url(../icon/mail.png) no-repeat #64a1e7 0.3rem center;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .input-username {
+  background: url(../icon/user.png) no-repeat 0.3rem center;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .input-password {
-  background: url(../icon/key.png) no-repeat #64a1e7 0.3rem center;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .input-email {
+  background: url(../icon/mail.png) no-repeat 0.3rem center;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting input::-moz-placeholder {
-  color: #8fa8ec;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .input-password {
+  background: url(../icon/key.png) no-repeat 0.3rem center;
+}
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting input::-moz-placeholder {
+  color: #1d3269;
   font-size: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting input:-ms-input-placeholder {
-  color: #8fa8ec;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting input:-ms-input-placeholder {
+  color: #1d3269;
   font-size: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting input::placeholder {
-  color: #8fa8ec;
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting input::placeholder {
+  color: #1d3269;
   font-size: 1.2rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .password-box {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .password-box {
   position: relative;
+  margin-bottom: 1rem;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .password-box #eye-icon {
+.signUp-all-contents .signUp-box .signUp-contents .signUp-main .box-setting .password-box #eye-icon {
   position: absolute;
   top: 37%;
   right: 8%;
   z-index: 10;
 }
-.signUp-all-contents .signUp-contents .signUp-main .box-setting .signUp-btn {
-  display: block;
-  margin: 2rem auto;
-}
 
+.login-all-contents h2 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #152d4a;
+  margin-bottom: 2rem;
+}
+.login-all-contents .v_line_fix {
+  width: 0.2rem;
+  height: 5rem;
+  background-color: #f38de2;
+  margin: auto;
+}
 .login-all-contents .login-box {
   background: linear-gradient(25deg, rgba(175, 223, 238, 0.4), rgba(180, 173, 240, 0.4)), url(../img/bokeh-2072271_1920.jpg);
   background-size: cover;
@@ -2419,8 +2468,9 @@ header #header .header-right .header-menu .nav-sp.none {
   display: flex;
   justify-content: center;
   border-radius: 2rem;
-  margin: 10% 5%;
-  padding: 5% 0;
+  margin: 0 5% 5%;
+  padding: 10rem 0;
+  height: 37rem;
 }
 .login-all-contents .sns-contents {
   width: 45%;
@@ -2430,16 +2480,19 @@ header #header .header-right .header-menu .nav-sp.none {
 .login-all-contents .login-contents {
   width: 45%;
   font-size: 1.4rem;
-  background-color: cadetblue;
 }
 .login-all-contents .login-contents form {
   margin: 2% 0;
 }
+.login-all-contents .login-contents form .errMsg {
+  color: red;
+  margin: 0.5rem 0rem 0.5rem 5%;
+}
 .login-all-contents .login-contents form .login-form-input-email {
-  background: url(../icon/mail.png) no-repeat #ffc1c6 5px center;
+  background: url(../icon/mail.png) no-repeat #FDD5E1 5px center;
 }
 .login-all-contents .login-contents form .login-form-input-pw {
-  background: url(../icon/key.png) no-repeat #ffc1c6 5px center;
+  background: url(../icon/key.png) no-repeat #FDD5E1 5px center;
 }
 .login-all-contents .login-contents form input {
   margin: 0 5%;
@@ -2447,20 +2500,50 @@ header #header .header-right .header-menu .nav-sp.none {
   height: 4rem;
   width: 90%;
 }
+@media screen and (max-width: 630px) {
+  .login-all-contents .login-contents form input {
+    padding: 0 0 0 3.6rem;
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .login-all-contents .login-contents form input {
+    padding: 0 0 0 4.6rem;
+    font-size: 1.4rem;
+  }
+}
 .login-all-contents .login-contents form .login-btn {
+  margin: 3rem 5% 0 5%;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  color: #f9a9ae;
+  width: 90%;
+  height: 5rem;
+  line-height: 5rem;
+  border-radius: 0.5rem;
   text-align: center;
-  margin: 2% 5% 0 5%;
+  overflow: hidden;
+  font-weight: bold;
+  background: linear-gradient(#fed6e3 0%, #ffaaaa 100%);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+}
+.login-all-contents .login-contents form .login-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+  background-image: linear-gradient(#fed6e3 0%, #ffbcbc 100%);
 }
 .login-all-contents .login-contents form input::-moz-placeholder {
-  color: #8fa8ec;
+  color: #fda775;
   font-size: 1.2rem;
 }
 .login-all-contents .login-contents form input:-ms-input-placeholder {
-  color: #8fa8ec;
+  color: #fda775;
   font-size: 1.2rem;
 }
 .login-all-contents .login-contents form input::placeholder {
-  color: #8fa8ec;
+  color: #fda775;
   font-size: 1.2rem;
 }
 .login-all-contents .login-contents form #pwBox {
