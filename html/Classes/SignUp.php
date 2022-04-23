@@ -22,6 +22,8 @@ class SignUp extends Connect
     private $email;
     /** @param string $created_date */
     private $created_date;
+    /** @param string $provider_name */
+    private $provider_name;
 
     /**
      * 文字列型でユーザの名前、パスワード、メールアドレスを受け取ります。
@@ -29,13 +31,15 @@ class SignUp extends Connect
      * @param string $password
      * @param string $email
      * @param string $created_date
+     * @param string $provider_name
      */
-    public function __construct(string $username, string $password, string $email, string $created_date)
+    public function __construct(string $username, string $password=null, string $email, string $created_date, string $provider_name=null)
     {
         $this -> username = $username;
         $this -> password = $password;
         $this -> email = $email;
         $this -> created_date = $created_date;
+        $this -> provider_name= $provider_name;
     }
 
     /**
@@ -111,14 +115,15 @@ class SignUp extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "INSERT INTO users (user_name, password, email, email_encode, created_date)
-            VALUES (:username, :password, :email, :email_encode, :created_date)";
+            $query = "INSERT INTO users (user_name, password, email, email_encode, created_date, provider_name)
+            VALUES (:username, :password, :email, :email_encode, :created_date, :provider_name)";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue(":username", $this->username);
             $stmt->bindValue(":password", password_hash($this->password, PASSWORD_DEFAULT));
             $stmt->bindValue(":email", $this->email);
             $stmt->bindValue(":email_encode", password_hash($this->email, PASSWORD_DEFAULT));
             $stmt->bindValue(":created_date", $this->created_date);
+            $stmt->bindValue(":provider_name", $this->provider_name);
             $flag = $stmt->execute();
         } catch (PDOException $e) {
             $e->getMessage() . PHP_EOL;//エラーが出たときの処理
@@ -144,6 +149,7 @@ class SignUp extends Connect
         }
         $message_alert = "ユーザの登録に失敗しました。もう一度お願いします。";
         $_SESSION['messageAlert'] = fun_h($message_alert);
+        header('Location: /');
         header("Location: /?page=signUp");
         exit();
         return;

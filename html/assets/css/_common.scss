@@ -313,4 +313,20 @@ body {
     text-align: center;
     font-weight: bold;
   }
+  .github-auth{
+    margin: 0 5%;
+    font-size: 2rem;
+    line-height: 4rem;
+    border-radius: 0.5rem;
+    background-color: black;
+    height: 4rem;
+    width: 90%;
+    text-align: center;
+    @include m.mq(tab){
+      font-size: 1.6rem;
+    }
+    a {
+      color: white;
+    }
+  }
 }

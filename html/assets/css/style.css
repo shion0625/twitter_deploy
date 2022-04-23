@@ -358,6 +358,24 @@ body .common-error-msg {
   text-align: center;
   font-weight: bold;
 }
+body .github-auth {
+  margin: 0 5%;
+  font-size: 2rem;
+  line-height: 4rem;
+  border-radius: 0.5rem;
+  background-color: black;
+  height: 4rem;
+  width: 90%;
+  text-align: center;
+}
+@media screen and (max-width: 630px) {
+  body .github-auth {
+    font-size: 1.6rem;
+  }
+}
+body .github-auth a {
+  color: white;
+}
 
 /*!
  * Quill Editor v1.3.6
