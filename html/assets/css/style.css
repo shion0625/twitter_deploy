@@ -398,6 +398,9 @@ body .github-auth {
 body .github-auth a {
   color: white;
 }
+body .github-auth:active {
+  box-shadow: 0 0 1rem white inset;
+}
 
 /*!
  * Quill Editor v1.3.6
@@ -2666,6 +2669,23 @@ header #header .header-right .header-menu .nav-sp.none {
 .user-profile-all-contents .user-profile .follow-container .follower {
   margin-left: 1rem;
   font-size: 2rem;
+}
+.user-profile-all-contents .user-profile .display-follow-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #67c5ff;
+  border: dashed 1px #67c5ff;
+  background: #f2fcff;
+  border-radius: 3px;
+  transition: 0.4s;
+  margin: 2rem;
+}
+.user-profile-all-contents .user-profile .display-follow-button:hover {
+  background: #cbedff;
+  color: #FFF;
+}
+.user-profile-all-contents .user-profile .display-follow-button:active {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 .user-profile-all-contents .user-profile .setting-profile-contents .setting-profile-btn {
   color: #fff;

@@ -16,6 +16,8 @@ $page = $_GET['page'] ?? "home.php";
 
 if ($page == 'logout') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/logout.php');
+} elseif ($page == 'delete') {
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/views/delete.php');
 }
 
 require(__DIR__ . getenv("PASS_DEPLOY"). '/views/header.php');
@@ -27,8 +29,6 @@ if ($page == 'login') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/menu.php');
 } elseif ($page == 'profiles') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/user_profile.php');
-} elseif ($page == 'delete') {
-    require(__DIR__ . getenv("PASS_DEPLOY"). '/views/delete.php');
 } elseif ($page == "your_timeline") {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/your_timeline.php');
 } else {
