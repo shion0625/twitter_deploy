@@ -33,6 +33,7 @@ if (!empty($_POST) && isset($_POST['send'])) {
   <div class="login-box">
     <div class="sns-contents">
       <h3>SNSアカウントでログイン</h3>
+      <div class="github-auth"><a href="/githubauth/login.php"><i class="fa-brands fa-github"></i>githubでログイン</a></div>
     </div>
     <div class="login-contents">
       <?php if (isset($message)) :?>
