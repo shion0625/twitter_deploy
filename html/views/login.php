@@ -26,7 +26,6 @@ if (!empty($_POST) && isset($_POST['send'])) {
     }
 }
 ?>
-
 <div class="login-all-contents">
   <h2>ログイン</h2>
   <div class="v_line_fix"></div>
