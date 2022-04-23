@@ -2,6 +2,7 @@
 ====================================================*/
 $max-breakpoint: (
   sp: 'screen and (max-width: 320px)',
+  small: 'screen and (max-width: 480px)',
   tab: 'screen and (max-width: 630px)',
   large: 'screen and (max-width: 700px)',
   pc: 'screen and (max-width: 1025px)'

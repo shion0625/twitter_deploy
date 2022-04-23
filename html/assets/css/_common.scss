@@ -12,6 +12,14 @@ body {
     text-decoration: none;
     color: #3dafe4;
   }
+  input[type="text"]{
+    @include m.mq(tab){
+      font-size: 1.8rem;
+    }
+    @include m.mq(sp){
+      font-size: 1.4rem;
+    }
+  }
   .btn120, a.btn120, button.btn120 {
     font-size: 1.6rem;
     font-weight: 700;
@@ -313,6 +321,18 @@ body {
     text-align: center;
     font-weight: bold;
   }
+  .sns-contents {
+    h3 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: bold;
+        font-size: 2rem;
+        color: #133b6a;
+        @include m.mq(small){
+          font-size: 1.6rem;
+        }
+    }
+  }
   .github-auth{
     margin: 0 5%;
     font-size: 2rem;
@@ -322,7 +342,7 @@ body {
     height: 4rem;
     width: 90%;
     text-align: center;
-    @include m.mq(tab){
+    @include m.mq(small){
       font-size: 1.6rem;
     }
     a {

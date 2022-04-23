@@ -24,6 +24,7 @@ if (isset($_POST['submit'])) {
   <div class="v_line_fix"></div>
   <div class="signUp-box">
     <div class="sns-contents">
+      <h3>SNSアカウントで会員登録</h3>
       <div class="github-auth">
         <a href="/githubauth/signUp.php"><i class="fa-brands fa-github"></i>githubで会員登録</a>
       </div>

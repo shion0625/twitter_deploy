@@ -96,9 +96,8 @@ class SignUp extends Connect
     private function isExitEmail():void
     {
         $is_email=$this->signUpCheck();
-        echo $is_email;
         if ($is_email) {
-            $message_alert = "そのメールアドレスは使用されています。";
+            $message_alert = "そのメールアドレスは既に登録されています。";
             $_SESSION['messageAlert'] = fun_h($message_alert);
             header("Location: /?page=signUp");
             exit();

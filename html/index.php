@@ -14,15 +14,17 @@ $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/');
 $dotenv->load();
 $page = $_GET['page'] ?? "home.php";
 
-include(__DIR__ . getenv("PASS_DEPLOY"). '/views/header.php');
+if ($page == 'logout') {
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/views/logout.php');
+}
+
+require(__DIR__ . getenv("PASS_DEPLOY"). '/views/header.php');
 if ($page == 'login') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/login.php');
 } elseif ($page == 'signUp') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/signUp.php');
 } elseif ($page == 'menu') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/menu.php');
-} elseif ($page == 'logout') {
-    require(__DIR__ . getenv("PASS_DEPLOY"). '/views/logout.php');
 } elseif ($page == 'profiles') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/user_profile.php');
 } elseif ($page == 'delete') {
