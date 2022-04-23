@@ -18,6 +18,8 @@ class Login extends Connect
     private $email;
     /** @var string  $password*/
     private $password;
+    /** @var string  $provider_name*/
+    private $provider_name;
 
     /**
      * 文字列型でメールアドレス、パスワードを受け取ります。
@@ -25,10 +27,11 @@ class Login extends Connect
      * @param string $email
      * @param string $password
      */
-    public function __construct(string $email, string $password)
+    public function __construct(string $email, string $password=null, string $provider_name= null)
     {
         $this-> email = $email;
         $this->  password = $password;
+        $this-> provider_name = $provider_name;
     }
 
     /**
@@ -69,7 +72,12 @@ class Login extends Connect
     public function login():void
     {
         $login_info = $this->getLoginInfo();
-        if (!password_verify($this->password, $login_info['password'])) {
+        if (!isset($login_info['email_encode']) && !isset($login_info['user_name'])) {
+            $_SESSION['messageAlert'] = ('会員登録されていません。');
+            header('Location: /?page=signUp');
+            exit();
+        }
+        if (is_null($this-> provider_name) && !password_verify($this->password, $login_info['password'])) {
             $_SESSION['messageAlert'] = fun_h('ログインに失敗しました。');
             header('Location: /?page=login');
             exit();
@@ -78,7 +86,7 @@ class Login extends Connect
             //セッションにログイン情報を登録
             $_SESSION['userID'] = $login_info['email_encode'];
             $_SESSION['username']=$login_info['user_name'];
-            $_SESSION['messageAlert'] = fun_h('ログインに成功しました。');
+            $_SESSION['messageAlert'] = ('ログインに成功しました。');
             $_SESSION['time'] = time();
             header('Location: /');//ログイン後のページにリダイレクト
             exit();

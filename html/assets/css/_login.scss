@@ -28,8 +28,14 @@
         }
         .sns-contents {
             width: 45%;
-            background-color: brown;
-            margin-right: 3%;
+            margin: 2% 3% 2% 0;
+            h3 {
+                text-align: center;
+                margin-bottom: 2rem;
+                font-weight: bold;
+                font-size: 2rem;
+                color: #133b6a;
+            }
         }
         .login-contents {
             width: 45%;
@@ -53,11 +59,9 @@
                     width: 90%;
                     @include m.mq(tab){
                         padding: 0 0 0 3.6rem;
-                        font-size: 1.8rem;
                     }
                     @include m.mq(sp){
                         padding: 0 0 0 4.6rem;
-                        font-size: 1.4rem;
                     }
                 }
                 .login-btn {
