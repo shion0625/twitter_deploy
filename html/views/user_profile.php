@@ -204,7 +204,7 @@ function followUser() {
   };
   $.ajax({
     type: 'POST',
-    url: 'views/component/AjaxFollowProcess.php',
+    url: "<?php echo getenv('PASS_DEPLOY');?>/views/component/AjaxFollowProcess.php",
     data: $map,
     dataType: 'json'
   }).done(function(data) {

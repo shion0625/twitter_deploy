@@ -5,13 +5,15 @@
 */
 session_start();
 
-require __DIR__ .'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/function.php';
+
 use Dotenv\Dotenv;
 
 /** .envファイルを読み込みます。 */
 $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/');
 $dotenv->load();
+
 $page = $_GET['page'] ?? "home.php";
 
 if ($page == 'logout') {

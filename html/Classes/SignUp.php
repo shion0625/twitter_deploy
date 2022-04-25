@@ -114,8 +114,8 @@ class SignUp extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "INSERT INTO users (user_name, password, email, email_encode, created_date, provider_name)
-            VALUES (:username, :password, :email, :email_encode, :created_date, :provider_name)";
+            $query = "INSERT INTO users (user_name, password, email, email_encode, created_date, provider_name, color)
+            VALUES (:username, :password, :email, :email_encode, :created_date, :provider_name, '#3dafe4')";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue(":username", $this->username);
             $stmt->bindValue(":password", password_hash($this->password, PASSWORD_DEFAULT));

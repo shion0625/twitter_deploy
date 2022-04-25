@@ -236,7 +236,7 @@ function getPostContent() {
   };
   $.ajax({
       type: "POST",
-      url: "./views/component/AjaxPosts.php",
+      url: "<?php echo getenv('PASS_DEPLOY');?>/views/component/AjaxPosts.php",
       data: map,
       dataType: "text",
     })
