@@ -6,6 +6,11 @@ use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 use Classes\User\UserInfo;
 
+$username = filter_input(INPUT_GET, 'username', FILTER_SANITIZE_STRING);
+$self_intro = filter_input(INPUT_GET, 'self-intro', FILTER_SANITIZE_STRING);
+$birthday = filter_input(INPUT_GET, 'birthday', FILTER_SANITIZE_STRING);
+$main_color = filter_input(INPUT_GET, 'main-color', FILTER_SANITIZE_STRING);
+
 $page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
@@ -40,21 +45,21 @@ if (!empty($image)) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
-    if (!$_POST['username']) {
+    if (!$username) {
         $_SESSION['messageAlert'] = "ユーザ名が入力されていません。";
         header("Location: {$url}");
         exit();
       }
-      $_POST['username'] = trim($_POST['username']);
-      if(strlen($_POST['username']) > 30){
+      $username = trim($username);
+      if(strlen($username) > 30){
           $_SESSION['messageAlert'] = "ユーザ名の文字数が限界を超過しています。";
           header("Location: {$url}");
           exit();
       }
-    if(!empty($_POST['self-intro'])){
-      $trimmed = trim($_POST['self-intro']);
-      $_POST['self-intro'] = $trimmed;
-      if(strlen($_POST['self-intro']) > 255){
+    if(!empty($self_intro)){
+      $trimmed = trim($self_intro);
+      $self_intro = $trimmed;
+      if(strlen($self_intro) > 255){
           $_SESSION['messageAlert'] = "自己紹介の文字数が限界を超過しています。";
           header("Location: {$url}");
           exit();
@@ -65,10 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
         $using_insert_update = new UsingUpdateInsert($is_exit_image);
         $resultImage = $using_insert_update->actionImage();
     }
-      if (empty($_POST['birthday'])) {
-          $_POST['birthday'] =null;
+      if (empty($birthday)) {
+          $birthday =null;
       }
-      $resultUser = $get_user_info->updateUserInfo(trim($_POST['username']), $_POST['birthday'], trim($_POST['self-intro']), $_POST['main-color']);
+      $resultUser = $get_user_info->updateUserInfo(trim($username), $birthday, trim($self_intro), $main_color);
       if($resultUser){
         $_SESSION['messageAlert'] = "ユーザ情報を更新しました。";
         header("Location: {$url}");

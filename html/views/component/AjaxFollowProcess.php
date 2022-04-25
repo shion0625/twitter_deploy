@@ -4,10 +4,12 @@ require __DIR__ .'/../../vendor/autoload.php';
 
 use Classes\Follow\UsingFollow;
 use Classes\Follow\GetNumFollow;
+$type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+$profile_user_id = filter_input(INPUT_GET, 'profileId', FILTER_SANITIZE_STRING);
+$current_user_id = filter_input(INPUT_GET, 'currentId', FILTER_SANITIZE_STRING);
 
-if ($_POST['type'] == 'doFollow' && !empty($_POST['profileId']) && !empty($_POST['currentId'])) {
-    $profile_user_id = (string)$_POST['profileId'];
-    $current_user_id = (string)$_POST['currentId'];
+
+if ($type == 'doFollow' && !is_null($profile_user_id) && !is_null($current_user_id)) {
     $UsingFollow = new UsingFollow($current_user_id, $profile_user_id);
     $status = $UsingFollow->changeFollowStatus();
     $GetNumFollow = new GetNumFollow($profile_user_id);

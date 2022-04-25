@@ -2,10 +2,11 @@
 
 use Classes\Post\DeletePost;
 
-if (!empty($_POST) && isset($_POST['post_id']) && isset($_POST['location_url'])) {
-    $delete_id = $_POST['post_id'];
-    $location_url = $_POST['location_url'];
-    $delete_post = new DeletePost($delete_id);
+$post_id = filter_input(INPUT_GET, 'post_id', FILTER_SANITIZE_STRING);
+$location_url = filter_input(INPUT_GET, 'location_url', FILTER_SANITIZE_STRING);
+
+if (isset($post_id) && isset($location_url)) {
+    $delete_post = new DeletePost($post_id);
     $flag = $delete_post->deletePost();
     if ($flag) {
         $_SESSION['messageAlert'] = "投稿は正常に削除されました";

@@ -5,11 +5,12 @@ use Classes\Login;
 fun_require_unlogined_session();
   // if(!empty($_COOKIE['auto_login'])) {
   // }
-if (!empty($_POST) && isset($_POST['send'])) {
+    $send = filter_input(INPUT_GET, 'send', FILTER_SANITIZE_STRING);
+if (isset($send)) {
     //メールアドレスまたはパスワードが送信されて来なかった場合
     $is_pass = true;
-    $email = (string) fun_h($_POST['email']);
-    $password= (string) fun_h($_POST['password']);
+    $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_GET, 'password', FILTER_SANITIZE_STRING);
     if (empty($email)) {
         $message_email = "メールアドレスを入力してください。";
         $is_pass = false;
