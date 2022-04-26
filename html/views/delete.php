@@ -2,8 +2,8 @@
 
 use Classes\Post\DeletePost;
 
-$post_id = filter_input(INPUT_GET, 'post_id', FILTER_SANITIZE_STRING);
-$location_url = filter_input(INPUT_GET, 'location_url', FILTER_SANITIZE_STRING);
+$post_id = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_STRING);
+$location_url = filter_input(INPUT_POST, 'location_url', FILTER_SANITIZE_STRING);
 
 if (isset($post_id) && isset($location_url)) {
     $delete_post = new DeletePost($post_id);

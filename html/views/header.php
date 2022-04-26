@@ -122,6 +122,10 @@ $deploy_pass = getenv("PASS_DEPLOY");
                     class="fa-solid fa-address-card"></i>あなたのプロフィール</a>
               </li>
               <hr color="black">
+              <li class="li-item">
+                <a href="?page=delete_user">アカウントの削除</a>
+              </li>
+              <hr color="black">
               <?php else: ?>
               <li class="li-item">
                 <a href="?page=signUp"><i class="fa-solid fa-registered"></i>会員登録</a>

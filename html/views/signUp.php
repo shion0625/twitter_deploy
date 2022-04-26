@@ -6,19 +6,20 @@ $regexp_em = '/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]
 $regexp_pw = '/^(?=.*[A-Z])(?=.*[.?\/-])[a-zA-Z0-9.?\/-]{8,24}$/';
 fun_require_unlogined_session();
 
-$submit = filter_input(INPUT_GET, 'submit', FILTER_SANITIZE_STRING);
+$submit = filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_STRING);
 
 if (isset($submit)) {
-    $username = filter_input(INPUT_GET, 'username', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_GET, 'password', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_STRING);
-    $created_date = filter_input(INPUT_GET, 'created_date', FILTER_SANITIZE_STRING);
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $created_date = filter_input(INPUT_POST, 'created_date', FILTER_SANITIZE_STRING);
     $sign_up_db = new SignUp($username, $password, $email, $created_date);
     $error = $sign_up_db -> isCheckCondition();
     if (!$error) {
         $sign_up_db ->resultSignUp();
     }
 }
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
 ?>
 
 <div class="signUp-all-contents">

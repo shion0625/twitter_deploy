@@ -6,12 +6,12 @@ use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 use Classes\User\UserInfo;
 
-$username = filter_input(INPUT_GET, 'username', FILTER_SANITIZE_STRING);
-$self_intro = filter_input(INPUT_GET, 'self-intro', FILTER_SANITIZE_STRING);
-$birthday = filter_input(INPUT_GET, 'birthday', FILTER_SANITIZE_STRING);
-$main_color = filter_input(INPUT_GET, 'main-color', FILTER_SANITIZE_STRING);
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+$self_intro = filter_input(INPUT_POST, 'self-intro', FILTER_SANITIZE_STRING);
+$birthday = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_STRING);
+$main_color = filter_input(INPUT_POST, 'main-color', FILTER_SANITIZE_STRING);
 
-$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = filter_input(INPUT_POST, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
@@ -97,6 +97,8 @@ if (!$is_yourself) {
   $GetNumFollow = new GetNumFollow($profile_user_id);
   $follow_num = $GetNumFollow->numFollow();
   $follower_num = $GetNumFollow->numFollower();
+
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
   ?>
 
 <div class="user-profile-all-contents">

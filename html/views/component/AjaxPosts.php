@@ -14,9 +14,9 @@ $user_id;
 $date_time;
 $image_type;
 $image_content;
-$send = filter_input(INPUT_GET, 'send', FILTER_SANITIZE_STRING);
-$post_text = filter_input(INPUT_GET, 'postHtml', FILTER_SANITIZE_STRING);
-$sender_id = filter_input(INPUT_GET, 'sender', FILTER_SANITIZE_STRING);
+$send = filter_input(INPUT_POST, 'send', FILTER_SANITIZE_STRING);
+$post_text = filter_input(INPUT_POST, 'postHtml', FILTER_SANITIZE_STRING);
+$sender_id = filter_input(INPUT_POST, 'sender', FILTER_SANITIZE_STRING);
 
 
 if ($send  == 'postSend' || $send == 'postInfo') {

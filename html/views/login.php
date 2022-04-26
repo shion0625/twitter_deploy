@@ -5,12 +5,11 @@ use Classes\Login;
 fun_require_unlogined_session();
   // if(!empty($_COOKIE['auto_login'])) {
   // }
-    $send = filter_input(INPUT_GET, 'send', FILTER_SANITIZE_STRING);
+    $send = filter_input(INPUT_POST, 'send', FILTER_SANITIZE_STRING);
 if (isset($send)) {
-    //メールアドレスまたはパスワードが送信されて来なかった場合
     $is_pass = true;
-    $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_GET, 'password', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
     if (empty($email)) {
         $message_email = "メールアドレスを入力してください。";
         $is_pass = false;
@@ -26,6 +25,7 @@ if (isset($send)) {
         $get_login->login();
     }
 }
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
 ?>
 <div class="login-all-contents">
   <h2>ログイン</h2>

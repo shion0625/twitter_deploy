@@ -148,7 +148,6 @@ class SignUp extends Connect
         }
         $message_alert = "ユーザの登録に失敗しました。もう一度お願いします。";
         $_SESSION['messageAlert'] = fun_h($message_alert);
-        header('Location: /');
         header("Location: /?page=signUp");
         exit();
         return;

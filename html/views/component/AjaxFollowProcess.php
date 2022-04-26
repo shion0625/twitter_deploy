@@ -4,9 +4,9 @@ require __DIR__ .'/../../vendor/autoload.php';
 
 use Classes\Follow\UsingFollow;
 use Classes\Follow\GetNumFollow;
-$type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
-$profile_user_id = filter_input(INPUT_GET, 'profileId', FILTER_SANITIZE_STRING);
-$current_user_id = filter_input(INPUT_GET, 'currentId', FILTER_SANITIZE_STRING);
+$type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+$profile_user_id = filter_input(INPUT_POST, 'profileId', FILTER_SANITIZE_STRING);
+$current_user_id = filter_input(INPUT_POST, 'currentId', FILTER_SANITIZE_STRING);
 
 
 if ($type == 'doFollow' && !is_null($profile_user_id) && !is_null($current_user_id)) {

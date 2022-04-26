@@ -20,10 +20,7 @@ if ($page == 'logout') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/logout.php');
 } elseif ($page == 'delete') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/delete.php');
-}
-
-require(__DIR__ . getenv("PASS_DEPLOY"). '/views/header.php');
-if ($page == 'login') {
+}elseif ($page == 'login') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/login.php');
 } elseif ($page == 'signUp') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/signUp.php');
@@ -33,6 +30,8 @@ if ($page == 'login') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/user_profile.php');
 } elseif ($page == "your_timeline") {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/your_timeline.php');
+}else if($page == "delete_user"){
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/views/delete_user.php');
 } else {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/home.php');
 }
