@@ -43,8 +43,8 @@ if (!empty($image)) {
     $image_content = $image['image_content'];
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
+$send = filter_input(INPUT_POST, 'storage', FILTER_SANITIZE_STRING);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself && $send="storage") {
     if (!$username) {
         $_SESSION['messageAlert'] = "ユーザ名が入力されていません。";
         header("Location: {$url}");
@@ -179,8 +179,8 @@ if (!$is_yourself) {
                   name="main-color">
               </p>
             </div>
-            <button id="submit-btn" class="btn120 btn-gradient" type="submit" class="btn"> 保存
-            </button>
+            <button class="btn120 btn-gradient btn" name="storage" value="storage" type="submit"> 保存 </button>
+            <button type="button"> <a href="/?page=delete_user">アカウント削除ページへ</a></button>
           </form>
         </div>
         <div class="black-background" id="js-black-bg"></div>

@@ -58,6 +58,7 @@ body {
   margin: 0.5rem 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 }
 body .vsc-initialized {
   margin: 0;
@@ -75,6 +76,128 @@ body a {
   body input[type=text] {
     font-size: 1.4rem;
   }
+}
+body .dlt-btn {
+  width: 10rem;
+  height: 2rem;
+  margin: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: flex;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1.6rem;
+  perspective: 1000px;
+  background-color: #f5f5f5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  position: relative;
+  transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1), height 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  text-align: center;
+}
+body .description {
+  margin-top: 50px;
+  text-align: center;
+  color: #999;
+  transition: opacity 0.3s ease;
+}
+body .description a {
+  color: #4A9DF6;
+  text-decoration: none;
+}
+body .dlt-btn.dlt-is-open ~ .description {
+  opacity: 0;
+}
+body .dlt-btn-front {
+  position: absolute;
+  display: block;
+  width: 10rem;
+  height: 2rem;
+  line-height: 2rem;
+  background-color: #F44336;
+  color: #fff;
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: background 0.15s ease, line-height 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+body .dlt-btn-front:hover {
+  background-color: #f77066;
+}
+body .dlt-btn.dlt-is-open .dlt-btn-front {
+  pointer-events: none;
+  line-height: 16rem;
+}
+body .dlt-btn-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+  color: #222;
+  transform: translateZ(-2px) rotateX(180deg);
+  overflow: hidden;
+  transition: box-shadow 0.8s ease;
+}
+body .dlt-btn-back p {
+  margin-top: 27px;
+  margin-bottom: 25px;
+}
+body .dlt-btn-back button {
+  padding: 12px 20px;
+  width: 30%;
+  margin: 0 5px;
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  font-size: 1em;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: background 0.15s ease;
+}
+body .dlt-btn-back button:focus {
+  outline: 0;
+}
+body .dlt-btn-back button.dlt-yes {
+  background-color: #2196F3;
+  color: #fff;
+}
+body .dlt-btn-back button.dlt-yes:hover {
+  background-color: #51adf6;
+}
+body .dlt-btn-back button.dlt-no {
+  color: #2196F3;
+}
+body .dlt-btn-back button.dlt-no:hover {
+  background-color: #ddd;
+}
+body .dlt-btn.dlt-is-open .dlt-btn-back {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+body .dlt-btn[data-direction=left] .dlt-btn-back, body .dlt-btn[data-direction=right] .dlt-btn-back {
+  transform: translateZ(-2px) rotateY(180deg);
+}
+body .dlt-btn.dlt-is-open {
+  width: 40rem;
+  height: 16rem;
+}
+body .dlt-btn[data-direction=top].dlt-is-open {
+  transform: rotateX(180deg);
+}
+body .dlt-btn[data-direction=right].dlt-is-open {
+  transform: rotateY(180deg);
+}
+body .dlt-btn[data-direction=bottom].dlt-is-open {
+  transform: rotateX(-180deg);
+}
+body .dlt-btn[data-direction=left].dlt-is-open {
+  transform: rotateY(-180deg);
 }
 body .btn120, body a.btn120, body button.btn120 {
   font-size: 1.6rem;
@@ -131,7 +254,6 @@ body .user-posts {
 body .user-posts .post {
   padding: 1rem;
   border: 0.2rem solid;
-  @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 }
 body .user-posts .post .user-header {
   height: 5rem;
@@ -179,128 +301,6 @@ body .user-posts .post .more.is-active:after {
 }
 body .user-posts .post .appendix {
   margin: 1.5rem 0 0.5rem;
-}
-body .user-posts .post .dlt-btn {
-  width: 10rem;
-  height: 2rem;
-  margin: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  display: flex;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 1.6rem;
-  perspective: 1000px;
-  background-color: #f5f5f5;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  display: block;
-  position: relative;
-  transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1), height 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-style: preserve-3d;
-  transform-origin: 50% 50%;
-  text-align: center;
-}
-body .user-posts .post .description {
-  margin-top: 50px;
-  text-align: center;
-  color: #999;
-  transition: opacity 0.3s ease;
-}
-body .user-posts .post .description a {
-  color: #4A9DF6;
-  text-decoration: none;
-}
-body .user-posts .post .dlt-btn.dlt-is-open ~ .description {
-  opacity: 0;
-}
-body .user-posts .post .dlt-btn-front {
-  position: absolute;
-  display: block;
-  width: 10rem;
-  height: 2rem;
-  line-height: 2rem;
-  background-color: #F44336;
-  color: #fff;
-  cursor: pointer;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  transition: background 0.15s ease, line-height 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-body .user-posts .post .dlt-btn-front:hover {
-  background-color: #f77066;
-}
-body .user-posts .post .dlt-btn.dlt-is-open .dlt-btn-front {
-  pointer-events: none;
-  line-height: 16rem;
-}
-body .user-posts .post .dlt-btn-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #eee;
-  color: #222;
-  transform: translateZ(-2px) rotateX(180deg);
-  overflow: hidden;
-  transition: box-shadow 0.8s ease;
-}
-body .user-posts .post .dlt-btn-back p {
-  margin-top: 27px;
-  margin-bottom: 25px;
-}
-body .user-posts .post .dlt-btn-back button {
-  padding: 12px 20px;
-  width: 30%;
-  margin: 0 5px;
-  background-color: transparent;
-  border: 0;
-  border-radius: 2px;
-  font-size: 1em;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  transition: background 0.15s ease;
-}
-body .user-posts .post .dlt-btn-back button:focus {
-  outline: 0;
-}
-body .user-posts .post .dlt-btn-back button.dlt-yes {
-  background-color: #2196F3;
-  color: #fff;
-}
-body .user-posts .post .dlt-btn-back button.dlt-yes:hover {
-  background-color: #51adf6;
-}
-body .user-posts .post .dlt-btn-back button.dlt-no {
-  color: #2196F3;
-}
-body .user-posts .post .dlt-btn-back button.dlt-no:hover {
-  background-color: #ddd;
-}
-body .user-posts .post .dlt-btn.dlt-is-open .dlt-btn-back {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-}
-body .user-posts .post .dlt-btn[data-direction=left] .dlt-btn-back, body .user-posts .post .dlt-btn[data-direction=right] .dlt-btn-back {
-  transform: translateZ(-2px) rotateY(180deg);
-}
-body .user-posts .post .dlt-btn.dlt-is-open {
-  width: 40rem;
-  height: 16rem;
-}
-body .user-posts .post .dlt-btn[data-direction=top].dlt-is-open {
-  transform: rotateX(180deg);
-}
-body .user-posts .post .dlt-btn[data-direction=right].dlt-is-open {
-  transform: rotateY(180deg);
-}
-body .user-posts .post .dlt-btn[data-direction=bottom].dlt-is-open {
-  transform: rotateX(-180deg);
-}
-body .user-posts .post .dlt-btn[data-direction=left].dlt-is-open {
-  transform: rotateY(-180deg);
 }
 body .popup {
   position: fixed;
