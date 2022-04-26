@@ -1,4 +1,6 @@
 .signUp-all-contents{
+    min-height: calc(100vh - 100px);
+    padding-bottom: 20px;
         h2 {
             text-align: center;
             font-size: 3rem;
@@ -13,7 +15,7 @@
             margin: auto;
         }
     .signUp-box {
-        margin: 0 auto 2rem;
+        margin: 0 auto;
         display: flex;
         width: 95%;
         padding: 3rem 1rem;

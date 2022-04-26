@@ -55,13 +55,25 @@ table {
 
 body {
   width: 100vw;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  min-height: 100vh;
+  /* ←コンテンツの高さの最小値＝ブラウザの高さに指定 */
+  position: relative;
+  /* ←相対位置 */
+  padding-bottom: 60px;
+  /* ←フッターの高さを指定 */
+  box-sizing: border-box;
+  /* ↑ヘッダーやフッターを含むすべての要素の高さ＝min-height:100vhになるように指定 */
   @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 }
 body .vsc-initialized {
   margin: 0;
+}
+body main {
+  display: flex;
+  flex-direction: column;
 }
 body a {
   text-decoration: none;
@@ -2364,6 +2376,10 @@ header #header .header-right .header-menu .nav-sp.none {
   }
 }
 
+.signUp-all-contents {
+  min-height: calc(100vh - 100px);
+  padding-bottom: 20px;
+}
 .signUp-all-contents h2 {
   text-align: center;
   font-size: 3rem;
@@ -2378,7 +2394,7 @@ header #header .header-right .header-menu .nav-sp.none {
   margin: auto;
 }
 .signUp-all-contents .signUp-box {
-  margin: 0 auto 2rem;
+  margin: 0 auto;
   display: flex;
   width: 95%;
   padding: 3rem 1rem;
@@ -2750,6 +2766,17 @@ header #header .header-right .header-menu .nav-sp.none {
   transform: skew(0);
   color: #fff;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  position: absolute;
+  /* ←絶対位置 */
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  background-color: #ada3a3;
+  line-height: 20px;
 }
 
 /*共通のscssファイル
