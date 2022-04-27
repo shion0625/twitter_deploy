@@ -32,7 +32,8 @@ if (isset($_GET['id'])) {
 $is_yourself = $current_user_id == $profile_user_id;
 
 if (!isset($_SESSION['userID'])) {
-    echo '<script>', 'alert_animation("あなたのユーザIDが設定されていません。ログインしてください。");', '</script>';
+  $_SESSION['messageAlert'] = "あなたのユーザIDが設定されていません。ログインしてください。";
+    // echo '<script>', 'alert_animation("あなたのユーザIDが設定されていません。ログインしてください。");', '</script>';
     header('Location: ?page=');
     exit();
 }
