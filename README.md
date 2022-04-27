@@ -2,8 +2,8 @@
 
 ## Usage
 
-Click [see this web application](https://twitter.shion0625.site)
-
+<!-- Click [see this web application](https://twitter.shion0625.site)
+ -->
 ## Deploy
 
 デプロイをするときはhtmlファイル内を送信。
