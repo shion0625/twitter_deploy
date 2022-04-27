@@ -2,11 +2,20 @@
 
 body {
   width: 100vw;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0;
   box-sizing: border-box;
   overflow-x: hidden;
+    min-height: 100vh; /* ←コンテンツの高さの最小値＝ブラウザの高さに指定 */
+    position: relative;/* ←相対位置 */
+    padding-bottom: 60px; /* ←フッターの高さを指定 */
+    box-sizing: border-box;
+    /* ↑ヘッダーやフッターを含むすべての要素の高さ＝min-height:100vhになるように指定 */
   .vsc-initialized {
     margin: 0;
+  }
+  main{
+      display: flex;
+      flex-direction: column
   }
   a {
     text-decoration: none;
@@ -20,116 +29,7 @@ body {
       font-size: 1.4rem;
     }
   }
-  .btn120, a.btn120, button.btn120 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 1.5;
-    position: relative;
-    display: inline-block;
-    padding: 0.5rem 3rem;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    text-align: center;
-    vertical-align: middle;
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    color: #212529;
-    border-radius: 0.5rem;
-  }
-  .user-top-image {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    object-position: center;
-    border: 0.2rem solid #3dafe4;
-    background-color: #3dafe4;
-  }
-  .msg-alert {
-    display: inline-block;
-    pointer-events: none;
-    height: 5rem;
-    line-height: 5rem;
-    font-size: 3rem;
-    width: 100%;
-    margin: 0;
-    display: none;
-    text-align: center;
-    color: wheat;
-    background-color: dimgrey;
-    opacity: 0.55;
-    border: 0.1rem solid #aaa;
-    box-shadow: 0.2rem 0.2rem 0.4rem #888;
-    z-index: 100;
-    position: absolute;
-    top: 0;
-  }
-  .user-posts {
-    width: 75%;
-    margin: auto;
-    .post {
-      padding: 1rem;
-      border: 0.2rem solid;
-      .user-header {
-        height: 5rem;
-        margin-bottom: 3rem;
-        word-break: break-word;
-        .post-user-detail {
-          position: relative;
-          display: block;
-          .tweet-username {
-            margin-left: 1rem;
-            position: absolute;
-            font-size: 2.5rem;
-            top: 30%;
-            color: #3d3d3d;
-            width: 80%;
-          }
-        }
-      }
-      .tweet-content {
-        font-size: 1.2rem;
-        overflow: hidden;
-          .tweet-content-inner {
-              padding: 1rem 2rem;
-              line-height: initial;
-          }
-      }
-
-      .more{
-          margin-top: 1.5rem;
-          text-align: center;
-          color: #2e9ce5;
-          cursor: pointer;
-          background: rgba(255,255,255,0);
-          background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
-          background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(0%, rgba(255,255,255,0)), color-stop(31%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-          background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
-          background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
-          background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
-          &:after{
-            content:'↓';
-            display: inline-block;
-            font-weight: bold;
-            font-size: 1.2rem;
-            -webkit-transition: .3s;
-            transition: .3s;
-          }
-          &.is-active{
-            &:after{
-              -webkit-transform:rotate(180deg);
-              transform:rotate(180deg);
-            }
-          }
-      }
-      .appendix {
-        margin: 1.5rem 0 0.5rem;
-      }
-      @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
       $transition-duration: 0.8s;
       $transition-easing: cubic-bezier(0.230, 1.000, 0.320, 1.000);
       $bounce-easing: cubic-bezier(0.175, 0.885, 0.320, 1.275);
@@ -254,6 +154,115 @@ body {
       }
       .dlt-btn[data-direction="left"].dlt-is-open {
         transform: rotateY(-180deg);
+      }
+  .btn120, a.btn120, button.btn120 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 3rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    color: #212529;
+    border-radius: 0.5rem;
+  }
+  .user-top-image {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-position: center;
+    border: 0.2rem solid #3dafe4;
+    background-color: #3dafe4;
+  }
+  .msg-alert {
+    display: inline-block;
+    pointer-events: none;
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 3rem;
+    width: 100%;
+    margin: 0;
+    display: none;
+    text-align: center;
+    color: wheat;
+    background-color: dimgrey;
+    opacity: 0.55;
+    border: 0.1rem solid #aaa;
+    box-shadow: 0.2rem 0.2rem 0.4rem #888;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+  }
+  .user-posts {
+    width: 75%;
+    margin: auto;
+    .post {
+      padding: 1rem;
+      border: 0.2rem solid;
+      .user-header {
+        height: 5rem;
+        margin-bottom: 3rem;
+        word-break: break-word;
+        .post-user-detail {
+          position: relative;
+          display: block;
+          .tweet-username {
+            margin-left: 1rem;
+            position: absolute;
+            font-size: 2.5rem;
+            top: 30%;
+            color: #3d3d3d;
+            width: 80%;
+          }
+        }
+      }
+      .tweet-content {
+        font-size: 1.2rem;
+        overflow: hidden;
+          .tweet-content-inner {
+              padding: 1rem 2rem;
+              line-height: initial;
+          }
+      }
+
+      .more{
+          margin-top: 1.5rem;
+          text-align: center;
+          color: #2e9ce5;
+          cursor: pointer;
+          background: rgba(255,255,255,0);
+          background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(0%, rgba(255,255,255,0)), color-stop(31%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+          background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 31%, rgba(255,255,255,1) 100%);
+          &:after{
+            content:'↓';
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2rem;
+            -webkit-transition: .3s;
+            transition: .3s;
+          }
+          &.is-active{
+            &:after{
+              -webkit-transform:rotate(180deg);
+              transform:rotate(180deg);
+            }
+          }
+      }
+      .appendix {
+        margin: 1.5rem 0 0.5rem;
       }
     }
   }

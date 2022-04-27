@@ -11,13 +11,15 @@ $max_page = $all_post_num->allPostNum();
  * 各投稿内容の表示ページで使用している。
  * GETメソッドで送信されたページ番号を取得している。それを元にデータベースからは必要な分取得している。
  */
-$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = filter_input(INPUT_POST, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
 //投稿内容をデータベースから取得
 $get_post_db = new GetHomePosts();
 $user_posts = $get_post_db->getHomePosts($start_num);
+require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
+
 ?>
 
 <div id="js-test-contents"></div>
@@ -234,13 +236,15 @@ function getPostContent() {
     send: "postSend",
     sender: userId
   };
+  console.log(map);
   $.ajax({
       type: "POST",
-      url: "./views/component/AjaxPosts.php",
+      url: "<?php echo getenv('PASS_DEPLOY');?>/views/component/AjaxPosts.php",
       data: map,
       dataType: "text",
     })
     .done(function(data) {
+      console.log(data);
       socketSend();
       setTimeout(() => {
         validate(true);

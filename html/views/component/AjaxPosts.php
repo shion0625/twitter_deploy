@@ -10,15 +10,17 @@ require(__DIR__ . '/../../function.php');
 
 $user_name;
 $post_id;
-$post_text;
 $user_id;
 $date_time;
 $image_type;
 $image_content;
-if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInfo') {
-    if ($_POST['send'] == 'postSend') {
-        $sender_id = (string)$_POST['sender'];
-        $post_text = $_POST['postHtml'];
+$send = filter_input(INPUT_POST, 'send', FILTER_SANITIZE_STRING);
+$post_text = filter_input(INPUT_POST, 'postHtml', FILTER_SANITIZE_STRING);
+$sender_id = filter_input(INPUT_POST, 'sender', FILTER_SANITIZE_STRING);
+
+
+if ($send  == 'postSend' || $send == 'postInfo') {
+    if ($send == 'postSend') {
         $insert_post_db = new InsertPost($sender_id, $post_text);
         $insert_post_db->checkInsertTweet();
     }
@@ -34,11 +36,11 @@ if (!empty($_POST) && $_POST['send'] == 'postSend' || $_POST['send'] == 'postInf
     $image_content = (string)base64_encode($user_post["image_content"]);
 }
 
-if (!empty($_POST) && $_POST['send'] == 'postSend') {
+if ($send == 'postSend') {
     echo "done";
 }
 
-if (!empty($_POST) && $_POST['send'] == 'postInfo') {
+if ($send == 'postInfo') {
     if ($image_type && $image_content) {
         echo "
         <div class='post'>

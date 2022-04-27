@@ -59,7 +59,7 @@ class Login extends Connect
             $stmt->execute();
             $login_information = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            exit($e.'データベースエラー LoginDB > getLoginInfo');
+            exit($e.'データベースエラー  getLoginInfo');
         }
         return $login_information;
     }

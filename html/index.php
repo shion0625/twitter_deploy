@@ -5,23 +5,22 @@
 */
 session_start();
 
-require __DIR__ .'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/function.php';
+
 use Dotenv\Dotenv;
 
 /** .envファイルを読み込みます。 */
 $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/');
 $dotenv->load();
+
 $page = $_GET['page'] ?? "home.php";
 
 if ($page == 'logout') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/logout.php');
 } elseif ($page == 'delete') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/delete.php');
-}
-
-require(__DIR__ . getenv("PASS_DEPLOY"). '/views/header.php');
-if ($page == 'login') {
+}elseif ($page == 'login') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/login.php');
 } elseif ($page == 'signUp') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/signUp.php');
@@ -31,6 +30,8 @@ if ($page == 'login') {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/user_profile.php');
 } elseif ($page == "your_timeline") {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/your_timeline.php');
+}else if($page == "delete_user"){
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/views/delete_user.php');
 } else {
     require(__DIR__ . getenv("PASS_DEPLOY"). '/views/home.php');
 }

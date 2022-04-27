@@ -6,7 +6,12 @@ use Classes\Follow\CheckFollow;
 use Classes\Follow\GetNumFollow;
 use Classes\User\UserInfo;
 
-$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+$self_intro = filter_input(INPUT_POST, 'self-intro', FILTER_SANITIZE_STRING);
+$birthday = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_STRING);
+$main_color = filter_input(INPUT_POST, 'main-color', FILTER_SANITIZE_STRING);
+
+$page_num = filter_input(INPUT_POST, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
@@ -38,23 +43,23 @@ if (!empty($image)) {
     $image_content = $image['image_content'];
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
-    if (!$_POST['username']) {
+$send = filter_input(INPUT_POST, 'storage', FILTER_SANITIZE_STRING);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself && $send="storage") {
+    if (!$username) {
         $_SESSION['messageAlert'] = "ユーザ名が入力されていません。";
         header("Location: {$url}");
         exit();
       }
-      $_POST['username'] = trim($_POST['username']);
-      if(strlen($_POST['username']) > 30){
+      $username = trim($username);
+      if(strlen($username) > 30){
           $_SESSION['messageAlert'] = "ユーザ名の文字数が限界を超過しています。";
           header("Location: {$url}");
           exit();
       }
-    if(!empty($_POST['self-intro'])){
-      $trimmed = trim($_POST['self-intro']);
-      $_POST['self-intro'] = $trimmed;
-      if(strlen($_POST['self-intro']) > 255){
+    if(!empty($self_intro)){
+      $trimmed = trim($self_intro);
+      $self_intro = $trimmed;
+      if(strlen($self_intro) > 255){
           $_SESSION['messageAlert'] = "自己紹介の文字数が限界を超過しています。";
           header("Location: {$url}");
           exit();
@@ -65,10 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_yourself) {
         $using_insert_update = new UsingUpdateInsert($is_exit_image);
         $resultImage = $using_insert_update->actionImage();
     }
-      if (empty($_POST['birthday'])) {
-          $_POST['birthday'] =null;
+      if (empty($birthday)) {
+          $birthday =null;
       }
-      $resultUser = $get_user_info->updateUserInfo(trim($_POST['username']), $_POST['birthday'], trim($_POST['self-intro']), $_POST['main-color']);
+      $resultUser = $get_user_info->updateUserInfo(trim($username), $birthday, trim($self_intro), $main_color);
       if($resultUser){
         $_SESSION['messageAlert'] = "ユーザ情報を更新しました。";
         header("Location: {$url}");
@@ -92,6 +97,8 @@ if (!$is_yourself) {
   $GetNumFollow = new GetNumFollow($profile_user_id);
   $follow_num = $GetNumFollow->numFollow();
   $follower_num = $GetNumFollow->numFollower();
+
+    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
   ?>
 
 <div class="user-profile-all-contents">
@@ -172,8 +179,8 @@ if (!$is_yourself) {
                   name="main-color">
               </p>
             </div>
-            <button id="submit-btn" class="btn120 btn-gradient" type="submit" class="btn"> 保存
-            </button>
+            <button class="btn120 btn-gradient btn" name="storage" value="storage" type="submit"> 保存 </button>
+            <div class="btn-delete"> <a href="/?page=delete_user">アカウント削除ページへ</a></div>
           </form>
         </div>
         <div class="black-background" id="js-black-bg"></div>
@@ -204,7 +211,7 @@ function followUser() {
   };
   $.ajax({
     type: 'POST',
-    url: 'views/component/AjaxFollowProcess.php',
+    url: "<?php echo getenv('PASS_DEPLOY');?>/views/component/AjaxFollowProcess.php",
     data: $map,
     dataType: 'json'
   }).done(function(data) {

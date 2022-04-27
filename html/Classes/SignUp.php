@@ -114,8 +114,8 @@ class SignUp extends Connect
         parent::__construct();
         $dbh = $this->connectDb();
         try {
-            $query = "INSERT INTO users (user_name, password, email, email_encode, created_date, provider_name)
-            VALUES (:username, :password, :email, :email_encode, :created_date, :provider_name)";
+            $query = "INSERT INTO users (user_name, password, email, email_encode, created_date, provider_name, color)
+            VALUES (:username, :password, :email, :email_encode, :created_date, :provider_name, '#3dafe4')";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue(":username", $this->username);
             $stmt->bindValue(":password", password_hash($this->password, PASSWORD_DEFAULT));
@@ -148,7 +148,6 @@ class SignUp extends Connect
         }
         $message_alert = "ユーザの登録に失敗しました。もう一度お願いします。";
         $_SESSION['messageAlert'] = fun_h($message_alert);
-        header('Location: /');
         header("Location: /?page=signUp");
         exit();
         return;
