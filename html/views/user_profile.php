@@ -33,7 +33,6 @@ $is_yourself = $current_user_id == $profile_user_id;
 
 if (!isset($_SESSION['userID'])) {
   $_SESSION['messageAlert'] = "あなたのユーザIDが設定されていません。ログインしてください。";
-    // echo '<script>', 'alert_animation("あなたのユーザIDが設定されていません。ログインしてください。");', '</script>';
     header('Location: ?page=');
     exit();
 }
@@ -226,10 +225,6 @@ function followUser() {
     }
   }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
     alert("followUser\n error:\n  " + msg.responseText);
-    console.log(msg);
-    console.log(XMLHttpRequest.status);
-    console.log(textStatus);
-    console.log(errorThrown);
   });
 }
 

@@ -33,10 +33,6 @@ function socketSend() {
         conn.send(data);
     }).fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
         alert("socketSend \nerror: \n" + msg.responseText);
-        console.log(msg);
-        console.log(XMLHttpRequest.status);
-        console.log(textStatus);
-        console.log(errorThrown);
     });
 }
 

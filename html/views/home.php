@@ -236,15 +236,13 @@ function getPostContent() {
     send: "postSend",
     sender: userId
   };
-  console.log(map);
   $.ajax({
       type: "POST",
-      url: "<?php echo getenv('PASS_DEPLOY');?>/views/component/AjaxPosts.php",
+      url: "html/views/component/AjaxPosts.php",
       data: map,
       dataType: "text",
     })
     .done(function(data) {
-      console.log(data);
       socketSend();
       setTimeout(() => {
         validate(true);
@@ -255,10 +253,6 @@ function getPostContent() {
     .fail(function(msg, XMLHttpRequest, textStatus, errorThrown) {
       validate(false);
       alert_animation('投稿に失敗しました。');
-      console.log(msg);
-      console.log(XMLHttpRequest.status);
-      console.log(textStatus);
-      console.log(errorThrown);
     });
 }
 </script>

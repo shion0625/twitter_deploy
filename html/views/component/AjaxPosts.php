@@ -6,7 +6,7 @@ use Classes\Post\GetNewestPost;
 session_start();
 
 require __DIR__ .'/../../vendor/autoload.php';
-require(__DIR__ . '/../../function.php');
+require __DIR__ .'/../../function.php';
 
 $user_name;
 $post_id;
