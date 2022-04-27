@@ -25,7 +25,7 @@ if (isset($send)) {
         $get_login->login();
     }
 }
-    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
+    require(__DIR__ . '/header.php');
 ?>
 <div class="login-all-contents">
   <h2>ログイン</h2>

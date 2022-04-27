@@ -10,7 +10,7 @@ if (isset($_SESSION['userID'])) {
     $GetFollowingPosts = new GetFollowingPosts($_SESSION['userID']) ;
     [$user_posts, $max_page] = $GetFollowingPosts->getFollowPost($start_num);
 }
-    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
+    require(__DIR__ . '/header.php');
 ?>
 
 <div class='your-timeline-all-contents'>

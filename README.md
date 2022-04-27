@@ -1,7 +1,11 @@
 # twiter-php
 
-デプロイをするときはhtmlファイル内を送信。
-indexファイルの記入を変更
-headerのcssのlinkにhtmlを記入
-footerのscriptのlinkにhtmlを記入
+## Usage
 
+Click [see this web application](https://twitter.shion0625.site)
+
+## Deploy
+
+デプロイをするときはhtmlファイル内を送信。
+indexファイル内をhtml/vendorとする。
+connect.php __DIR__ . /../../.env

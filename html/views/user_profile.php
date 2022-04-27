@@ -98,7 +98,7 @@ if (!$is_yourself) {
   $follow_num = $GetNumFollow->numFollow();
   $follower_num = $GetNumFollow->numFollower();
 
-    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
+    require(__DIR__ . '/header.php');
   ?>
 
 <div class="user-profile-all-contents">

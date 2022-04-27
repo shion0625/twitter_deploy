@@ -18,7 +18,7 @@ $start_num = ($page_num - 1) * 15;
 //投稿内容をデータベースから取得
 $get_post_db = new GetHomePosts();
 $user_posts = $get_post_db->getHomePosts($start_num);
-require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
+require(__DIR__ . '/header.php');
 
 ?>
 

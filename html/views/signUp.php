@@ -19,7 +19,7 @@ if (isset($submit)) {
         $sign_up_db ->resultSignUp();
     }
 }
-    require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
+    require(__DIR__ . '/header.php');
 ?>
 
 <div class="signUp-all-contents">
