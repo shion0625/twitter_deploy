@@ -180,7 +180,7 @@ if (!$is_yourself) {
               </p>
             </div>
             <button class="btn120 btn-gradient btn" name="storage" value="storage" type="submit"> 保存 </button>
-            <button type="button"> <a href="/?page=delete_user">アカウント削除ページへ</a></button>
+            <div class="btn-delete"> <a href="/?page=delete_user">アカウント削除ページへ</a></div>
           </form>
         </div>
         <div class="black-background" id="js-black-bg"></div>

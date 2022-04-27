@@ -57,15 +57,15 @@ $new_url = preg_replace($replacement, '', $url);
 <?php endforeach;?>
 <p class="change-page">
   <?php if ($page_num>1) :
-            $next_num = $page_num-1;
+            $front_num = $page_num-1;
             if (strpos($new_url, '?')) {
-                $param = $new_url . '&page_num=' . $next_num;
+                $param = $new_url . '&page_num=' . $front_num;
             } else {
-                $param = $new_url . '?page_num=' . $next_num;
+                $param = $new_url . '?page_num=' . $front_num;
             }
             ?>
   <a href="<?php echo $param; ?>"
-    style="color: <?php echo fun_h($current_profile['color']);?>;"><?php echo $next_num; ?>ページ目へ</a> |
+    style="color: <?php echo fun_h($current_profile['color']);?>;"><?php echo $front_num; ?>ページ目へ</a> |
   <?php endif;?>
   <?php if ($page_num<$max_page) :
             $next_num = $page_num+1;

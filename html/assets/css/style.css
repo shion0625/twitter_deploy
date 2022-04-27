@@ -2728,10 +2728,11 @@ header #header .header-right .header-menu .nav-sp.none {
 }
 .user-profile-all-contents .user-profile .setting-profile-contents form {
   font-size: 1.5rem;
+  padding: 3rem;
 }
 .user-profile-all-contents .user-profile .setting-profile-contents form input[type=text],
 .user-profile-all-contents .user-profile .setting-profile-contents form input[type=date] {
-  width: 30rem;
+  width: 100%;
 }
 .user-profile-all-contents .user-profile .setting-profile-contents form .form-image {
   text-align: center;
@@ -2750,7 +2751,7 @@ header #header .header-right .header-menu .nav-sp.none {
   position: absolute;
 }
 .user-profile-all-contents .user-profile .setting-profile-contents form .input-self-intro {
-  width: 30rem;
+  width: 100%;
   height: 6rem;
 }
 .user-profile-all-contents .user-profile .setting-profile-contents form .btn-gradient {
@@ -2766,6 +2767,30 @@ header #header .header-right .header-menu .nav-sp.none {
   transform: skew(0);
   color: #fff;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-delete a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem auto 0;
+  padding: 1rem 2rem;
+  width: 25rem;
+  color: #333;
+  font-weight: 700;
+  background-color: #cd4444;
+  border-radius: 50vh;
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-delete a::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-top: 3px solid #333333;
+  border-right: 3px solid #333333;
+  transform: rotate(45deg);
+}
+.user-profile-all-contents .user-profile .setting-profile-contents form .btn-delete a:hover {
+  text-decoration: none;
+  background-color: #bbbbbb;
 }
 
 footer {

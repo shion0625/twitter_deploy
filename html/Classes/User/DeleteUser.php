@@ -59,7 +59,7 @@ class DeleteUser extends Connect
     private function deleteUserPosts($dbh)
     {
         try {
-            $query = "DELETE FROM users WHERE email_encode = :user_id ";
+            $query = "DELETE FROM tweet WHERE user_id = :user_id ";
             $stmt = $dbh->prepare($query);
             $stmt->bindValue(":user_id", $this->user_id, PDO::PARAM_STR);
             $flag = $stmt->execute();
