@@ -10,8 +10,9 @@ if (isset($delete)) {
 }
     require(__DIR__ . getenv("PASS_DEPLOY"). '/header.php');
 ?>
-<div>
-  <h2>アカウントを削除しますか？</h2>
+<div class="delete-user-all-contents">
+  <h2><?php echo $_SESSION['username']?>さん</h2>
+  <h3>アカウントを削除しますか？</h3>
   <form method="POST">
     <div class="dlt-btn">
       <div class="dlt-btn-back">

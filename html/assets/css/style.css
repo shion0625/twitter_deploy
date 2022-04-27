@@ -2784,6 +2784,19 @@ footer {
   line-height: 20px;
 }
 
+.delete-user-all-contents {
+  text-align: center;
+  text-align: -webkit-center;
+}
+.delete-user-all-contents h2 {
+  margin: 0 0 5rem;
+  font-size: 3rem;
+}
+.delete-user-all-contents h3 {
+  margin: 0 0 3rem;
+  font-size: 2rem;
+}
+
 /*共通のscssファイル
 ==========================================*/
 /*共通の外部ファイル
