@@ -4,7 +4,6 @@
 let conn = "";
 $(() => {
     conn = new WebSocket('ws://localhost:8081');
-    // if(conn && conn.readyState === 1) return false;
     conn.onopen = (event) => {
         console.log("Connection established!");
     };

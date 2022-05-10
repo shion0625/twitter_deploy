@@ -1,7 +1,7 @@
 <?php
 use Classes\Post\GetFollowingPosts;
 
-$page_num = filter_input(INPUT_POST, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 $user_posts;

@@ -11,7 +11,7 @@ $self_intro = filter_input(INPUT_POST, 'self-intro', FILTER_SANITIZE_STRING);
 $birthday = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_STRING);
 $main_color = filter_input(INPUT_POST, 'main-color', FILTER_SANITIZE_STRING);
 
-$page_num = filter_input(INPUT_POST, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
@@ -211,7 +211,7 @@ function followUser() {
   };
   $.ajax({
     type: 'POST',
-    url: "<?php echo getenv('PASS_DEPLOY');?>/views/component/AjaxFollowProcess.php",
+    url: "/views/component/AjaxFollowProcess.php",
     data: $map,
     dataType: 'json'
   }).done(function(data) {

@@ -22,6 +22,7 @@ class GetHomePosts extends Connect
      */
     public function getHomePosts(int $start_post)
     {
+        echo $start_post;
         parent::__construct();
         $dbh = $this->connectDb();
         try {

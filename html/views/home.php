@@ -11,7 +11,7 @@ $max_page = $all_post_num->allPostNum();
  * 各投稿内容の表示ページで使用している。
  * GETメソッドで送信されたページ番号を取得している。それを元にデータベースからは必要な分取得している。
  */
-$page_num = filter_input(INPUT_POST, 'page_num', FILTER_SANITIZE_NUMBER_INT);
+$page_num = filter_input(INPUT_GET, 'page_num', FILTER_SANITIZE_NUMBER_INT);
 $page_num = ($page_num ?: 1);
 $start_num = ($page_num - 1) * 15;
 
@@ -19,7 +19,6 @@ $start_num = ($page_num - 1) * 15;
 $get_post_db = new GetHomePosts();
 $user_posts = $get_post_db->getHomePosts($start_num);
 require(__DIR__ . '/header.php');
-
 ?>
 
 <div id="js-test-contents"></div>
@@ -238,7 +237,7 @@ function getPostContent() {
   };
   $.ajax({
       type: "POST",
-      url: "html/views/component/AjaxPosts.php",
+      url: "/views/component/AjaxPosts.php",
       data: map,
       dataType: "text",
     })
