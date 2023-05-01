@@ -4,6 +4,8 @@
 
 Click [see this web application](https://shiontter.shion0625.site)
 
+現在デプロイ先のサーバがwebsocketが使用できないため、正常に動作ができていません。申し訳ございません。
+
 ## Deploy
 
 デプロイをするときはhtmlファイル内を送信。
